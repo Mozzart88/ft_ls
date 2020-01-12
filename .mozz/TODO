@@ -1,0 +1,26 @@
+Files:
+	✔ Makefile @done(20-01-12 16:21)
+	✔ Header file @done(20-01-12 16:21)
+	✔ Readme @done(20-01-12 16:21)
+Folders:
+	✔ .mozz @done(20-01-12 16:21)
+	✔ .vscode @done(20-01-12 16:21)
+Makefile:
+	✔ Undo last commit @done(20-01-12 16:21)
+	✔ Clone https://github.com/Mozzart88/21-c-debugger-vscode.git ot .vscode @done(20-01-12 16:21)
+	✔ Add scripts to shell PATH @done(20-01-12 16:21)
+	✔ Clone submodules @done(20-01-12 16:21)
+	✔ Rename Header file with progict name and all links @done(20-01-12 16:21)
+	✔ Rename Readme header @done(20-01-12 16:21)
+	✔ Commit like intial commit @done(20-01-12 16:21)
+	✔ Push to GitHub to rebase @done(20-01-12 16:21)
+	☐ Add 42/21 repo to remote ???
+	✔ UNILSTALL PROJECT @done(20-01-12 16:21)
+	☐ Fix problem with 42 header
+Git submodules:
+	✔ Don't appeare in template @done(20-01-12 16:21)
+Readme:
+	✔ Install instruction @done(20-01-12 16:36)
+
+
+
