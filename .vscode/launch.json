@@ -8,11 +8,8 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/a.out",
+			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"some",
-				"cool",
-				"string"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
