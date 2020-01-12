@@ -3,6 +3,7 @@
 # .vs*
 # .git*
 # README*
+ft_ls
 
 # Prerequisites
 *.d
