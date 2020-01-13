@@ -10,8 +10,10 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
+				"-R",
+				".git",
 			],
-			"stopAtEntry": false,
+			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
