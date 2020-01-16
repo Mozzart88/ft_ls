@@ -6,7 +6,7 @@
 /*   By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/01/13 22:27:16 by tvanessa         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:23:40 by tvanessa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #define FLAGS_COUNT 10
 #define WORD_FLAGS {}
 #define STRICT_FLAGS_ORDER 1
+typedef struct stat	t_stat;
 
 void	ft_get_flags(t_us *arr, char **av, int *len)
 {
@@ -58,11 +59,71 @@ void	ft_get_params(char **arr, char **av, int len)
 	arr[i] = NULL;
 }
 
+t_de	*ft_copydc(t_de *dc)
+{
+	t_de	*r;
+
+	if (!(r = (t_de*)malloc(sizeof(t_de))))
+		return (NULL);
+	r->d_ino = dc->d_ino;
+	ft_strcpy(r->d_name, dc->d_name);
+	r->d_namlen = dc->d_namlen;
+	r->d_reclen = dc->d_reclen;
+	r->d_seekoff = dc->d_seekoff;
+	r->d_type = dc->d_type;
+	return (r);
+}
+
+char	ft_get_file_type(mode_t m)
+{
+	mode_t r;
+
+	r = m & S_IFMT;
+	if (r == S_IFDIR)
+		return ('d');
+	if (r == S_IFCHR)
+		return ('c');
+	if (r == S_IFBLK)
+		return ('b');
+	if (r == S_IFREG)
+		return ('-');
+	if (r == S_IFLNK)
+		return ('l');
+	if (r == S_IFSOCK)
+		return ('s');
+	return ('-');
+}
+
+void	ft_print_stat(t_de *de)
+{
+	t_stat	*st;
+	int		i;
+	int		j;
+	char	m[11];
+	char	*t;
+
+	t = "rwxrwxrwx";
+	if (!(st = (t_stat*)malloc(sizeof(t_stat))))
+		return ;
+	stat(de->d_name, st);
+	m[0] = ft_get_file_type(st->st_mode);
+	i = 1;
+	j = 1 << 8;
+	while (i < 10)
+	{
+		m[i] = st->st_mode & j ? t[i - 1] : '-';
+		++i;
+		j >>= 1;
+	}
+	m[10] = '\0';
+	ft_printf("%s\t", m);
+}
+
 void	ft_printdir(char *dname, t_us *flags)
 {
 	DIR		*d;
 	t_de	*dc;
-	t_de	*rd[10];
+	t_de	*rd[512];
 	t_us	i;
 	t_us	di;
 	char	*dn;
@@ -72,29 +133,34 @@ void	ft_printdir(char *dname, t_us *flags)
 	{
 		while ((dc = readdir(d)))
 		{
-			if (dc->d_type == '\x04' && flags[7] && !((dc->d_namlen == 1 && dc->d_name[0] == '.') || !ft_strcmp(dc->d_name, "..")))
+			if (!flags[0] && dc->d_name[0] == '.')
+				continue;
+			if (dc->d_type == 4 && flags[7] && !((dc->d_namlen == 1 && dc->d_name[0] == '.') || (dc->d_namlen == 2 && !ft_strcmp(dc->d_name, ".."))))
 			{
-				rd[i] = dc;
+				rd[i] = ft_copydc(dc);
 				++i;
 			}
-			ft_printf("%s -> ", dc->d_name);
-			dc->d_type == 8 ? ft_printf("file\n") : ft_printf("dir\n");
+			if (flags[5])
+				ft_print_stat(dc);				
+			ft_printf("%s -> %d\n", dc->d_name, dc->d_type);
 		}
 		closedir(d);
 	}
+	// else if (st->)
 	else
 		ft_printf("ft_ls: %s: No such file or directory\n", dname);
 	di = 0;
 	dn = NULL;
 	while (di < i)
 	{
-		ft_printf("\n%s>%s:\n", dname, (rd[di])->d_name);
+		ft_printf("\n%s/%s:\n", dname, (rd[di])->d_name);
 		dn = ft_strnew(ft_strlen(dname) + ft_strlen((rd[di])->d_name) + 1);
 		ft_strcpy(dn, dname);
 		dn[ft_strlen(dname)] = '/';
 		ft_strcpy(dn + ft_strlen(dname) + 1, (rd[di])->d_name);
 		ft_printdir(dn, flags);
 		ft_strdel(&dn);
+		free(rd[di]);
 		rd[di] = NULL;
 		++di;
 	}
