@@ -6,7 +6,7 @@
 /*   By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/01/16 23:32:39 by tvanessa         ###   ########.fr       */
+/*   Updated: 2020/01/18 00:28:04 by tvanessa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,16 @@ typedef	struct		s_rec
 	void			(*print)(struct s_rec*, char[10]);
 	char			path[__DARWIN_MAXPATHLEN];
 }					t_rec;
-
+typedef struct		s_datetime
+{
+	t_us	sec;
+	t_us	min;
+	t_us	hour;
+	t_us	day;
+	t_us	mon;
+	t_us	year;
+	char	*monstr[12];
+}					t_datetime;
 
 void	ft_get_flags(t_us *arr, char **av, int *len)
 {
@@ -168,18 +177,86 @@ void	ft_print_group(gid_t id)
 	if (!(g = getgrgid(id)))
 		return ;
 	ft_printf("%6s", g->gr_name);
-	// free(g);
+}
+
+void		ft_get_month_str(char *arr[12])
+{
+	t_us	i;
+
+	i = 0;
+	while (i < 12)
+	{
+		if (i == 0)
+			arr[i] = "Jan";
+		else if (i == 1)
+			arr[i] = "Feb";
+		else if (i == 2)
+			arr[i] = "Mar";
+		else if (i == 3)
+			arr[i] = "Apr";
+		else if (i == 4)
+			arr[i] = "May";
+		else if (i == 5)
+			arr[i] = "Jun";
+		else if (i == 6)
+			arr[i] = "Jul";
+		else if (i == 7)
+			arr[i] = "Aug";
+		else if (i == 8)
+			arr[i] = "Sep";
+		else if (i == 9)
+			arr[i] = "Oct";
+		else if (i == 10)
+			arr[i] = "Nov";
+		else if (i == 11)
+			arr[i] = "Des";
+		++i;
+	}
+	
+}
+
+t_datetime	*ft_new_dt()
+{
+	t_datetime *r;
+
+	if (!(r = (t_datetime*)malloc(sizeof(t_datetime))))
+		return (NULL);
+	r->day = 0;
+	r->sec = 0;
+	r->min = 0;
+	r->mon = 0;
+	r->hour = 0;
+	r->year = 0;
+	ft_get_month_str(r->monstr);
+	return (r);
+}
+
+t_datetime	*ft_ctime(const time_t t)
+{
+	t_datetime	*r;
+
+	r = NULL;
+	r = ft_new_dt();
+	r->year = t / 31536000 + 1970;
+	r->sec = t % 60;
+	r->min = (t / 60) % 60;
+	r->hour = (t / 3600) % 24;
+	r->day = (t / 86400) % 31 - 2;
+	r->mon = (t / 2678400) % 12 - 1;
+	// ft_printf("%llu", *t / 31536000 + 1970);
+	return (r);
 }
 
 void	ft_print_time(t_time t)
 {
-	char	*ct;
-	char	**rt;
+	// char	*ct;
+	// char	**rt;
+	t_datetime *dt;
 
-	ct = ctime(&t.tv_sec);
-	rt = ft_strsplit(ct, ' ');
-	// if (t.tv_sec)
-	ft_printf(" %s %s %5s", rt[1], rt[2], rt[3]);
+	dt = ft_ctime(t.tv_sec);
+	// ct = ctime(&t.tv_sec);
+	// rt = ft_strsplit(ct, ' ');
+	ft_printf(" %s %hu %hu:%hu", dt->monstr[dt->mon], dt->day, dt->hour, dt->min);
 }
 
 void	ft_print_filename(t_rec *r, t_us color)
