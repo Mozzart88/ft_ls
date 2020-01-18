@@ -10,8 +10,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-Rlf",
-				".mozz"
+				"-l"
 			],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",

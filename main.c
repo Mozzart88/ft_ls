@@ -6,7 +6,7 @@
 /*   By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/01/18 00:28:04 by tvanessa         ###   ########.fr       */
+/*   Updated: 2020/01/19 01:21:03 by tvanessa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ typedef	struct		s_rec
 }					t_rec;
 typedef struct		s_datetime
 {
-	t_us	sec;
-	t_us	min;
-	t_us	hour;
-	t_us	day;
-	t_us	mon;
-	t_us	year;
+	long	sec;
+	long	min;
+	long	hour;
+	long	day;
+	long	mon;
+	long	year;
 	char	*monstr[12];
 }					t_datetime;
 
@@ -231,19 +231,42 @@ t_datetime	*ft_new_dt()
 	return (r);
 }
 
-t_datetime	*ft_ctime(const time_t t)
+t_datetime	*ft_ctime(const time_t *t)
 {
 	t_datetime	*r;
+	t_ull		days;
 
 	r = NULL;
 	r = ft_new_dt();
-	r->year = t / 31536000 + 1970;
-	r->sec = t % 60;
-	r->min = (t / 60) % 60;
-	r->hour = (t / 3600) % 24;
-	r->day = (t / 86400) % 31 - 2;
-	r->mon = (t / 2678400) % 12 - 1;
-	// ft_printf("%llu", *t / 31536000 + 1970);
+	r->year = (*t / 31536000L + 1970);
+	days = (*t / 86400) - ((r->year - 1970) * 365 + ((r->year - 1970) / 4));
+	// r->hour = (t_ull)((*t % 86400 / 3600));
+	r->min = ((*t % 86400 % 3600 / 60));
+	r->sec = (*t % 86400 % 3600 % 60);
+	// r->min = (t_ull)((*t / 60) % 60);
+	r->hour = ((*t / 3600) % 24);
+	r->mon = ((*t / 2678400L) % 12 - 1);
+	r->day = (*t / 86400);
+	if (r->year % 4)
+		// r->day = (*t / 31536000L);
+		// r->day %= 365;
+		days += 1;
+	else
+		// r->day = (*t / 31622400L);
+		// r->day %= 366;
+	// if (r->mon == 1 && r->year % 4)
+	// 	r->day %= 28;
+	// else if (r->mon == 1 && !(r->year % 4))
+	// 	r->day %= 29;
+	// else if (r->mon < 7 && r->mon % 2)
+	// 	r->day %= 31;
+	// else if (r->mon < 7 && !(r->mon % 2))
+	// 	r->day %= 30;
+	// else if (r->mon % 2)
+	// 	r->day %= 31;
+	// else
+	// 	r->day %= 30;
+	// ft_printf("%llu", **t / 31536000 + 1970);
 	return (r);
 }
 
@@ -253,7 +276,7 @@ void	ft_print_time(t_time t)
 	// char	**rt;
 	t_datetime *dt;
 
-	dt = ft_ctime(t.tv_sec);
+	dt = ft_ctime(&t.tv_sec);
 	// ct = ctime(&t.tv_sec);
 	// rt = ft_strsplit(ct, ' ');
 	ft_printf(" %s %hu %hu:%hu", dt->monstr[dt->mon], dt->day, dt->hour, dt->min);
