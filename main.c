@@ -6,7 +6,7 @@
 /*   By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/01/19 01:21:03 by tvanessa         ###   ########.fr       */
+/*   Updated: 2020/01/20 21:09:08 by tvanessa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,9 @@ t_datetime	*ft_ctime(const time_t *t)
 	r->min = ((*t % 86400 % 3600 / 60));
 	r->sec = (*t % 86400 % 3600 % 60);
 	// r->min = (t_ull)((*t / 60) % 60);
-	r->hour = ((*t / 3600) % 24);
+	r->hour = (*t / 3600 * 3600);
+	r->hour = *t - r->hour;
+	r->hour /= 3600;
 	r->mon = ((*t / 2678400L) % 12 - 1);
 	r->day = (*t / 86400);
 	if (r->year % 4)
@@ -253,7 +255,7 @@ t_datetime	*ft_ctime(const time_t *t)
 		days += 1;
 	else
 		// r->day = (*t / 31622400L);
-		// r->day %= 366;
+		r->day %= 366;
 	// if (r->mon == 1 && r->year % 4)
 	// 	r->day %= 28;
 	// else if (r->mon == 1 && !(r->year % 4))
@@ -272,14 +274,17 @@ t_datetime	*ft_ctime(const time_t *t)
 
 void	ft_print_time(t_time t)
 {
-	// char	*ct;
-	// char	**rt;
-	t_datetime *dt;
+	char	*ct;
+	char	**rd;
+	char	**rt;
+	// t_datetime *dt;
 
-	dt = ft_ctime(&t.tv_sec);
-	// ct = ctime(&t.tv_sec);
-	// rt = ft_strsplit(ct, ' ');
-	ft_printf(" %s %hu %hu:%hu", dt->monstr[dt->mon], dt->day, dt->hour, dt->min);
+	// dt = ft_ctime(&t.tv_sec);
+	ct = ctime(&t.tv_sec);
+	rd = ft_strsplit(ct, ' ');
+	rt = ft_strsplit(rd[3], ':');
+	// ft_printf(" %s %hu %hu:%hu", dt->monstr[dt->mon], dt->day, dt->hour, dt->min);
+	ft_printf(" %s %s %s:%s", rd[1], rd[2], rt[0], rt[1]);
 }
 
 void	ft_print_filename(t_rec *r, t_us color)
@@ -328,6 +333,19 @@ void	ft_dir_sort(t_rec **d, t_us *f)
 		return ;
 }
 
+void	ft_print_total_blocks(t_rec **rd)
+{
+	blkcnt_t	bc;
+
+	bc = 0;
+	while (*rd)
+	{
+		bc += (*rd)->st->st_blocks;
+		++rd;
+	}
+	ft_printf("total %lld\n", bc);
+}
+
 void	ft_readdir(char *dname, t_us *flags)
 {
 	DIR		*d;
@@ -358,6 +376,8 @@ void	ft_readdir(char *dname, t_us *flags)
 	rd[i] = NULL;
 	if (!flags[2])
 		ft_dir_sort(rd, flags);
+	if (flags[2] || flags[5])
+		ft_print_total_blocks(rd);
 	ft_printdir(rd, flags);
 	i = 0;
 	if (flags[7])
@@ -366,6 +386,8 @@ void	ft_readdir(char *dname, t_us *flags)
 			if (rd[i]->de->d_type == 4 && !((rd[i]->de->d_name[0] == '.' && rd[i]->de->d_namlen == 1) || (ft_strequ(rd[i]->de->d_name, "..") && rd[i]->de->d_namlen == 2)))
 			{
 				ft_printf("\n%s:\n", rd[i]->path);
+				if (flags[2] || flags[5])
+					ft_print_total_blocks(rd);
 				ft_readdir((rd[i]->path), flags);
 				// ft_printf("\n");
 			}
