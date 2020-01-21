@@ -6,7 +6,7 @@
 /*   By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/01/20 21:09:08 by tvanessa         ###   ########.fr       */
+/*   Updated: 2020/01/21 23:27:41 by tvanessa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,7 +322,7 @@ void	ft_printdir(t_rec **rd, t_us *f)
 		else
 			ft_print_time((*rd)->st->st_mtimespec);
 	}
-	ft_print_filename((*rd), f[4]);
+	ft_print_filename(*rd, f[4]);
 	if (*(rd + 1))
 		ft_printdir(rd + 1, f);
 }
@@ -369,8 +369,8 @@ void	ft_readdir(char *dname, t_us *flags)
 		}
 		closedir(d);
 	}
-	else if (!(rd[i] = ft_new_rec(NULL, dname, path)))
-		return ;
+	else if ((rd[i] = ft_new_rec(NULL, dname, path)))
+		return (ft_printdir(rd, flags));
 	else
 		ft_printf("ft_ls: %s: No such file or directory\n", dname);
 	rd[i] = NULL;
@@ -417,13 +417,7 @@ int		main(int ac, char **av)
 	t_us	flags[FLAGS_COUNT];
 	char	*params[ac - 1];
 
-	i = 0;
-	while (i < FLAGS_COUNT)
-	{
-		flags[i] = 0;
-		++i;
-	}
-	// ft_memset(flags, 0, FLAGS_COUNT);
+	ft_memset(flags, 0, FLAGS_COUNT);
 	i = ac;
 	ft_get_flags(flags, ++av, &ac);
 	ft_get_params(params, (av + (i - ac - 1)), ac);

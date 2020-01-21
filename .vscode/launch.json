@@ -10,7 +10,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-l"
+				"-ld"
 			],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",
