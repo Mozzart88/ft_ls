@@ -6,7 +6,7 @@
 /*   By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/01/21 23:27:41 by tvanessa         ###   ########.fr       */
+/*   Updated: 2020/02/07 20:07:08 by tvanessa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,12 @@ t_rec	*ft_new_rec(t_de *de, char *name, char path[__DARWIN_MAXPATHLEN])
 	ft_strcat(r->path, path);
 	ft_strcat(r->path, name);
 	if (de)
-	{
 		r->de = ft_copyde(de);
+	else
+	{
+		if (!(r->de = (t_de*)malloc(sizeof(t_de))))
+			return (NULL);
+		ft_strcpy(r->de->d_name, name);
 	}
 	if (!(r->st = (t_stat*)malloc(sizeof(t_stat))))
 		return (NULL);
@@ -411,11 +415,30 @@ void	ft_readdir(char *dname, t_us *flags)
 	// }
 }
 
+void	ft_ls(char **p, t_us *f)
+{
+	t_us	i;
+
+	i = 0;
+	if (!p[0])
+		ft_readdir(".", f);
+	else
+	{
+		while (p[i])
+		{
+			ft_stat(p[i], f);
+			++i;
+		}			
+	}
+	
+}
+
 int		main(int ac, char **av)
 {
 	t_us	i;
 	t_us	flags[FLAGS_COUNT];
 	char	*params[ac - 1];
+	t_stat	*sts[500];
 
 	ft_memset(flags, 0, FLAGS_COUNT);
 	i = ac;
@@ -424,14 +447,24 @@ int		main(int ac, char **av)
 	i = 0;
 	if (!params[i])
 		ft_readdir(".", flags);
-	while (params[i])
-	{
-		if (i > 0 || params[i + 1])
-			ft_printf("%s:\n", params[i]);
-		ft_readdir(params[i], flags);
-		if (params[i + 1])
-			ft_printf("\n");
-		++i;
-	}
+	else
+		while (params[i])
+		{
+			if (!(sts[i] = (t_stat*)malloc(sizeof(t_stat))))
+				return (-1);
+			stat(params[i], sts[i]);
+			++i;
+		}
+	sts[i] = NULL;
+	
+	// while (params[i])
+	// {
+	// 	if (i > 0 || params[i + 1])
+	// 		ft_printf("%s:\n", params[i]);
+	// 	ft_readdir(params[i], flags);
+	// 	if (params[i + 1])
+	// 		ft_printf("\n");
+	// 	++i;
+	// }
 	return (0);
 }
