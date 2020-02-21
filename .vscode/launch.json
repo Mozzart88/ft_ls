@@ -11,11 +11,13 @@
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
 				"-ld",
-				"main",
-				".git",
-				".mozz",
-				".gitignore",
-				"./.mozz/build.sh"
+				"-agR",
+				"-ldg"
+				// "main",
+				// ".git",
+				// ".mozz",
+				// ".gitignore",
+				// "./.mozz/build.sh"
 			],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",

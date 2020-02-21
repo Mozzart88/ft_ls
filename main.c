@@ -6,43 +6,18 @@
 /*   By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/02/07 20:07:08 by tvanessa         ###   ########.fr       */
+/*   Updated: 2020/02/21 21:41:38 by tvanessa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#define LETER_FLAGS "adfgGlrRtu"
-#define FLAGS_COUNT 10
-#define WORD_FLAGS {}
-#define STRICT_FLAGS_ORDER 1
-typedef struct stat	t_stat;
-typedef struct timespec	t_time;
-typedef struct passwd	t_pwd;
-typedef struct group	t_grp;
-typedef	struct		s_rec
-{
-	t_de			*de;
-	t_stat			*st;
-	struct s_rec	*conten[512];
-	void			(*sort)(struct s_rec*, char[10]);
-	void			(*print)(struct s_rec*, char[10]);
-	char			path[__DARWIN_MAXPATHLEN];
-}					t_rec;
-typedef struct		s_datetime
-{
-	long	sec;
-	long	min;
-	long	hour;
-	long	day;
-	long	mon;
-	long	year;
-	char	*monstr[12];
-}					t_datetime;
 
-void	ft_get_flags(t_us *arr, char **av, int *len)
+uint32_t	ft_get_flags(char **av, int *len)
 {
-	char	*ai;
+	char		*ai;
+	uint32_t	r;
 
+	r = 0;
 	while (--*len)
 	{
 		if (*av[0] != '-' && STRICT_FLAGS_ORDER)
@@ -51,16 +26,19 @@ void	ft_get_flags(t_us *arr, char **av, int *len)
 		while (**av)
 		{
 			if ((ai = ft_strchr(LETER_FLAGS, **av)))
-				arr[ai - LETER_FLAGS] = **av;
+				r |= (1 << (ai - LETER_FLAGS));
+				// arr[ai - LETER_FLAGS] = **av;
 			else
 			{
 				ft_printf("Undefined flag %c passed!\n", **av);
 				exit (-1);
 			}
 			++*av;
+			// r <<= 1;
 		}
 		++av;
 	}
+	return (r);
 }
 
 void	ft_get_params(char **arr, char **av, int len)
@@ -94,31 +72,6 @@ t_de	*ft_copyde(t_de *de)
 	return (r);
 }
 
-t_rec	*ft_new_rec(t_de *de, char *name, char path[__DARWIN_MAXPATHLEN])
-{
-	t_rec	*r;
-
-	r = NULL;
-	if (!(r = (t_rec*)malloc(sizeof(t_rec))))
-		return (NULL);
-	ft_memset(r->path, 0, __DARWIN_MAXPATHLEN);
-	ft_strcat(r->path, path);
-	ft_strcat(r->path, name);
-	if (de)
-		r->de = ft_copyde(de);
-	else
-	{
-		if (!(r->de = (t_de*)malloc(sizeof(t_de))))
-			return (NULL);
-		ft_strcpy(r->de->d_name, name);
-	}
-	if (!(r->st = (t_stat*)malloc(sizeof(t_stat))))
-		return (NULL);
-	name = r->path[0] ? r->path : name;
-	if (stat(name, r->st))
-		return (NULL);
-	return (r);
-}
 
 char	ft_get_file_type(mode_t m)
 {
@@ -306,32 +259,32 @@ void	ft_print_filename(t_rec *r, t_us color)
 	}
 }
 
-void	ft_printdir(t_rec **rd, t_us *f)
+void	ft_printdir(t_rec **rd, uint32_t f)
 {
 	t_us	i;
 
 	i = 0;
 	if (!*rd)
 	 return ;
-	if (f[5])
+	if (f & 0b100000)
 	{
 		ft_print_stat((*rd)->st->st_mode);
 		ft_printf("%5 hu", (*rd)->st->st_nlink);
-		if (!f[3])
+		if (!(f & 0b1000))
 			ft_print_user((*rd)->st->st_uid);
 		ft_print_group((*rd)->st->st_gid);
 		ft_printf("%7 lld", (*rd)->st->st_size);
-		if (f[9])
+		if (f & 0b1000000000)
 			ft_print_time((*rd)->st->st_atimespec);
 		else
 			ft_print_time((*rd)->st->st_mtimespec);
 	}
-	ft_print_filename(*rd, f[4]);
+	ft_print_filename(*rd, f & 0b10000);
 	if (*(rd + 1))
 		ft_printdir(rd + 1, f);
 }
 
-void	ft_dir_sort(t_rec **d, t_us *f)
+void	ft_dir_sort(t_rec **d, uint32_t f)
 {
 	if (d && f)
 		return ;
@@ -350,7 +303,7 @@ void	ft_print_total_blocks(t_rec **rd)
 	ft_printf("total %lld\n", bc);
 }
 
-void	ft_readdir(char *dname, t_us *flags)
+void	ft_readdir(char *dname, uint32_t flags)
 {
 	DIR		*d;
 	t_de	*dc;
@@ -362,11 +315,11 @@ void	ft_readdir(char *dname, t_us *flags)
 	ft_memset(path, 0, __DARWIN_MAXPATHLEN);
 	ft_strcpy(path, dname);
 	ft_strcat(path, "/");
-	if (!flags[1] && (d = opendir(dname)))
+	if (!(flags & 0b10) && (d = opendir(dname)))
 	{
 		while ((dc = readdir(d)))
 		{
-			if ((!flags[0] && !flags[2]) && dc->d_name[0] == '.')
+			if ((!(flags & 0) && !(flags & 0b100)) && dc->d_name[0] == '.')
 				continue;
 			rd[i] = ft_new_rec(dc, dc->d_name, path);
 			++i;
@@ -378,19 +331,19 @@ void	ft_readdir(char *dname, t_us *flags)
 	else
 		ft_printf("ft_ls: %s: No such file or directory\n", dname);
 	rd[i] = NULL;
-	if (!flags[2])
+	if (!(flags & 0b100))
 		ft_dir_sort(rd, flags);
-	if (flags[2] || flags[5])
+	if (flags & 0b100 || flags & 0b100000)
 		ft_print_total_blocks(rd);
 	ft_printdir(rd, flags);
 	i = 0;
-	if (flags[7])
+	if (flags & 0b10000000)
 		while (rd[i])
 		{
 			if (rd[i]->de->d_type == 4 && !((rd[i]->de->d_name[0] == '.' && rd[i]->de->d_namlen == 1) || (ft_strequ(rd[i]->de->d_name, "..") && rd[i]->de->d_namlen == 2)))
 			{
 				ft_printf("\n%s:\n", rd[i]->path);
-				if (flags[2] || flags[5])
+				if (flags & 0b100 || flags & 0b100000)
 					ft_print_total_blocks(rd);
 				ft_readdir((rd[i]->path), flags);
 				// ft_printf("\n");
@@ -415,56 +368,42 @@ void	ft_readdir(char *dname, t_us *flags)
 	// }
 }
 
-void	ft_ls(char **p, t_us *f)
+void	ft_ls(char **p, uint32_t f)
 {
 	t_us	i;
+	t_rec	*r[500];
 
 	i = 0;
 	if (!p[0])
-		ft_readdir(".", f);
-	else
 	{
+		r[0] = ft_new_rec(NULL, ".", "");
+		++i;
+	}
+	else
 		while (p[i])
 		{
-			ft_stat(p[i], f);
+			r[i] = ft_new_rec(NULL, p[i], "");
 			++i;
-		}			
-	}
-	
+		}
+	r[i] = NULL;
+	ft_sort(r, f, i);
+	if (f)
+		return ;
+	else
+		return ;
 }
 
 int		main(int ac, char **av)
 {
 	t_us	i;
-	t_us	flags[FLAGS_COUNT];
+	// t_us	flags[FLAGS_COUNT];
+	uint32_t	flags;
 	char	*params[ac - 1];
-	t_stat	*sts[500];
 
-	ft_memset(flags, 0, FLAGS_COUNT);
+	// ft_memset(flags, 0, FLAGS_COUNT);
 	i = ac;
-	ft_get_flags(flags, ++av, &ac);
+	flags = ft_get_flags(++av, &ac);
 	ft_get_params(params, (av + (i - ac - 1)), ac);
-	i = 0;
-	if (!params[i])
-		ft_readdir(".", flags);
-	else
-		while (params[i])
-		{
-			if (!(sts[i] = (t_stat*)malloc(sizeof(t_stat))))
-				return (-1);
-			stat(params[i], sts[i]);
-			++i;
-		}
-	sts[i] = NULL;
-	
-	// while (params[i])
-	// {
-	// 	if (i > 0 || params[i + 1])
-	// 		ft_printf("%s:\n", params[i]);
-	// 	ft_readdir(params[i], flags);
-	// 	if (params[i + 1])
-	// 		ft_printf("\n");
-	// 	++i;
-	// }
+	ft_ls(params, flags);
 	return (0);
 }

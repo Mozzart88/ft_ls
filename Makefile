@@ -6,12 +6,12 @@
 #    By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 15:27:16 by tvanessa          #+#    #+#              #
-#    Updated: 2020/01/12 20:29:10 by tvanessa         ###   ########.fr        #
+#    Updated: 2020/02/21 21:04:55 by tvanessa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 S = ./
-SS = $(S)main.c
+SS = $(S)main.c ft_new_rec.c ft_sort.c
 H = -I . -I libft -I libft/ft_printf
 NAME = ft_ls
 CC = gcc
