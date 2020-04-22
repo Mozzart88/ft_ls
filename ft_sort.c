@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 21:01:43 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/02/27 21:02:58 by tvanessa         ###   ########.fr       */
+/*   Updated: 2020/04/23 01:06:44 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,52 @@ void		ft_sort(t_rec **arr, uint32_t f, t_us l)
 		return ;
 }
 
+static void	merge(int arr[], int l[], int r[], int ll, int rl)
+{
+	int i;
+	int j;
+	int k;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	while (i < ll && j < rl)
+	{
+		if (i < ll && l[i] <= r[j])
+		{
+			arr[k] = l[i];
+			++i;
+		}
+		if (j < rl && r[j] <= l[i])
+		{
+			arr[k] = r[j];
+			++j;
+		}
+		++k;
+	}
+	while (i < ll)
+	{
+		arr[k] = l[i];
+		++i;
+		++k;
+	}
+	while (j < rl)
+	{
+		arr[k] = r[j];
+		++j;
+		++k;
+	}
+	return;
+}
+
+/* 
 void		ft_swap(int *a, int *b)
 {
-	int	*t;
+	int	t;
 
-	t = a;
-	a = b;
-	b = t;
+	t = *a;
+	*a = *b;
+	*b = t;
 	return ;
 }
 
@@ -87,11 +126,11 @@ int		*ft_partition(int arr[], int low, int high)
 		if (arr[j] <= pivot)
 		{
 			++i;
-			ft_swap(arr[i], arr[j]);
+			ft_swap(&arr[i], &arr[j]);
 		}
 		++j;
 	}
-	ft_swap(arr[i + 1], arr[j + 1]);
+	ft_swap(&arr[i + 1], &arr[j + 1]);
 	return (arr + i + 1);
 }
 
@@ -144,4 +183,4 @@ void	introsort(int arr[], int *s, int *e)
 	depth_limit = 2 * log(e - s);
 	ft_introsortUtil(arr, s, e, depth_limit);
 	return ;
-}
+} */

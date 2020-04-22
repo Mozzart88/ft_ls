@@ -1,0 +1,23 @@
+./select	100		0,00s user 0,00s system 63% cpu 0,004 total
+./bubble	100		0,00s user 0,00s system 67% cpu 0,004 total
+./insert	100		0,00s user 0,00s system 59% cpu 0,004 total
+./merge		100		0,00s user 0,00s system 65% cpu 0,004 total
+./quick		100		0,00s user 0,00s system 67% cpu 0,004 total
+
+./select	1000	0,00s user 0,00s system 74% cpu 0,005 total
+./bubble	1000	0,00s user 0,00s system 81% cpu 0,007 total
+./insert	1000	0,00s user 0,00s system 60% cpu 0,009 total
+./merge		1000	0,00s user 0,00s system 66% cpu 0,004 total
+./quick		1000	0,00s user 0,00s system 77% cpu 0,006 total
+
+./select	10000	0,10s user 0,00s system 98% cpu 0,106 total
+./bubble	10000	0,29s user 0,00s system 99% cpu 0,298 total
+./insert	10000	0,12s user 0,00s system 98% cpu 0,127 total
+./merge		10000	0,00s user 0,00s system 73% cpu 0,005 total
+./quick		10000	0,19s user 0,00s system 98% cpu 0,190 total
+
+./select			1,05s user 0,00s system 99% cpu 1,056 total
+./bubble			3,00s user 0,01s system 99% cpu 3,018 total
+./insert			1,25s user 0,00s system 99% cpu 1,257 total
+./merge	 			0,01s user 0,00s system 85% cpu 0,008 total
+./quick	 			1,90s user 0,01s system 99% cpu 1,911 total

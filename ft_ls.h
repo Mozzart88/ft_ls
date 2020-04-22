@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/02/21 21:38:12 by tvanessa         ###   ########.fr       */
+/*   Updated: 2020/04/23 01:14:25 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct		s_datetime
 
 t_rec*   ft_new_rec(t_de* de, char* name, char path[MAXNAMLEN]);
 t_de	*ft_copyde(t_de *de);
+void	ft_msort(void *arr[], t_us size);
 void    ft_sort(t_rec **arr, uint32_t flags, t_us arr_len);
 
 #endif
