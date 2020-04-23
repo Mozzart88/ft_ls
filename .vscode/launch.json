@@ -10,7 +10,10 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/a.out",
 			"args": [
-				"5"
+				"some",
+				"41",
+				"qwerty",
+				"asdfg"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
