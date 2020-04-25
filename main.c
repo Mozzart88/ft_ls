@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/04/25 13:49:33 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/04/25 17:46:23 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,32 +315,28 @@ void	ft_readdir(char *dname, uint32_t flags)
 	ft_memset(path, 0, __DARWIN_MAXPATHLEN);
 	ft_strcpy(path, dname);
 	ft_strcat(path, "/");
-	if (!(flags & D_FLAG) && (d = opendir(dname))) // 0b10
+	if ((d = opendir(dname)))
 	{
 		while ((dc = readdir(d)))
 		{
-			if ((/* !(flags & 0x0) &&  */!(flags & T_FLAG)) && dc->d_name[0] == '.') // 0b100
-				continue;
-			rd[i] = ft_new_rec(dc, dc->d_name, path, flags);
+			rd[i] = ft_new_rec(dc, dc->d_name, path);
 			++i;
 		}
 		closedir(d);
 	}
-	else if ((rd[i] = ft_new_rec(NULL, dname, path, flags)))
+	else if ((rd[i] = ft_new_rec(NULL, dname, path)) && !rd[i]->_errno)
 		return (ft_printdir(rd, flags));
 	else
-		ft_printf("ft_ls: %s: No such file or directory\n", dname);
+		ft_printf("ft_ls: %s: %s\n", dname, rd[i]->_errstr);
 	rd[i] = NULL;
-	if (!(flags & T_FLAG)) // 0b100
-		ft_dir_sort(rd, flags);
 	if (flags & UR_FLAG || flags & UG_FLAG) // 0b100 0b100000
 		ft_print_total_blocks(rd);
 	ft_printdir(rd, flags);
 	i = 0;
-	if (flags & F_FLAG) // 0b10000000
+	// if (flags & F_FLAG) // 0b10000000
 		while (rd[i])
 		{
-			if (rd[i]->de->d_type == 4 && !((rd[i]->de->d_name[0] == '.' && rd[i]->de->d_namlen == 1) || (ft_strequ(rd[i]->de->d_name, "..") && rd[i]->de->d_namlen == 2)))
+			if (rd[i]->de->d_type == 4 && !(ft_strcmp(rd[i]->de->d_name, ".") || ft_strequ(rd[i]->de->d_name, "..")))
 			{
 				ft_printf("\n%s:\n", rd[i]->path);
 				if (flags & UR_FLAG || flags & UG_FLAG) // 0b100 0b100000
@@ -368,29 +364,39 @@ void	ft_readdir(char *dname, uint32_t flags)
 	// }
 }
 
-void	ft_ls(char **p, uint32_t f)
+void	ft_print_recs(t_rec *r[], size_t s, uint32_t f)
 {
-	t_us	i;
-	t_rec	*r[500];
+	size_t	i;
 
 	i = 0;
-	if (!p[0])
+	while (i < s)
 	{
-		r[0] = ft_new_rec(NULL, ".", "", f);
+		ft_print_filename(r[i], (f & UG_FLAG));
 		++i;
 	}
-	else
-		while (p[i])
-		{
-			r[i] = ft_new_rec(NULL, p[i], "", f);
-			++i;
-		}
-	r[i] = NULL;
-	ft_sort(r, f, i);
+	
+}
+
+void	ft_ls(char **p, size_t s, uint32_t f, char *path)
+{
+	t_us	i;
+	t_rec	*r[s];
+
+	i = 0;
 	if (f)
-		return ;
-	else
-		return ;
+		;
+	if (!p[0])
+		p[0] = ".";
+	while (i < s)
+	{
+		r[i] = ft_new_rec(NULL, p[i], path);
+		if (r[i]->_errno)
+			ft_dprintf(2, "ft_ls: %s: %s\n", r[i]->path, r[i]->_errstr);
+		++i;
+	}
+	ft_print_recs(r, i, f);
+	if (f & D_FLAG)
+		return;
 }
 
 int		main(int ac, char **av)
@@ -400,10 +406,11 @@ int		main(int ac, char **av)
 	uint32_t	flags;
 	char	*params[ac - 1];
 
-	// ft_memset(flags, 0, FLAGS_COUNT);
+	ft_memset(params, 0, ac - 1);
 	i = ac;
 	flags = ft_get_flags(++av, &ac);
 	ft_get_params(params, (av + (i - ac - 1)), ac);
-	ft_ls(params, flags);
+	ft_msort((void**)params, ac, 1);
+	ft_ls(params, ac, flags, "");
 	return (0);
 }

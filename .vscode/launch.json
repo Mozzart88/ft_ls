@@ -10,14 +10,18 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
+				"-r",
 				// "-ld",
-				"-agR",
+				// "-agR",
 				// "-ldg"
 				// "main",
 				// ".git",
 				// ".mozz",
 				// ".gitignore",
 				// "./.mozz/build.sh"
+				"sort_test",
+				"test/some",
+				"some"
 			],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",

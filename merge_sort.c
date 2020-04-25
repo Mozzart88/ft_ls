@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 22:29:26 by mozzart           #+#    #+#             */
-/*   Updated: 2020/04/23 17:10:39 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/04/25 15:53:32 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_swap_pointers(char **a, char **b)
 	return;
 }
 
-static void	merge(char *arr[], char *l[], char *r[], int ll, int rl)
+static void	merge(char *arr[], char *l[], char *r[], int ll, int rl, t_us asc)
 {
 	int		i;
 	int		j;
@@ -33,7 +33,7 @@ static void	merge(char *arr[], char *l[], char *r[], int ll, int rl)
 	k = 0;
 	while (i < ll && j < rl)
 	{
-		if (ft_strcmp(l[i], r[j]) <= 0)
+		if ((ft_strcmp(l[i], r[j]) <= 0 && asc) || (ft_strcmp(l[i], r[j]) > 0 && !asc))
 		{
 			ft_swap_pointers(&arr[k], &l[i]);
 			++i;
@@ -60,7 +60,7 @@ static void	merge(char *arr[], char *l[], char *r[], int ll, int rl)
 	return;
 }
 
-void		ft_msort(void *arr[], int size)
+void		ft_msort(void *arr[], int size, t_us asc)
 {
 	int	ll;
 	int	rl;
@@ -85,8 +85,8 @@ void		ft_msort(void *arr[], int size)
 		r[i] = arr[ll + i];
 		++i;
 	}
-	ft_msort(l, ll);
-	ft_msort(r, rl);
-	merge((char**)arr, (char**)l, (char**)r, ll, rl);
+	ft_msort(l, ll, asc);
+	ft_msort(r, rl, asc);
+	merge((char**)arr, (char**)l, (char**)r, ll, rl, asc);
 	return;
 }

@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/04/25 11:02:09 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/04/25 16:03:38 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@
 #include  <errno.h>
 
 #define LETER_FLAGS "adfgGlrRtu"
-#define U_FLAG		0x1
-#define T_FLAG		0x2
-#define UR_FLAG		0x4
-#define R_FLAG		0x8
-#define L_FLAG		0x10
-#define UG_FLAG		0x20
-#define G_FLAG		0x40
-#define F_FLAG		0x80
-#define D_FLAG		0x100
-#define A_FLAG		0x200
+#define A_FLAG		0x1
+#define D_FLAG		0x2
+#define F_FLAG		0x4
+#define G_FLAG		0x8
+#define UG_FLAG		0x10
+#define L_FLAG		0x20
+#define R_FLAG		0x40
+#define UR_FLAG		0x80
+#define T_FLAG		0x100
+#define U_FLAG		0x200
+#define SORT_FLAGS	0xB
 #define FLAGS_COUNT 10
 #define WORD_FLAGS {}
 #define STRICT_FLAGS_ORDER 1
@@ -67,9 +68,9 @@ typedef struct		s_datetime
 	char	*monstr[12];
 }					t_datetime;
 
-t_rec*   ft_new_rec(t_de* de, char* name, char path[MAXNAMLEN], uint32_t flags);
+t_rec*   ft_new_rec(t_de* de, char* name, char path[MAXNAMLEN]);
 t_de	*ft_copyde(t_de *de);
-void	ft_msort(void *arr[], t_us size);
+void	ft_msort(void *arr[], t_us size, t_us asc);
 void    ft_sort(t_rec **arr, uint32_t flags, t_us arr_len);
 
 #endif
