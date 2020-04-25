@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvanessa <tvanessa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/02/21 21:41:38 by tvanessa         ###   ########.fr       */
+/*   Updated: 2020/04/25 13:49:33 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,35 +315,35 @@ void	ft_readdir(char *dname, uint32_t flags)
 	ft_memset(path, 0, __DARWIN_MAXPATHLEN);
 	ft_strcpy(path, dname);
 	ft_strcat(path, "/");
-	if (!(flags & 0b10) && (d = opendir(dname)))
+	if (!(flags & D_FLAG) && (d = opendir(dname))) // 0b10
 	{
 		while ((dc = readdir(d)))
 		{
-			if ((!(flags & 0) && !(flags & 0b100)) && dc->d_name[0] == '.')
+			if ((/* !(flags & 0x0) &&  */!(flags & T_FLAG)) && dc->d_name[0] == '.') // 0b100
 				continue;
-			rd[i] = ft_new_rec(dc, dc->d_name, path);
+			rd[i] = ft_new_rec(dc, dc->d_name, path, flags);
 			++i;
 		}
 		closedir(d);
 	}
-	else if ((rd[i] = ft_new_rec(NULL, dname, path)))
+	else if ((rd[i] = ft_new_rec(NULL, dname, path, flags)))
 		return (ft_printdir(rd, flags));
 	else
 		ft_printf("ft_ls: %s: No such file or directory\n", dname);
 	rd[i] = NULL;
-	if (!(flags & 0b100))
+	if (!(flags & T_FLAG)) // 0b100
 		ft_dir_sort(rd, flags);
-	if (flags & 0b100 || flags & 0b100000)
+	if (flags & UR_FLAG || flags & UG_FLAG) // 0b100 0b100000
 		ft_print_total_blocks(rd);
 	ft_printdir(rd, flags);
 	i = 0;
-	if (flags & 0b10000000)
+	if (flags & F_FLAG) // 0b10000000
 		while (rd[i])
 		{
 			if (rd[i]->de->d_type == 4 && !((rd[i]->de->d_name[0] == '.' && rd[i]->de->d_namlen == 1) || (ft_strequ(rd[i]->de->d_name, "..") && rd[i]->de->d_namlen == 2)))
 			{
 				ft_printf("\n%s:\n", rd[i]->path);
-				if (flags & 0b100 || flags & 0b100000)
+				if (flags & UR_FLAG || flags & UG_FLAG) // 0b100 0b100000
 					ft_print_total_blocks(rd);
 				ft_readdir((rd[i]->path), flags);
 				// ft_printf("\n");
@@ -376,13 +376,13 @@ void	ft_ls(char **p, uint32_t f)
 	i = 0;
 	if (!p[0])
 	{
-		r[0] = ft_new_rec(NULL, ".", "");
+		r[0] = ft_new_rec(NULL, ".", "", f);
 		++i;
 	}
 	else
 		while (p[i])
 		{
-			r[i] = ft_new_rec(NULL, p[i], "");
+			r[i] = ft_new_rec(NULL, p[i], "", f);
 			++i;
 		}
 	r[i] = NULL;

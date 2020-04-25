@@ -5,31 +5,14 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(lldb) Запустить",
-			"type": "cppdbg",
-			"request": "launch",
-			"program": "${workspaceFolder}/a.out",
-			"args": [
-				"some",
-				"41",
-				"qwerty",
-				"asdfg"
-			],
-			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}",
-			"environment": [],
-			"externalConsole": false,
-			"MIMode": "lldb"
-		},
-		{
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-ld",
+				// "-ld",
 				"-agR",
-				"-ldg"
+				// "-ldg"
 				// "main",
 				// ".git",
 				// ".mozz",
