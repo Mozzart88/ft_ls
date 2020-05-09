@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 19:50:11 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/09 03:18:01 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/09 22:27:23 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ t_rec		*ft_new_rec(t_de *de, char *name, char path[__DARWIN_MAXPATHLEN])
             r->_errno = errno;
             r->_errstr = strerror(errno);
     }
+	r->xattrs = listxattr(p, p, __DARWIN_MAXPATHLEN, XATTR_SHOWCOMPRESSION);
 	return (r);
 }

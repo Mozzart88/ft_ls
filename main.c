@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/09 19:05:25 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/09 22:30:15 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,8 @@ void	ft_print_user(uid_t id)
 void	ft_print_group(gid_t id)
 {
 	t_grp *g;
-	if (!id)
-		return ;
+	// if (!id)
+	// 	return ;
 	if (!(g = getgrgid(id)))
 		return ;
 	ft_printf("%6s", g->gr_name);
@@ -276,6 +276,8 @@ void	ft_print_rifo(t_rec *rd, uint32_t f)
 	if (f & L_FLAG) // 0b100000
 	{
 		ft_print_stat(rd->st->st_mode);
+		if (rd->xattrs > 0)
+			ft_printf("@");
 		ft_printf("%4 hu", rd->st->st_nlink);
 		if (!(f & G_FLAG)) // 0b1000
 			ft_print_user(rd->st->st_uid);
@@ -358,8 +360,6 @@ void	ft_print_recs(t_vect *r, uint32_t f, t_us d)
 		p = ft_strequ(((t_rec*)(r->arr[i]))->name, ".") ? 1 : ft_strequ(((t_rec*)(r->arr[i]))->name, "..");
 		if ((d == 0x2 || d == 0x8) && (((t_rec*)(r->arr[i]))->st->st_mode & S_IFMT) == S_IFDIR)
 		{
-			// if (((t_rec*)(r->arr[i]))->_errno && ++i)
-			// 	continue;
 			if (!(f & D_FLAG) && (!p || d == 0x8))
 			{
 				ft_get_path((t_rec*)r->arr[i], name);
@@ -408,9 +408,13 @@ void	ft_ls(t_vect *p, uint32_t f, char *path)
 		v->arr[i] = (t_ull)r;
 		++i;
 	}
-	// ft_sort_recs(v, f, i);
-	ft_print_recs(v, f, 0x1);
-	ft_print_recs(v, f, 0x8);
+	if (f & D_FLAG)
+		ft_print_recs(v, f, 0x4);
+	else
+	{
+		ft_print_recs(v, f, 0x1);
+		ft_print_recs(v, f, 0x8);
+	}
 	return;
 }
 
@@ -424,23 +428,12 @@ int		main(int ac, char **av)
 	t_us	i;
 	uint32_t	flags;
 	t_vect	*params;
-	// int		a[5] = {2,1,4,7,6};
 
-	// ft_memset(params, 0, ac - 1);
-	// params = NULL;
 	i = ac;
 	flags = ft_get_flags(++av, &ac);
 	params = ft_get_params((av + (i - ac - 1)), ac);
-	// params = ft_new_vect(a, sizeof(int), 5);
-	// i = 0;
-	// while (i < params->len)
-	// 	ft_printf("%s\n", (char*)(params->arr[i++]));
-	// ft_printf("\n");
 
 	ft_msort(params, 1, ft_strcmp_s);
-	// i = 0;
-	// while (i < params->len)
-	// 	ft_printf("%s\n", (char*)(params->arr[i++]));
 	ft_ls(params, flags, "");
 	return (0);
 }
