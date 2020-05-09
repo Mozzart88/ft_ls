@@ -10,7 +10,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-alR",
+				"-alt",
 				// "-ld",
 				// "-agR",
 				// "-ldg"
@@ -23,9 +23,9 @@
 				// ".mozz/test",
 				// ".mozz/man",
 				// ".mozz/Makefile",
-				// ".mozz/Make"
-				// ".mozz"
-				".mozz/privated"
+				// ".mozz/Make",
+				".mozz",
+				// ".mozz/privated"
 			],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",
