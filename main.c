@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/04/25 17:46:23 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/09 04:00:23 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ void	ft_print_stat(mode_t mode)
 void	ft_print_user(uid_t id)
 {
 	t_pwd *p;
-	if (!id)
-		return ;
+	// if (!id)
+	// 	return ;
 	if (!(p = getpwuid(id)))
 		return ;
 	ft_printf("%9s", p->pw_name);
@@ -241,7 +241,7 @@ void	ft_print_time(t_time t)
 	rd = ft_strsplit(ct, ' ');
 	rt = ft_strsplit(rd[3], ':');
 	// ft_printf(" %s %hu %hu:%hu", dt->monstr[dt->mon], dt->day, dt->hour, dt->min);
-	ft_printf(" %s %s %s:%s", rd[1], rd[2], rt[0], rt[1]);
+	ft_printf(" %3 s %2 s %2 s:%2 s", rd[1], rd[2], rt[0], rt[1]);
 }
 
 void	ft_print_filename(t_rec *r, t_us color)
@@ -258,52 +258,44 @@ void	ft_print_filename(t_rec *r, t_us color)
 			ft_printf(" %s\n", r->de->d_name);
 	}
 }
-
-void	ft_printdir(t_rec **rd, uint32_t f)
+/*
+**	Print record info according to flags
+*/
+void	ft_print_rifo(t_rec *rd, uint32_t f)
 {
 	t_us	i;
 
 	i = 0;
-	if (!*rd)
-	 return ;
-	if (f & 0b100000)
+	if (f & L_FLAG) // 0b100000
 	{
-		ft_print_stat((*rd)->st->st_mode);
-		ft_printf("%5 hu", (*rd)->st->st_nlink);
-		if (!(f & 0b1000))
-			ft_print_user((*rd)->st->st_uid);
-		ft_print_group((*rd)->st->st_gid);
-		ft_printf("%7 lld", (*rd)->st->st_size);
-		if (f & 0b1000000000)
-			ft_print_time((*rd)->st->st_atimespec);
+		ft_print_stat(rd->st->st_mode);
+		ft_printf("%4 hu", rd->st->st_nlink);
+		if (!(f & G_FLAG)) // 0b1000
+			ft_print_user(rd->st->st_uid);
+		ft_print_group(rd->st->st_gid);
+		ft_printf("%7 lld", rd->st->st_size);
+		if (f & U_FLAG) // 0b1000000000
+			ft_print_time(rd->st->st_atimespec);
 		else
-			ft_print_time((*rd)->st->st_mtimespec);
+			ft_print_time(rd->st->st_mtimespec);
 	}
-	ft_print_filename(*rd, f & 0b10000);
-	if (*(rd + 1))
-		ft_printdir(rd + 1, f);
+	ft_print_filename(rd, f & UG_FLAG); // 0b10000
 }
 
-void	ft_dir_sort(t_rec **d, uint32_t f)
-{
-	if (d && f)
-		return ;
-}
-
-void	ft_print_total_blocks(t_rec **rd)
+void	ft_print_total_blocks(t_rec **rd, t_us l)
 {
 	blkcnt_t	bc;
 
 	bc = 0;
-	while (*rd)
+	while (l--)
 	{
-		bc += (*rd)->st->st_blocks;
-		++rd;
+		bc += rd[l]->st->st_blocks;
+		// ++rd;
 	}
 	ft_printf("total %lld\n", bc);
 }
 
-void	ft_readdir(char *dname, uint32_t flags)
+int	ft_readdir(char *dname, uint32_t flags)
 {
 	DIR		*d;
 	t_de	*dc;
@@ -324,57 +316,59 @@ void	ft_readdir(char *dname, uint32_t flags)
 		}
 		closedir(d);
 	}
-	else if ((rd[i] = ft_new_rec(NULL, dname, path)) && !rd[i]->_errno)
-		return (ft_printdir(rd, flags));
 	else
-		ft_printf("ft_ls: %s: %s\n", dname, rd[i]->_errstr);
-	rd[i] = NULL;
-	if (flags & UR_FLAG || flags & UG_FLAG) // 0b100 0b100000
-		ft_print_total_blocks(rd);
-	ft_printdir(rd, flags);
-	i = 0;
-	// if (flags & F_FLAG) // 0b10000000
-		while (rd[i])
-		{
-			if (rd[i]->de->d_type == 4 && !(ft_strcmp(rd[i]->de->d_name, ".") || ft_strequ(rd[i]->de->d_name, "..")))
-			{
-				ft_printf("\n%s:\n", rd[i]->path);
-				if (flags & UR_FLAG || flags & UG_FLAG) // 0b100 0b100000
-					ft_print_total_blocks(rd);
-				ft_readdir((rd[i]->path), flags);
-				// ft_printf("\n");
-			}
-			++i;
-		}
-
-	// di = 0;
-	// dn = NULL;
-	// while (rd[di])
-	// {
-	// 	ft_printf("\n%s/%s:\n", dname, (rd[di])->d_name);
-	// 	dn = ft_strnew(ft_strlen(dname) + ft_strlen((rd[di])->d_name) + 1);
-	// 	ft_strcpy(dn, dname);
-	// 	dn[ft_strlen(dname)] = '/';
-	// 	ft_strcpy(dn + ft_strlen(dname) + 1, (rd[di])->d_name);
-	// 	ft_printdir(dn, flags);
-	// 	ft_strdel(&dn);
-	// 	free(rd[di]);
-	// 	rd[di] = NULL;
-	// 	++di;
-	// }
+	{
+		return (errno);
+	}
+	if (flags & F_FLAG || flags & L_FLAG) // 0b100 0b100000
+		ft_print_total_blocks(rd, i);
+	ft_print_recs(rd, i, flags, 0x4);
+	if (flags & UR_FLAG)
+		ft_print_recs(rd, i, flags, 0x2);
+	return (0);
 }
 
-void	ft_print_recs(t_rec *r[], size_t s, uint32_t f)
+/*
+**	@d -	0x1 print only files
+**			0x2 print onli dirs
+**			0x4 print all
+**			0x8 print print '.' content
+*/
+void	ft_print_recs(t_rec *r[], size_t s, uint32_t f, t_us d)
 {
 	size_t	i;
+	char	name[__DARWIN_MAXPATHLEN];
+	t_us	p;
+	int		e;
 
 	i = 0;
 	while (i < s)
 	{
-		ft_print_filename(r[i], (f & UG_FLAG));
+		p = 0;
+		p = ft_strequ(r[i]->name, ".") ? 1 : ft_strequ(r[i]->name, "..");
+		if ((d == 0x2 || d == 0x8) && (r[i]->st->st_mode & S_IFMT) == S_IFDIR)
+		{
+			// if (r[i]->_errno && ++i)
+			// 	continue;
+			if (!(f & D_FLAG) && (!p || d == 0x8))
+			{
+				ft_get_path(r[i], name);
+				if (s > 1)
+					ft_printf("\n%s:\n", name);
+				if (f & UR_FLAG)
+					e = ft_readdir(name, f);
+				else
+					e = ft_readdir(name, f | D_FLAG);
+				if (e)
+					ft_dprintf(2, "ft_ls: %s: %s\n", r[i]->name, strerror(e));
+			}
+			else if (d == 0x8)
+				ft_print_rifo(r[i], f);
+		}
+		else if ((d == 0x1 && (r[i]->st->st_mode & S_IFMT) != S_IFDIR) || d == 0x4)
+			ft_print_rifo(r[i], f);
 		++i;
 	}
-	
 }
 
 void	ft_ls(char **p, size_t s, uint32_t f, char *path)
@@ -385,24 +379,30 @@ void	ft_ls(char **p, size_t s, uint32_t f, char *path)
 	i = 0;
 	if (f)
 		;
-	if (!p[0])
+	if (!p[0] && ++s)
 		p[0] = ".";
 	while (i < s)
 	{
-		r[i] = ft_new_rec(NULL, p[i], path);
+		r[i] = ft_new_rec(NULL, *p, path);
+		++p;
 		if (r[i]->_errno)
-			ft_dprintf(2, "ft_ls: %s: %s\n", r[i]->path, r[i]->_errstr);
+		{
+			ft_dprintf(2, "ft_ls: %s/%s: %s\n", r[i]->path, r[i]->name, r[i]->_errstr);
+			// r[i]->destroy(r[i]);
+			--s;
+			continue;
+		}
 		++i;
 	}
-	ft_print_recs(r, i, f);
-	if (f & D_FLAG)
-		return;
+	ft_sort_recs(r, f, i);
+	ft_print_recs(r, i, f, 0x1);
+	ft_print_recs(r, i, f, 0x8);
+	return;
 }
 
 int		main(int ac, char **av)
 {
 	t_us	i;
-	// t_us	flags[FLAGS_COUNT];
 	uint32_t	flags;
 	char	*params[ac - 1];
 

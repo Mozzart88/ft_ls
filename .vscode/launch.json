@@ -10,7 +10,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-r",
+				"-alR",
 				// "-ld",
 				// "-agR",
 				// "-ldg"
@@ -19,9 +19,13 @@
 				// ".mozz",
 				// ".gitignore",
 				// "./.mozz/build.sh"
-				"sort_test",
-				"test/some",
-				"some"
+				// "sort_test",
+				// ".mozz/test",
+				// ".mozz/man",
+				// ".mozz/Makefile",
+				// ".mozz/Make"
+				// ".mozz"
+				".mozz/privated"
 			],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",
