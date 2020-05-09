@@ -6,12 +6,12 @@
 #    By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 15:27:16 by tvanessa          #+#    #+#              #
-#    Updated: 2020/04/23 01:06:28 by mozzart          ###   ########.fr        #
+#    Updated: 2020/05/09 05:31:35 by mozzart          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 S = ./
-SS = $(S)main.c ft_new_rec.c ft_sort.c merge_sort.c
+SS = $(S)main.c ft_new_rec.c ft_sort.c merge_sort.c vector.c
 H = -I . -I libft -I libft/ft_printf
 NAME = ft_ls
 ifndef CC
