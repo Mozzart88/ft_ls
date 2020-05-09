@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/09 04:00:23 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/09 19:05:25 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,27 @@ uint32_t	ft_get_flags(char **av, int *len)
 	return (r);
 }
 
-void	ft_get_params(char **arr, char **av, int len)
+t_vect	*ft_get_params(char **av, int len)
 {
-	int	i;
+	int		i;
+	t_vect *v;
 
 	i = 0;
+	if (!(v = ft_new_vect(NULL, sizeof(char*), len)))
+		return (NULL);
 	while (len--)
 	{
 		if (*av[0] == '-' && STRICT_FLAGS_ORDER)
+		{
+			ft_destroy_vect(v);
 			break;
-		arr[i] = *av;
+		}
+		v->arr[i] = *(t_ull*)av;
 		++av;
 		++i;	
 	}
-	arr[i] = NULL;
+	// arr[i] = NULL;
+	return (v);
 }
 
 t_de	*ft_copyde(t_de *de)
@@ -282,24 +289,26 @@ void	ft_print_rifo(t_rec *rd, uint32_t f)
 	ft_print_filename(rd, f & UG_FLAG); // 0b10000
 }
 
-void	ft_print_total_blocks(t_rec **rd, t_us l)
+void	ft_print_total_blocks(t_vect *rd)
 {
 	blkcnt_t	bc;
+	size_t		i;
 
 	bc = 0;
-	while (l--)
+	i = 0;
+	while (rd->len > i)
 	{
-		bc += rd[l]->st->st_blocks;
-		// ++rd;
+		bc += ((t_rec*)rd->arr[i])->st->st_blocks;
+		++i;
 	}
 	ft_printf("total %lld\n", bc);
 }
 
-int	ft_readdir(char *dname, uint32_t flags)
+int	ft_readdir(char *dname, uint32_t flags, t_us size)
 {
 	DIR		*d;
 	t_de	*dc;
-	t_rec	*rd[512];
+	t_vect	*rd;
 	t_us	i;
 	char	path[__DARWIN_MAXPATHLEN];
 
@@ -307,24 +316,24 @@ int	ft_readdir(char *dname, uint32_t flags)
 	ft_memset(path, 0, __DARWIN_MAXPATHLEN);
 	ft_strcpy(path, dname);
 	ft_strcat(path, "/");
+	if (!(rd = ft_new_vect(NULL, sizeof(t_rec), size)))
+		return (-1);
 	if ((d = opendir(dname)))
 	{
 		while ((dc = readdir(d)))
 		{
-			rd[i] = ft_new_rec(dc, dc->d_name, path);
+			rd->arr[i] = (t_ull)ft_new_rec(dc, dc->d_name, path);
 			++i;
 		}
 		closedir(d);
 	}
 	else
-	{
 		return (errno);
-	}
 	if (flags & F_FLAG || flags & L_FLAG) // 0b100 0b100000
-		ft_print_total_blocks(rd, i);
-	ft_print_recs(rd, i, flags, 0x4);
+		ft_print_total_blocks(rd);
+	ft_print_recs(rd, flags, 0x4);
 	if (flags & UR_FLAG)
-		ft_print_recs(rd, i, flags, 0x2);
+		ft_print_recs(rd, flags, 0x2);
 	return (0);
 }
 
@@ -334,7 +343,7 @@ int	ft_readdir(char *dname, uint32_t flags)
 **			0x4 print all
 **			0x8 print print '.' content
 */
-void	ft_print_recs(t_rec *r[], size_t s, uint32_t f, t_us d)
+void	ft_print_recs(t_vect *r, uint32_t f, t_us d)
 {
 	size_t	i;
 	char	name[__DARWIN_MAXPATHLEN];
@@ -342,75 +351,96 @@ void	ft_print_recs(t_rec *r[], size_t s, uint32_t f, t_us d)
 	int		e;
 
 	i = 0;
-	while (i < s)
+	ft_sort_recs(r, f);
+	while (i < r->len)
 	{
 		p = 0;
-		p = ft_strequ(r[i]->name, ".") ? 1 : ft_strequ(r[i]->name, "..");
-		if ((d == 0x2 || d == 0x8) && (r[i]->st->st_mode & S_IFMT) == S_IFDIR)
+		p = ft_strequ(((t_rec*)(r->arr[i]))->name, ".") ? 1 : ft_strequ(((t_rec*)(r->arr[i]))->name, "..");
+		if ((d == 0x2 || d == 0x8) && (((t_rec*)(r->arr[i]))->st->st_mode & S_IFMT) == S_IFDIR)
 		{
-			// if (r[i]->_errno && ++i)
+			// if (((t_rec*)(r->arr[i]))->_errno && ++i)
 			// 	continue;
 			if (!(f & D_FLAG) && (!p || d == 0x8))
 			{
-				ft_get_path(r[i], name);
-				if (s > 1)
+				ft_get_path((t_rec*)r->arr[i], name);
+				if (r->len > 1)
 					ft_printf("\n%s:\n", name);
 				if (f & UR_FLAG)
-					e = ft_readdir(name, f);
+					e = ft_readdir(name, f, ((t_rec*)r->arr[i])->st->st_nlink);
 				else
-					e = ft_readdir(name, f | D_FLAG);
+					e = ft_readdir(name, f | D_FLAG, ((t_rec*)r->arr[i])->st->st_nlink);
 				if (e)
-					ft_dprintf(2, "ft_ls: %s: %s\n", r[i]->name, strerror(e));
+					ft_dprintf(2, "ft_ls: %s: %s\n", ((t_rec*)(r->arr[i]))->name, strerror(e));
 			}
 			else if (d == 0x8)
-				ft_print_rifo(r[i], f);
+				ft_print_rifo((t_rec*)r->arr[i], f);
 		}
-		else if ((d == 0x1 && (r[i]->st->st_mode & S_IFMT) != S_IFDIR) || d == 0x4)
-			ft_print_rifo(r[i], f);
+		else if ((d == 0x1 && (((t_rec*)(r->arr[i]))->st->st_mode & S_IFMT) != S_IFDIR) || d == 0x4)
+			ft_print_rifo((t_rec*)r->arr[i], f);
 		++i;
 	}
 }
 
-void	ft_ls(char **p, size_t s, uint32_t f, char *path)
+void	ft_ls(t_vect *p, uint32_t f, char *path)
 {
 	t_us	i;
-	t_rec	*r[s];
+	t_vect	*v;
+	t_rec	*r;
 
 	i = 0;
 	if (f)
 		;
-	if (!p[0] && ++s)
-		p[0] = ".";
-	while (i < s)
+	if (!p->len && ++p->len)
+		*(char**)p->arr[0] = ".";
+	if (!(v = ft_new_vect(NULL, sizeof(t_rec), p->len)))
+		return ;
+	while (i < v->len)
 	{
-		r[i] = ft_new_rec(NULL, *p, path);
-		++p;
-		if (r[i]->_errno)
+		r = ft_new_rec(NULL, (char*)*(p->arr), path);
+		++p->arr;
+		if (r->_errno)
 		{
-			ft_dprintf(2, "ft_ls: %s/%s: %s\n", r[i]->path, r[i]->name, r[i]->_errstr);
+			ft_dprintf(2, "ft_ls: %s/%s: %s\n", r->path, r->name, r->_errstr);
 			// r[i]->destroy(r[i]);
-			--s;
+			--v->len;
 			continue;
 		}
+		v->arr[i] = (t_ull)r;
 		++i;
 	}
-	ft_sort_recs(r, f, i);
-	ft_print_recs(r, i, f, 0x1);
-	ft_print_recs(r, i, f, 0x8);
+	// ft_sort_recs(v, f, i);
+	ft_print_recs(v, f, 0x1);
+	ft_print_recs(v, f, 0x8);
 	return;
+}
+
+static int ft_strcmp_s(t_ull a, t_ull b)
+{
+	return (ft_strcmp((char*)a, (char*)b));
 }
 
 int		main(int ac, char **av)
 {
 	t_us	i;
 	uint32_t	flags;
-	char	*params[ac - 1];
+	t_vect	*params;
+	// int		a[5] = {2,1,4,7,6};
 
-	ft_memset(params, 0, ac - 1);
+	// ft_memset(params, 0, ac - 1);
+	// params = NULL;
 	i = ac;
 	flags = ft_get_flags(++av, &ac);
-	ft_get_params(params, (av + (i - ac - 1)), ac);
-	ft_msort((void**)params, ac, 1);
-	ft_ls(params, ac, flags, "");
+	params = ft_get_params((av + (i - ac - 1)), ac);
+	// params = ft_new_vect(a, sizeof(int), 5);
+	// i = 0;
+	// while (i < params->len)
+	// 	ft_printf("%s\n", (char*)(params->arr[i++]));
+	// ft_printf("\n");
+
+	ft_msort(params, 1, ft_strcmp_s);
+	// i = 0;
+	// while (i < params->len)
+	// 	ft_printf("%s\n", (char*)(params->arr[i++]));
+	ft_ls(params, flags, "");
 	return (0);
 }

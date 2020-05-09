@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/09 03:01:26 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/09 19:09:44 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,22 @@ typedef struct		s_datetime
 	long	year;
 	char	*monstr[12];
 }					t_datetime;
+typedef struct		s_vect
+{
+	t_ull	*arr;
+	size_t	size;
+	size_t	len;
+}					t_vect;
+
 
 t_rec*   ft_new_rec(t_de* de, char* name, char path[MAXNAMLEN]);
 t_de	*ft_copyde(t_de *de);
-void	ft_msort(void *arr[], t_us size, t_us asc);
-void    ft_sort_recs(t_rec **arr, uint32_t flags, t_us arr_len);
-void	ft_ls(char **p, size_t s, uint32_t f, char *path);
-void	ft_print_recs(t_rec *r[], size_t s, uint32_t f, t_us d);
+int		ft_msort(t_vect *v, t_us asc, int f(t_ull, t_ull));
+void    ft_sort_recs(t_vect *arr, uint32_t flags);
+void	ft_ls(t_vect *p, uint32_t f, char *path);
+void	ft_print_recs(t_vect *r, uint32_t f, t_us d);
 char	*ft_get_path(t_rec *r, char *dst);
+t_vect	*ft_new_vect(void *a, size_t s, size_t l);
+void	*ft_destroy_vect(t_vect *v);
 
 #endif

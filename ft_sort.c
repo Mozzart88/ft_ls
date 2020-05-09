@@ -6,49 +6,61 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 21:01:43 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/05 20:17:13 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/09 21:02:41 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		ft_sort_by_name(t_rec **arr, t_us l)
+static int	ft_sort_by_name(t_ull a, t_ull b)
+{
+	t_rec	*ra;
+	t_rec	*rb;
+
+	ra = (t_rec*)a;
+	rb = (t_rec*)b;
+	return (ft_strcmp(ra->name, rb->name));
+}
+
+static int	ft_sort_by_mtime(t_ull a, t_ull b)
+{
+	t_rec	*ra;
+	t_rec	*rb;
+	long	r;
+
+	ra = (t_rec*)a;
+	rb = (t_rec*)b;
+	r = ra->st->st_mtimespec.tv_sec - rb->st->st_mtimespec.tv_sec;
+	return (r);
+}
+
+static int	ft_sort_by_atime(t_ull a, t_ull b)
+{
+	t_rec	*ra;
+	t_rec	*rb;
+
+	ra = (t_rec*)a;
+	rb = (t_rec*)b;
+	return (ra->st->st_atimespec.tv_sec - rb->st->st_atimespec.tv_sec);
+}
+/* 
+static void		ft_sort_by_type(t_rec **arr)
 {
 	if (arr || l)
 		return ;
 }
-
-static void		ft_sort_by_mtime(t_rec **arr, t_us l)
-{
-	if (arr || l)
-		return ;
-}
-
-static void		ft_sort_by_atime(t_rec **arr, t_us l)
-{
-	if (arr || l)
-		return ;
-}
-
-static void		ft_sort_by_type(t_rec **arr, t_us l)
-{
-	if (arr || l)
-		return ;
-}
-
+ */
 void		ft_sort_by_size()
 {
 	return ;
 }
 
-void		ft_sort_recs(t_rec **arr, uint32_t f, t_us l)
+void		ft_sort_recs(t_vect *arr, uint32_t f)
 {
-	if (f & F_FLAG)
-		return ;
-	ft_sort_by_type(arr, l);
-	if (f & T_FLAG)
-		ft_sort_by_mtime(arr, l);
+
 	if (f & U_FLAG)
-		ft_sort_by_atime(arr, l);
-	ft_sort_by_name(arr, l);
+		ft_msort(arr, (f & R_FLAG), ft_sort_by_atime);
+	ft_msort(arr, !(f & R_FLAG), ft_sort_by_name);
+	if (f & T_FLAG)
+		ft_msort(arr, (f & R_FLAG), ft_sort_by_mtime);
 }
