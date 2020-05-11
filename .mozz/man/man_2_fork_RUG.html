@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="translated-ltr">
+
+<head>
+	<meta charset="utf-8">
+	<style>
+		* {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+		}
+
+		section {
+			text-align: justify;
+			padding: 120px 50px;
+			line-height: 150%;
+			font-size: 1.2em;
+
+		}
+
+		table.head,
+		table.foot {
+			width: 100%;
+		}
+
+		td.head-rtitle,
+		td.foot-os {
+			text-align: right;
+		}
+
+		td.head-vol {
+			text-align: center;
+		}
+
+		div.Pp {
+			margin: 1ex 0ex;
+		}
+
+		div.Nd,
+		div.Bf,
+		div.Op {
+			display: inline;
+		}
+
+		span.Pa,
+		span.Ad {
+			font-style: italic;
+		}
+
+		span.Ms {
+			font-weight: bold;
+		}
+
+		dl.Bl-diag>dt {
+			font-weight: bold;
+		}
+
+		code.Nm,
+		code.Fl,
+		code.Cm,
+		code.Ic,
+		code.In,
+		code.Fd,
+		code.Fn,
+		code.Cd {
+			font-weight: bold;
+			font-family: inherit;
+		}
+	</style>
+	<title>TERMIOS (4)</title>
+</head>
+
+<body>
+
+<table class="head">
+  <tbody><tr>
+    <td class="head-ltitle"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ВИЛЫ (2)</font></font></td>
+    <td class="head-vol"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Руководство по системным вызовам</font></font></td>
+    <td class="head-rtitle"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ВИЛЫ (2)</font></font></td>
+  </tr>
+</tbody></table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ИМЯ</font></font></a></h1>
+<code class="Nm">fork</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> -
+</font></font><div class="Nd"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">создать новый процесс</font></font></div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">СИНТАКСИС</font></font></a></h1>
+<code class="In">#include <a class="In">&lt;unistd.h&gt;</a></code>
+<p class="Pp"><var class="Ft"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">pid_t</font></font></var>
+  <br>
+  <code class="Fn">fork</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> ( </font></font><var class="Fa"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">void</font></font></var><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> );</font></font></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ОПИСАНИЕ</font></font></a></h1>
+<code class="Fn">fork</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">() вызывает создание нового процесса. </font><font style="vertical-align: inherit;">Новый процесс (дочерний процесс) является точной копией вызывающего процесса (родительского процесса), за исключением следующего:
+</font></font><ul class="Bl-bullet Bd-indent">
+  <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Дочерний процесс имеет уникальный идентификатор процесса.</font></font></li>
+  <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Дочерний процесс имеет другой идентификатор родительского процесса (т. Е. Идентификатор процесса родительского процесса).</font></font></li>
+  <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Дочерний процесс имеет свою собственную копию дескрипторов родителя. </font><font style="vertical-align: inherit;">Эти дескрипторы ссылаются на одни и те же базовые объекты, так что, например, файловые указатели в файловых объектах совместно используются дочерним и родительским объектами, так что </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">lseek (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> для дескриптора в дочернем процессе может повлиять на последующее </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">чтение</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> или </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">запись с</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 
+      помощью родитель. </font><font style="vertical-align: inherit;">Это копирование дескриптора также используется оболочкой для установки стандартного ввода и вывода для вновь создаваемых процессов, а также для настройки каналов.</font></font></li>
+  <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Использование ресурсов дочерних процессов установлено в 0; </font><font style="vertical-align: inherit;">см
+       </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">setrlimit (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> .</font></font></li>
+</ul>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUES"><a class="permalink" href="#RETURN_VALUES"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ВОЗВРАЩАЕМЫЕ ЦЕННОСТИ</font></font></a></h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+После успешного завершения </font></font><code class="Fn">fork</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">() возвращает значение 0 для дочернего процесса и возвращает идентификатор процесса дочернего процесса в родительский процесс. </font><font style="vertical-align: inherit;">В противном случае значение -1 возвращается родительскому процессу, дочерний процесс не создается, а глобальная переменная </font></font><var class="Va"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">errno</font></font></var><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 
+  устанавливается для указания ошибки.
+</font></font></section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ОШИБКИ</font></font></a></h1>
+<code class="Fn">fork</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">() потерпит неудачу, и дочерний процесс не будет создан, если:
+</font></font><dl class="Bl-tag">
+  <dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">[ </font></font><a class="permalink" href="#EAGAIN"><code class="Er" id="EAGAIN">EAGAIN</code></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">]</font></font></dt>
+  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Системный лимит на общее количество выполняемых процессов будет превышен. </font><font style="vertical-align: inherit;">Этот предел зависит от конфигурации.</font></font></dd>
+  <dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">[ </font></font><a class="permalink" href="#EAGAIN_2"><code class="Er" id="EAGAIN_2">EAGAIN</code></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">]</font></font></dt>
+  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Системный лимит </font></font><code class="Dv">MAXUPRC</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+      (ys </font></font><span class="Pa"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">sys / param.h⟩</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> ) на общее количество процессов, выполняемых одним пользователем, будет превышен.</font></font></dd>
+  <dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">[ </font></font><a class="permalink" href="#ENOMEM"><code class="Er" id="ENOMEM">ENOMEM</code></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">]</font></font></dt>
+  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Недостаточно места подкачки для нового процесса.</font></font></dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="LEGACY_SYNOPSIS"><a class="permalink" href="#LEGACY_SYNOPSIS"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ОПИСАНИЕ НОСИТЕЛЕЙ</font></font></a></h1>
+<code class="In">#include <a class="In">&lt;sys/types.h&gt;</a></code>
+  <code class="In">#include <a class="In">&lt;unistd.h&gt;</a></code>
+<p class="Pp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Включаемый файл
+     </font><font style="vertical-align: inherit;">необходим.</font></font><code class="In">&lt;<a class="In">sys/types.h</a>&gt;</code><font style="vertical-align: inherit;"></font></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">СМОТРИТЕ ТАКЖЕ</font></font></a></h1>
+<a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">execve (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> , </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">sigaction (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> ,
+   </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">wait (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> , </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">compat (5)</font></font></a>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ИСТОРИЯ</font></font></a></h1><font style="vertical-align: inherit;"></font><code class="Fn">fork</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Вызова () функция появилась в
+   </font></font><span class="Ux"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">версии 6 AT &amp; T UNIX</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> .
+</font></font></section>
+<section class="Sh">
+<h1 class="Sh" id="CAVEATS"><a class="permalink" href="#CAVEATS"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ПРЕДОСТЕРЕЖЕНИЯ</font></font></a></h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+Существуют ограничения на то, что вы можете сделать в дочернем процессе. </font><font style="vertical-align: inherit;">Для полной безопасности вы должны ограничиться выполнением только безопасных асинхронных сигналов операций до тех пор, пока не будет вызвана одна из функций exec. </font><font style="vertical-align: inherit;">Все API, включая глобальные символы данных, в любой среде или библиотеке должны считаться небезопасными после </font></font><code class="Fn">fork</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">(), если явно не задокументированы как безопасные или асинхронные сигналы. </font><font style="vertical-align: inherit;">Если вам нужно использовать эти платформы в дочернем процессе, вы должны выполнить. </font><font style="vertical-align: inherit;">В этой ситуации разумно исполнить себя.
+</font></font></section>
+</div>
+<table class="foot">
+  <tbody><tr>
+    <td class="foot-date"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">4 июня 1993 г.</font></font></td>
+    <td class="foot-os"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">BSD 4</font></font></td>
+  </tr>
+</tbody></table>
+</body>
+</html>

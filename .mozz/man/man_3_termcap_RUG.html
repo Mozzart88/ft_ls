@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../man.css" type="text/css" media="all">
+	<title>curs_termcap (3X)</title>
+	<script src="../download.js"></script>
+</head>
+
+<body>
+	<button>
+		<font style="vertical-align: inherit;">
+			<font style="vertical-align: inherit;">Скачать текст</font>
+		</font>
+	</button><button>
+		<font style="vertical-align: inherit;">
+			<font style="vertical-align: inherit;">Скачать HTML</font>
+		</font>
+	</button>
+	<table class="head">
+		<tbody>
+			<tr>
+				<td class="head-ltitle">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">curs_termcap (3X)</font>
+					</font>
+				</td>
+				<td class="head-vol"></td>
+				<td class="head-rtitle">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">curs_termcap (3X)</font>
+					</font>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="manual-text">
+		<section class="Sh">
+			<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ИМЯ</font>
+					</font>
+				</a></h1>
+			<b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tgetent</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> , </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tgetflag</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> , </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tgetnum</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> , </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tgetstr</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> , </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tgoto</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> ,
+				</font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tputs</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> - </font>
+				<font style="vertical-align: inherit;">интерфейс </font>
+				<font style="vertical-align: inherit;">прямых </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">проклятий</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> с базой данных terminfo
+				</font>
+			</font>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">СИНТАКСИС</font>
+					</font>
+				</a></h1>
+			<b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">#include &lt;curses.h&gt; </font>
+				</font>
+			</b>
+			<br>
+			<b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">#include &lt;term.h&gt;</font>
+				</font>
+			</b>
+			<p class="Pp"><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">внешний символ ПК; </font>
+					</font>
+				</b>
+				<br>
+				<b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">внешний символ * UP; </font>
+					</font>
+				</b>
+				<br>
+				<b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">внешний символ * BC; </font>
+					</font>
+				</b>
+				<br>
+				<b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">внешняя короткая скорость;</font>
+					</font>
+				</b></p>
+			<p class="Pp"><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">int tgetent (char * bp, const char * name); </font>
+					</font>
+				</b>
+				<br>
+				<b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">int tgetflag (char * id); </font>
+					</font>
+				</b>
+				<br>
+				<b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">int tgetnum (char * id); </font>
+					</font>
+				</b>
+				<br>
+				<b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">char * tgetstr (char * id, char ** area); </font>
+					</font>
+				</b>
+				<br>
+				<b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">char * tgoto (const char * cap, int col, int row);
+						</font>
+					</font>
+				</b>
+				<br>
+				<b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">int tputs (const char * str, int affcnt, int (* putc)
+							(int));</font>
+					</font>
+				</b></p>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ОПИСАНИЕ</font>
+					</font>
+				</a></h1>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">
+					Эти подпрограммы включены в качестве помощи для преобразования программ, которые используют
+				</font>
+				<font style="vertical-align: inherit;">библиотеку </font>
+			</font><i>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">termcap</font>
+				</font>
+			</i>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> . </font>
+				<font style="vertical-align: inherit;">Их параметры одинаковы, и процедуры эмулируются с использованием
+				</font>
+				<font style="vertical-align: inherit;">базы данных </font>
+			</font><i>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">terminfo</font>
+				</font>
+			</i>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> . </font>
+				<font style="vertical-align: inherit;">Таким образом, они могут использоваться только для запроса
+					возможностей записей, для которых была скомпилирована запись terminfo.
+				</font>
+			</font>
+			<p class="Pp">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">Процедура </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tgetent</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> загружает запись для </font>
+				</font><i>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">имени</font>
+					</font>
+				</i>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> . </font>
+					<font style="vertical-align: inherit;">Возвращает 1 в случае успеха, 0, если такой записи нет, и -1,
+						если не удалось найти базу данных terminfo. </font>
+					<font style="vertical-align: inherit;">Эмуляция игнорирует указатель буфера
+					</font>
+				</font><i>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">bp</font>
+					</font>
+				</i>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> .</font>
+				</font>
+			</p>
+			<p class="Pp">
+				<font style="vertical-align: inherit;"></font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">Tgetflag</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> процедура получает логическую запись для </font>
+				</font><i>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">идентификатора</font>
+					</font>
+				</i>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> , или ноля , </font>
+					<font style="vertical-align: inherit;">если он не доступен.</font>
+				</font>
+			</p>
+			<p class="Pp">
+				<font style="vertical-align: inherit;"></font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">Tgetnum</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> процедура получает цифровую запись для </font>
+				</font><i>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">идентификатора</font>
+					</font>
+				</i>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> , или -1 , </font>
+					<font style="vertical-align: inherit;">если он не доступен.</font>
+				</font>
+			</p>
+			<p class="Pp">
+				<font style="vertical-align: inherit;"></font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">Tgetstr</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> подпрограмма возвращает запись строки для </font>
+				</font><i>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">идентификатора</font>
+					</font>
+				</i>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> , или ноль , </font>
+					<font style="vertical-align: inherit;">если он не доступен. </font>
+					<font style="vertical-align: inherit;">Используйте </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tputs</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> для вывода возвращаемой строки. </font>
+					<font style="vertical-align: inherit;">Возвращаемое значение также будет скопировано в буфер, на
+						который указывает
+					</font>
+				</font><i>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">область</font>
+					</font>
+				</i>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> , а </font>
+					<font style="vertical-align: inherit;">значение </font>
+				</font><i>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">области</font>
+					</font>
+				</i>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> будет обновлено, чтобы указывать после нулевого значения,
+						заканчивающегося этим значением.</font>
+				</font>
+			</p>
+			<p class="Pp">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">В </font><b>
+						<font style="vertical-align: inherit;">поиске</font>
+					</b>
+					<font style="vertical-align: inherit;"> сравниваются </font>
+					<font style="vertical-align: inherit;">только первые два символа </font>
+					<font style="vertical-align: inherit;">параметра </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">id</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> из
+					</font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tgetflag</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> , </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tgetnum</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> и </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tgetstr</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> .</font>
+				</font>
+			</p>
+			<p class="Pp">
+				<font style="vertical-align: inherit;"></font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">Tgoto</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> процедура инициализирует параметры в данной возможности.
+					</font>
+					<font style="vertical-align: inherit;">Вывод этой подпрограммы должен быть передан в
+					</font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tputs</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> .</font>
+				</font>
+			</p>
+			<p class="Pp">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">Процедура </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tputs</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> описана на
+					</font>
+					<font style="vertical-align: inherit;">странице руководства </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">curs_terminfo</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> (3X). </font>
+					<font style="vertical-align: inherit;">Он может извлекать возможности по имени termcap или terminfo.
+					</font>
+				</font>
+			</p>
+			<p class="Pp">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">Переменные </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">PC</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> , </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">UP</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> и </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">BC</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> устанавливаются
+					</font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tgetent</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> данным Входа Terminfo для </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">pad_char</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> ,
+					</font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">cursor_up</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> и </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">backspace_if_not_bs</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> соответственно. </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">UP</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> не используется ncurses. </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ПК</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> используется в </font>
+					<font style="vertical-align: inherit;">функции </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tdelay_output</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> .
+					</font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">BC</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> используется в </font>
+					<font style="vertical-align: inherit;">эмуляции </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tgoto</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> . </font>
+					<font style="vertical-align: inherit;">Переменная </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ospeed</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">
+						устанавливается ncurses в системно- </font><b>
+						<font style="vertical-align: inherit;">зависимом</font>
+					</b>
+					<font style="vertical-align: inherit;"> кодировании для отражения скорости терминала.</font>
+				</font>
+			</p>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ</font>
+					</font>
+				</a></h1>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">
+					За исключением случаев, когда явно указано, подпрограммы, которые возвращают целое число, возвращают
+				</font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">ERR</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">
+					при ошибке и </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">OK</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> (SVr4 указывает только «целочисленное значение, отличное от
+				</font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">ERR</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> ») после успешного завершения.
+				</font>
+			</font>
+			<p class="Pp">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">Процедуры, которые возвращают указатели, возвращают </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">NULL</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> в случае ошибки.</font>
+				</font>
+			</p>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ОШИБКИ</font>
+					</font>
+				</a></h1>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">
+					Если вы вызываете </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tgetstr</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> для получения </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">ca</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> или любой другой параметризованной строки, </font><b>
+					<font style="vertical-align: inherit;">имейте</font>
+				</b>
+				<font style="vertical-align: inherit;"> в </font><b>
+					<font style="vertical-align: inherit;">виду</font>
+				</b>
+				<font style="vertical-align: inherit;"> , что она будет возвращена в нотации terminfo, а не в более
+					старой и не совсем совместимой нотации termcap. </font>
+				<font style="vertical-align: inherit;">Это не вызовет проблем, если все, что вы делаете с ним, это вызов
+				</font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tgoto</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> или </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tparm</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> , которые оба раскрывают строки в стиле terminfo как terminfo.
+				</font>
+				<font style="vertical-align: inherit;">(Функция </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tgoto</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> , если она настроена на поддержку termcap, проверит,
+					действительно ли строка в стиле terminfo, путем поиска параметров «% p» или задержек «$ &lt;..&gt;»,
+					и вызовет анализатор в стиле termcap, если строка не похоже на terminfo).
+				</font>
+			</font>
+			<p class="Pp">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">Поскольку соглашения terminfo для представления заполнения в
+						строковых возможностях отличаются от </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">условий</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> termcap, </font><b>
+						<font style="vertical-align: inherit;">tputs ("50"); </font>
+					</b>
+					<font style="vertical-align: inherit;">будет выдавать буквальный «50», а не заняты ожидания в
+						течение 50 миллисекунд. </font>
+					<font style="vertical-align: inherit;">Справиться с этим.</font>
+				</font>
+			</p>
+			<p class="Pp">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">Обратите внимание, что в termcap нет ничего </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">похожего на</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">
+						строку </font><b>
+						<font style="vertical-align: inherit;">sgr</font>
+					</b>
+					<font style="vertical-align: inherit;"> terminfo </font>
+					<font style="vertical-align: inherit;">. </font>
+					<font style="vertical-align: inherit;">Одним из следствий этого является то, что приложения termcap
+						предполагают, что я (terminfo </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">sgr0</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> ) не сбрасывает альтернативный набор символов. </font>
+					<font style="vertical-align: inherit;">Эта реализация проверяет и изменяет данные, отображаемые в
+						интерфейсе termcap, чтобы учесть ограничение termcap в этом отношении.</font>
+				</font>
+			</p>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="PORTABILITY"><a class="permalink" href="#PORTABILITY">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">Портативность</font>
+					</font>
+				</a></h1>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">
+					Стандарт XSI Curses, выпуск 4, описывает эти функции. </font>
+				<font style="vertical-align: inherit;">Тем не менее, они помечены как изъятые и могут быть удалены в
+					будущих версиях.
+				</font>
+			</font>
+			<p class="Pp">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">Ни в стандарте XSI Curses, ни в справочных страницах SVr4
+					</font>
+					<font style="vertical-align: inherit;">правильно не </font>
+					<font style="vertical-align: inherit;">задокументированы возвращаемые значения </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tgetent</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> , хотя все три фактически были возвращены со времен SVr1.
+					</font>
+					<font style="vertical-align: inherit;">В частности, упущение в документации XSI Curses было неверно
+						истолковано как означающее, что </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">tgetent</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> возвращает
+					</font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">OK</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> или </font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ERR</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> . </font>
+					<font style="vertical-align: inherit;">Поскольку целью этих функций является обеспечение
+						совместимости с </font>
+					<font style="vertical-align: inherit;">библиотекой </font>
+				</font><i>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">termcap</font>
+					</font>
+				</i>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> , это является дефектом в XCurses, выпуск 4, версия 2, а не
+						в ncurses.</font>
+				</font>
+			</p>
+			<p class="Pp">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">Внешние переменные предоставляются для поддержки определенных
+						приложений termcap. </font>
+					<font style="vertical-align: inherit;">Однако использование этих переменных в приложениях termcap
+						плохо документировано, например, не проводится различие между вводом и выводом. </font>
+					<font style="vertical-align: inherit;">В частности, сообщается, что некоторые приложения объявляют и
+						/ или модифицируют
+					</font>
+				</font><b>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ospeed</font>
+					</font>
+				</b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> .</font>
+				</font>
+			</p>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">СМОТРИТЕ ТАКЖЕ</font>
+					</font>
+				</a></h1>
+			<b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">проклятия</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> (3X), </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">terminfo</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> (5), </font>
+			</font><b>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">putc</font>
+				</font>
+			</b>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> (3).
+				</font>
+			</font>
+		</section>
+	</div>
+	<table class="foot">
+		<tbody>
+			<tr>
+				<td class="foot-date"></td>
+				<td class="foot-os"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html class="translated-ltr">
+
+<head>
+	<meta charset="utf-8">
+	<style>
+		* {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+		}
+
+		section {
+			text-align: justify;
+			padding: 120px 50px;
+			line-height: 150%;
+			font-size: 1.2em;
+
+		}
+
+		table.head,
+		table.foot {
+			width: 100%;
+		}
+
+		td.head-rtitle,
+		td.foot-os {
+			text-align: right;
+		}
+
+		td.head-vol {
+			text-align: center;
+		}
+
+		div.Pp {
+			margin: 1ex 0ex;
+		}
+
+		div.Nd,
+		div.Bf,
+		div.Op {
+			display: inline;
+		}
+
+		span.Pa,
+		span.Ad {
+			font-style: italic;
+		}
+
+		span.Ms {
+			font-weight: bold;
+		}
+
+		dl.Bl-diag>dt {
+			font-weight: bold;
+		}
+
+		code.Nm,
+		code.Fl,
+		code.Cm,
+		code.Ic,
+		code.In,
+		code.Fd,
+		code.Fn,
+		code.Cd {
+			font-weight: bold;
+			font-family: inherit;
+		}
+	</style>
+	<title>TERMIOS (4)</title>
+</head>
+
+<body>
+	<table class="head">
+		<tbody>
+			<tr>
+				<td class="head-ltitle">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">IOCTL (2)</font>
+					</font>
+				</td>
+				<td class="head-vol">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">Руководство по системным вызовам</font>
+					</font>
+				</td>
+				<td class="head-rtitle">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">IOCTL (2)</font>
+					</font>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="manual-text">
+		<section class="Sh">
+			<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ИМЯ</font>
+					</font>
+				</a></h1>
+			<code class="Nm">ioctl</code>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> -
+				</font>
+			</font>
+			<div class="Nd">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">устройство управления</font>
+				</font>
+			</div>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">СИНТАКСИС</font>
+					</font>
+				</a></h1>
+			<code class="In">#include <a class="In">&lt;sys/ioctl.h&gt;</a></code>
+			<p class="Pp"><var class="Ft">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">int</font>
+					</font>
+				</var>
+				<br>
+				<code class="Fn">ioctl</code>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> ( </font>
+				</font><var class="Fa">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">int fildes</font>
+					</font>
+				</var>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> ,
+					</font>
+				</font><var class="Fa">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">unsigned long request</font>
+					</font>
+				</var>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> , </font>
+				</font><var class="Fa">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">...</font>
+					</font>
+				</var>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> );</font>
+				</font>
+			</p>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ОПИСАНИЕ</font>
+					</font>
+				</a></h1>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">
+					Функция </font>
+			</font><code class="Fn">ioctl</code>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">() манипулирует базовыми параметрами устройства специальных
+					файлов. </font>
+				<font style="vertical-align: inherit;">В частности, многие рабочие характеристики символьных специальных
+					файлов (например, терминалов) могут управляться
+				</font>
+			</font><code class="Fn">ioctl</code>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">запросами (). </font>
+				<font style="vertical-align: inherit;">Аргумент
+				</font>
+			</font><var class="Fa">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">fildes</font>
+				</font>
+			</var>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> должен быть </font><var class="Fa">
+					<font style="vertical-align: inherit;">дескриптором</font>
+				</var>
+				<font style="vertical-align: inherit;"> открытого файла.
+				</font>
+			</font>
+			<p class="Pp">
+				<font style="vertical-align: inherit;"></font><var class="Fa">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">Запрос</font>
+					</font>
+				</var>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> ioctl </font>
+					<font style="vertical-align: inherit;">закодировал в нем, является ли аргумент параметром «in» или
+						«out», и размер аргумента </font>
+				</font><var class="Fa">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">argp</font>
+					</font>
+				</var>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> в байтах. </font>
+					<font style="vertical-align: inherit;">Макросы и определения, используемые при указании </font>
+				</font><var class="Fa">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">запроса</font>
+					</font>
+				</var>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> ioctl, </font>
+					<font style="vertical-align: inherit;">
+						находятся в файле « </font>
+				</font><span class="Pa">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">sys / ioctl.h»</font>
+					</font>
+				</span>
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;"> .</font>
+				</font>
+			</p>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="RETURN_VALUES"><a class="permalink" href="#RETURN_VALUES">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ВОЗВРАЩАЕМЫЕ ЦЕННОСТИ</font>
+					</font>
+				</a></h1>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">
+					Если произошла ошибка, возвращается значение -1 и значение
+				</font>
+			</font><var class="Va">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">errno</font>
+				</font>
+			</var>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> устанавливается для указания ошибки.
+				</font>
+			</font>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ОШИБКИ</font>
+					</font>
+				</a></h1>
+			<code class="Fn">ioctl</code>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">() потерпит неудачу, если:
+				</font>
+			</font>
+			<dl class="Bl-tag">
+				<dt>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">[ </font>
+					</font><a class="permalink" href="#EBADF"><code class="Er" id="EBADF">EBADF</code></a>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">]</font>
+					</font>
+				</dt>
+				<dd><var class="Fa">
+						<font style="vertical-align: inherit;">
+							<font style="vertical-align: inherit;">fildes</font>
+						</font>
+					</var>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;"> не является допустимым дескриптором.</font>
+					</font>
+				</dd>
+				<dt>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">[ </font>
+					</font><a class="permalink" href="#EINVAL"><code class="Er" id="EINVAL">EINVAL</code></a>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">]</font>
+					</font>
+				</dt>
+				<dd><var class="Fa">
+						<font style="vertical-align: inherit;">
+							<font style="vertical-align: inherit;">Запрос</font>
+						</font>
+					</var>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;"> или </font>
+					</font><var class="Fa">
+						<font style="vertical-align: inherit;">
+							<font style="vertical-align: inherit;">argp</font>
+						</font>
+					</var>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;"> недействительны.</font>
+					</font>
+				</dd>
+				<dt>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">[ </font>
+					</font><a class="permalink" href="#ENOTTY"><code class="Er" id="ENOTTY">ENOTTY</code></a>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">]</font>
+					</font>
+				</dt>
+				<dd><var class="Fa">
+						<font style="vertical-align: inherit;">
+							<font style="vertical-align: inherit;">fildes</font>
+						</font>
+					</var>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;"> не связан с символом специального устройства.</font>
+					</font>
+				</dd>
+				<dt>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">[ </font>
+					</font><a class="permalink" href="#ENOTTY_2"><code class="Er" id="ENOTTY_2">ENOTTY</code></a>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">]</font>
+					</font>
+				</dt>
+				<dd>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">Указанный запрос не применяется к виду объекта, на
+							который </font>
+					</font><var class="Fa">
+						<font style="vertical-align: inherit;">
+							<font style="vertical-align: inherit;">дескриптор</font>
+						</font>
+					</var>
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;"> ссылается.</font>
+					</font>
+				</dd>
+			</dl>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">СМОТРИТЕ ТАКЖЕ</font>
+					</font>
+				</a></h1>
+			<a class="Xr">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">cdio (1)</font>
+				</font>
+			</a>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> , </font>
+			</font><a class="Xr">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">chio (1)</font>
+				</font>
+			</a>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> , </font>
+			</font><a class="Xr">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">mt (1)</font>
+				</font>
+			</a>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> ,
+				</font>
+			</font><a class="Xr">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">execve (2)</font>
+				</font>
+			</a>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> , </font>
+			</font><a class="Xr">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">fcntl (2)</font>
+				</font>
+			</a>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> ,
+				</font>
+			</font><a class="Xr">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">intro (4)</font>
+				</font>
+			</a>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> , </font>
+			</font><a class="Xr">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">tty (4)</font>
+				</font>
+			</a>
+		</section>
+		<section class="Sh">
+			<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">ИСТОРИЯ</font>
+					</font>
+				</a></h1>
+			<font style="vertical-align: inherit;"></font><code class="Fn">ioctl</code>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;">Вызова () функция появилась в
+				</font>
+			</font><span class="Ux">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">версии 7 AT &amp; T UNIX</font>
+				</font>
+			</span>
+			<font style="vertical-align: inherit;">
+				<font style="vertical-align: inherit;"> .
+				</font>
+			</font>
+		</section>
+	</div>
+	<table class="foot">
+		<tbody>
+			<tr>
+				<td class="foot-date">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">11 декабря 1993 г.</font>
+					</font>
+				</td>
+				<td class="foot-os">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">BSD 4</font>
+					</font>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>

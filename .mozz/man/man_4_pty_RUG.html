@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="translated-ltr">
+	<head>
+		<meta charset="utf-8">
+		<style>
+			* {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+			}
+			section {
+				text-align: justify;
+				padding: 120px 50px;
+				line-height: 150%;
+				font-size: 1.2em;
+
+			}
+		table.head, table.foot { width: 100%; }
+		td.head-rtitle, td.foot-os { text-align: right; }
+		td.head-vol { text-align: center; }
+		div.Pp { margin: 1ex 0ex; }
+		div.Nd, div.Bf, div.Op { display: inline; }
+		span.Pa, span.Ad { font-style: italic; }
+		span.Ms { font-weight: bold; }
+		dl.Bl-diag > dt { font-weight: bold; }
+		code.Nm, code.Fl, code.Cm, code.Ic, code.In, code.Fd, code.Fn,
+		code.Cd { font-weight: bold; font-family: inherit; }
+		</style>
+		<title>TERMIOS (4)</title>
+	</head>
+	<body>
+		<table class="head">
+		  <tbody><tr>
+			<td class="head-ltitle"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">PTY (4)</font></font></td>
+			<td class="head-vol"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Руководство по драйверам устройств</font></font></td>
+			<td class="head-rtitle"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">PTY (4)</font></font></td>
+		  </tr>
+		</tbody></table>
+		<div class="manual-text">
+		<section class="Sh">
+		<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ИМЯ</font></font></a></h1>
+		<code class="Nm">pty</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> -
+		</font></font><div class="Nd"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">драйвер псевдо-терминала</font></font></div>
+		</section>
+		<section class="Sh">
+		<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">СИНТАКСИС</font></font></a></h1>
+		<code class="Cd">pseudo-device pty</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">[ </font></font><var class="Ar"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">количество</font></font></var><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> ]
+		</font></font></section>
+		<section class="Sh">
+		<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ОПИСАНИЕ</font></font></a></h1><font style="vertical-align: inherit;"></font><code class="Nm">pty</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Драйвер обеспечивает поддержку для устройства пары называют </font></font><i class="Em"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">псевдо терминал</font></font></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> . </font><font style="vertical-align: inherit;">Псевдотерминал - это пара символьных устройств, </font></font><i class="Em"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ведущее</font></font></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> устройство и </font></font><i class="Em"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">подчиненное</font></font></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 
+		  устройство. </font><font style="vertical-align: inherit;">Подчиненное устройство предоставляет процессу интерфейс, идентичный описанному в </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">tty (4)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> . </font><font style="vertical-align: inherit;">Однако, в то время как все другие устройства, которые предоставляют интерфейс, описанный в </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">tty (4),</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> имеют какое-то аппаратное устройство позади них, ведомое устройство вместо этого имеет другой процесс, управляющий им через главную половину псевдотерминала. </font><font style="vertical-align: inherit;">То есть все, что записано на ведущем устройстве, передается на ведомое устройство в качестве ввода, а все, что записывается на ведомом устройстве, представляется как ввод на ведущем устройстве.
+		</font></font><p class="Pp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">При конфигурировании, если </font><font style="vertical-align: inherit;">в спецификации указан </font><font style="vertical-align: inherit;">необязательный </font></font><var class="Ar"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">счетчик,</font></font></var><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> конфигурируется </font><font style="vertical-align: inherit;">это количество пар псевдо-терминала; </font><font style="vertical-align: inherit;">количество по умолчанию составляет 32.</font></font></p>
+		<p class="Pp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Следующие </font><font style="vertical-align: inherit;">вызовы </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ioctl (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> применяются только к псевдо-терминалам:</font></font></p>
+		<dl class="Bl-tag">
+		  <dt><a class="permalink" href="#TIOCSTOP"><code class="Dv" id="TIOCSTOP">TIOCSTOP</code></a></dt>
+		  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Останавливает вывод на терминал (например, набрав ' </font></font><code class="Li">^S</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'). </font><font style="vertical-align: inherit;">Не принимает никаких параметров.</font></font></dd>
+		  <dt><a class="permalink" href="#TIOCSTART"><code class="Dv" id="TIOCSTART">TIOCSTART</code></a></dt>
+		  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Перезапускает вывод (останавливается с помощью </font></font><code class="Dv">TIOCSTOP</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">или набирая ' </font></font><code class="Li">^S</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'). </font><font style="vertical-align: inherit;">Не принимает никаких параметров.</font></font></dd>
+		  <dt><a class="permalink" href="#TIOCPKT"><code class="Dv" id="TIOCPKT">TIOCPKT</code></a></dt>
+		  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Включить / отключить </font></font><i class="Em"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">пакетный</font></font></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> режим. </font><font style="vertical-align: inherit;">Пакетный режим включается путем указания (посредством ссылки) ненулевого параметра и отключается путем указания (посредством ссылки) нулевого параметра. </font><font style="vertical-align: inherit;">При применении к ведущей стороне псевдотерминала каждое последующее </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">считывание (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> с терминала будет возвращать данные, записанные на подчиненной части псевдотерминала, которому предшествует нулевой байт (обозначенный символом как
+			   </font></font><code class="Dv">TIOCPKT_DATA</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">), или один байт, отражающий состояние управления. Информация. </font><font style="vertical-align: inherit;">В последнем случае байт представляет собой включающий или ноль или более битов:
+			</font></font><dl class="Bl-tag">
+			  <dt><a class="permalink" href="#TIOCPKT_FLUSHREAD"><code class="Dv" id="TIOCPKT_FLUSHREAD">TIOCPKT_FLUSHREAD</code></a></dt>
+			  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">всякий раз, когда очередь чтения для терминала сбрасывается.</font></font></dd>
+			  <dt><a class="permalink" href="#TIOCPKT_FLUSHWRITE"><code class="Dv" id="TIOCPKT_FLUSHWRITE">TIOCPKT_FLUSHWRITE</code></a></dt>
+			  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">всякий раз, когда очередь записи для терминала очищается.</font></font></dd>
+			  <dt><a class="permalink" href="#TIOCPKT_STOP"><code class="Dv" id="TIOCPKT_STOP">TIOCPKT_STOP</code></a></dt>
+			  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">всякий раз, когда вывод на терминал останавливается а-ля ' </font></font><code class="Li">^S</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'.</font></font></dd>
+			  <dt><a class="permalink" href="#TIOCPKT_START"><code class="Dv" id="TIOCPKT_START">TIOCPKT_START</code></a></dt>
+			  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">всякий раз, когда вывод на терминал перезапускается.</font></font></dd>
+			  <dt><a class="permalink" href="#TIOCPKT_DOSTOP"><code class="Dv" id="TIOCPKT_DOSTOP">TIOCPKT_DOSTOP</code></a></dt>
+			  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">всякий раз, когда </font></font><i class="Em"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">t_stopc</font></font></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> равен ' </font></font><code class="Li">^S</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">', а
+				   </font></font><i class="Em"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">t_startc</font></font></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> равен ' </font></font><code class="Li">^Q</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'.</font></font></dd>
+			  <dt><a class="permalink" href="#TIOCPKT_NOSTOP"><code class="Dv" id="TIOCPKT_NOSTOP">TIOCPKT_NOSTOP</code></a></dt>
+			  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">всякий раз, когда начальный и конечный символы не равны ' </font></font><code class="Li">^S/^Q</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'.
+				</font></font><p class="Pp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">В то время как этот режим используется, наличие информации о состоянии управления, которая должна быть прочитана со стороны ведущего, может быть обнаружено посредством
+					 </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">выбора (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> для исключительных условий.</font></font></p>
+				<p class="Pp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Этот режим используется </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">rlogin (1)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> и
+					 </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">rlogind (8)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> для реализации удаленного эхолота, локального </font></font><code class="Li">^S/^Q</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">«управляемого потоком» удаленного входа в систему с надлежащей обратной очисткой вывода; </font><font style="vertical-align: inherit;">это может использоваться другими подобными программами.</font></font></p>
+			  </dd>
+			</dl>
+		  </dd>
+		  <dt><a class="permalink" href="#TIOCUCNTL"><code class="Dv" id="TIOCUCNTL">TIOCUCNTL</code></a></dt>
+		  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Включите / отключите режим, который позволяет небольшому количеству простых пользовательских
+			   </font><font style="vertical-align: inherit;">команд </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ioctl (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> проходить через псевдотерминал, используя протокол, аналогичный протоколу
+			   </font></font><code class="Dv">TIOCPKT</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">. </font></font><code class="Dv">TIOCUCNTL</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">И
+			   </font></font><code class="Dv">TIOCPKT</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">режимы являются взаимоисключающими. </font><font style="vertical-align: inherit;">Этот режим включается со стороны мастера псевдотерминала путем указания (посредством ссылки) ненулевого параметра и отключается путем указания (посредством ссылки) нулевого параметра. </font><font style="vertical-align: inherit;">Каждое последующее </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">чтение (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> со стороны ведущего будет возвращать данные, записанные на подчиненной части псевдотерминала, которому предшествует нулевой байт, или один байт, отражающий операцию управления пользователем на ведомой стороне. </font><font style="vertical-align: inherit;">Пользовательская команда управления состоит из специального
+			   </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ioctl (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">работа без данных; </font><font style="vertical-align: inherit;">команда задается как
+			   </font></font><code class="Dv">UIOCCMD</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">(n), где </font></font><var class="Ar"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">n</font></font></var><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - это число в диапазоне 1-255. </font><font style="vertical-align: inherit;">Значение операции </font></font><var class="Ar"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">n</font></font></var><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 
+			  будет получено в виде одного байта при следующем </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">чтении (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 
+			  со стороны ведущего. </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">IOCTL (2)</font></font></a>
+			  <code class="Dv">UIOCCMD</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> (0) является не-оп , </font><font style="vertical-align: inherit;">который может быть использован для зондирования для существования этого объекта. </font><font style="vertical-align: inherit;">Как и в
+			   </font></font><code class="Dv">TIOCPKT</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">режиме, командные операции могут быть обнаружены с помощью </font></font><a class="Xr"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">выбора (2)</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> для исключительных условий.</font></font></dd>
+		  <dt><a class="permalink" href="#TIOCREMOTE"><code class="Dv" id="TIOCREMOTE">TIOCREMOTE</code></a></dt>
+		  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Режим для основной половины псевдотерминала, независимо от
+			   </font></font><code class="Dv">TIOCPKT</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">. </font><font style="vertical-align: inherit;">В этом режиме вход псевдотерминала управляется потоком и не редактируется (независимо от режима терминала). </font><font style="vertical-align: inherit;">Каждая запись в управляющий терминал создает границу записи для процесса, считывающего терминал. </font><font style="vertical-align: inherit;">При обычном использовании запись данных похожа на данные, введенные в виде строки на терминале; </font><font style="vertical-align: inherit;">запись в 0 байтов похожа на ввод символа конца файла.
+			  </font></font><code class="Dv">TIOCREMOTE</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">может использоваться при удаленном редактировании строки в диспетчере окон или когда требуется ввод с управлением потоком.</font></font></dd>
+		</dl>
+		</section>
+		<section class="Sh">
+		<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">FILES</font></font></a></h1>
+		<dl class="Bl-tag Bl-compact">
+		  <dt><span class="Pa"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">/ DEV / псевдотерминал [п-SP-S], [а-z0-9]</font></font></span></dt>
+		  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">мастер псевдо-терминалы</font></font></dd>
+		  <dt><span class="Pa"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">/ DEV / терминал [п-SP-S], [а-z0-9]</font></font></span></dt>
+		  <dd><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">подчиненные псевдо-терминалы</font></font></dd>
+		</dl>
+		</section>
+		<section class="Sh">
+		<h1 class="Sh" id="DIAGNOSTICS"><a class="permalink" href="#DIAGNOSTICS"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ДИАГНОСТИКИ</font></font></a></h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+		Никто.
+		</font></font></section>
+		<section class="Sh">
+		<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ИСТОРИЯ</font></font></a></h1><font style="vertical-align: inherit;"></font><code class="Nm">pty</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Драйвер появился в
+		   </font></font><span class="Ux"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">4.2BSD</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> .
+		</font></font></section>
+		</div>
+		<table class="foot">
+		  <tbody><tr>
+			<td class="foot-date"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">30 ноября 1993 г.</font></font></td>
+			<td class="foot-os"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">BSD 4.2</font></font></td>
+		  </tr>
+		</tbody></table>
+	</body>
+</html>
