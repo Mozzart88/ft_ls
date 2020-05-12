@@ -35,11 +35,11 @@ Mandatory part:
 	☐ Recode system command ls
 	☐ Behavior must be identical to original ls command with the following variations:
 		☐ Optins to recode:
-			☐ -l (If not argument, than you do not have deal with the multiple column format for exit)
-			☐ -R (RECOMENDED to implement from the very beginning)
-			☐ -a
-			☐ -r
-			☐ -t
+			☐ -l (If not argument, than you do not have deal with the multiple column format for exit) @started(20-05-10 18:50)
+			☐ -R (RECOMENDED to implement from the very beginning) @started(20-05-10 18:50)
+			☐ -a @started(20-05-10 18:50)
+			☐ -r @started(20-05-10 18:50)
+			☐ -t @started(20-05-10 18:49)
 		☐ ACL and extended attributs not required
 		☐ Output must stay as udentical as pasible to system command
 	☐ man ls
@@ -47,14 +47,54 @@ Bonus part:
 	☐ Manage ACL and extended attributs
 	☐ Manage column without option -l (man 4 tty)
 	☐ Manage options:
-		☐ -u
-		☐ -f
-		☐ -g
-		☐ -d
-	☐ Manage of views in colors (option -G)
+		☐ -u @started(20-05-10 18:50)
+		☐ -f @started(20-05-10 18:50)
+		☐ -g @started(20-05-10 18:50)
+		☐ -d @started(20-05-10 18:50)
+	☐ Manage of views in colors (option -G) @started(20-05-10 18:50)
 	☐ Optimization of code (i.ex. time of response on BIG ls -lR)
 Submission:
 	☐ As usual
 Recomended helpers:
 	☐ ft_list_dir (opendir, closedir, readdir)
 	☐ ft_inspect_file (stat)
+Mans:
+	✔ tty @done(20-05-10 18:18)
+	✔ termios(4) @done(20-05-10 18:46)
+	☐ fork(2)
+	☐ setsid(2)
+	☐ sys/ttydefaults.h
+	☐ tcgetattr
+	☐ tcsetattr
+	✔ pty(4) @started(20-05-10 18:47) @done(20-05-10 19:38) @lasted(51m39s)
+	✔ ioctl(2) @started(20-05-10 19:38) @done(20-05-10 19:48) @lasted(10m39s)
+	☐ execve(2)
+	☐ intro(1)
+	☐ intro(2)
+	☐ intro(4) @no_man 
+	☐ setrlimit(2)
+	☐ sigacrtion(2)
+	☐ wait(2)
+	☐ compat(5)
+	✔ termcap(3) @started(20-05-11 02:02) @done(20-05-11 02:44) @lasted(42m32s)
+	✔ putc(3) @started(20-05-11 02:46) @done(20-05-11 02:46) @lasted(12s)
+	☐ term(5)
+	☐ term(7)
+	☐ term(n)
+	☐ terminfo(5)
+	☐ term_bind(n)
+	☐ term_send(n)
+	✔ dir(5) @started(20-05-11 03:24) @done(20-05-11 03:28) @lasted(4m55s)
+	☐ direntries(2)
+	☐ direntriesattr(2)
+	☐ mount(2)
+	☐ mount(8)
+	☐ fs(5) @no_man
+	✔ sticky(8) @started(20-05-11 22:18) @done(20-05-11 22:18) @lasted(35s)
+	☐ chmod(1)
+	☐ chmod(2)
+	☐ access(2)
+	✔ time(3) @done(20-05-11 14:05)
+	✔ ctime(3) @done(20-05-11 14:05)
+	✔ gettimeofday(2) @started(20-05-11 14:07) @done(20-05-11 14:10) @lasted(3m31s)
+	✔ getenv(3) @done(20-05-11 21:20)

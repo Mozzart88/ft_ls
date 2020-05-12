@@ -59,3 +59,4 @@ Mkfile.old
 dkms.conf
 sort_tests/msort
 .mozz/test/diff
+.DS_Store
