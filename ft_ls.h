@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/09 22:22:42 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/11 19:23:47 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,14 @@
 **	Sorting flags mask: -frtu
 */ 
 #define SORT_FLAGS	0x344
+/*
+**	Long format flags mask: -lg
+*/ 
+#define LF_FLAGS	0x28
+/*
+**	All entries flags mask: -af
+*/ 
+#define AE_FLAGS	0x5
 #define FLAGS_COUNT 10
 #define WORD_FLAGS {}
 #define STRICT_FLAGS_ORDER 1
@@ -98,17 +106,21 @@ typedef	struct		s_rec
     int             _errno;
 	int				content_size;
     char*           _errstr;
-    int				xattrs;
+    char			xattrs[__DARWIN_MAXPATHLEN];
+    char			lnk_to[__DARWIN_MAXPATHLEN];
 }					t_rec;
 typedef struct		s_datetime
 {
 	long	sec;
 	long	min;
 	long	hour;
-	long	day;
+	long	mday;
 	long	mon;
 	long	year;
-	char	*monstr[12];
+	long	wday;
+	long	yday;
+	char	*daystr;
+	char	*monstr;
 }					t_datetime;
 typedef struct		s_vect
 {
@@ -116,7 +128,15 @@ typedef struct		s_vect
 	size_t	size;
 	size_t	len;
 }					t_vect;
-
+typedef struct		s_maxvallen
+{
+	t_ull	lnk;
+	t_ull	un;
+	t_ull	gn;
+	t_ull	sl;
+	t_ull	maj;
+	t_ull	min;
+}					t_maxvallen;
 
 t_rec*   ft_new_rec(t_de* de, char* name, char path[MAXNAMLEN]);
 t_de	*ft_copyde(t_de *de);

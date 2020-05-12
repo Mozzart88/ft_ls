@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 19:50:11 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/09 22:27:23 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/11 05:29:45 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,9 @@ t_rec		*ft_new_rec(t_de *de, char *name, char path[__DARWIN_MAXPATHLEN])
 	if (!(r = (t_rec*)malloc(sizeof(t_rec))))
 		return (NULL);
 	ft_memset(r->path, 0, __DARWIN_MAXPATHLEN);
-	// ft_strcat(r->path, path);
 	ft_get_dir(path, (r->path));
 	ft_get_dir(name, (r->path));
 	ft_get_name(name, (r->name));
-	// ft_strcat(r->path, name);
-	// ft_strcpy(r->name, name);
 	r->_errno = 0;
 	if (de)
 		r->de = ft_copyde(de);
@@ -74,13 +71,18 @@ t_rec		*ft_new_rec(t_de *de, char *name, char path[__DARWIN_MAXPATHLEN])
 	}
 	if (!(r->st = (t_stat*)malloc(sizeof(t_stat))))
 		return (NULL);
-	// name = r->path[0] ? ft_strcat(r->path, name) : name;
 	ft_get_path(r, p);
-	if (stat(p, r->st))
+	if (lstat(p, r->st))
     {
             r->_errno = errno;
             r->_errstr = strerror(errno);
     }
-	r->xattrs = listxattr(p, p, __DARWIN_MAXPATHLEN, XATTR_SHOWCOMPRESSION);
+	ft_memset(r->xattrs, 0, __DARWIN_MAXPATHLEN);
+	listxattr(p, r->xattrs, __DARWIN_MAXPATHLEN, XATTR_SHOWCOMPRESSION);
+	ft_memset(r->lnk_to, 0, __DARWIN_MAXPATHLEN);
+	if ((r->st->st_mode & S_IFMT) == S_IFLNK)
+	{
+		readlink(p, r->lnk_to, __DARWIN_MAXPATHLEN);
+	}
 	return (r);
 }

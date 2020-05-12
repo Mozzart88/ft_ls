@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 22:29:26 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/09 15:42:09 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/12 04:51:30 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	merge(t_vect *arr, t_vect *l, t_vect *r, t_us asc, int f(t_ull, t_ul
 	k = 0;
 	while (i < l->len && j < r->len)
 	{
-		if ((f(l->arr[i], r->arr[j]) <= 0 && asc) || (f(l->arr[i], r->arr[j]) > 0 && !asc))
+		if ((f(l->arr[i], r->arr[j]) > 0 && asc) || (f(l->arr[i], r->arr[j]) < 0 && !asc))
 		{
 			ft_swap_pointers(&arr->arr[k], &l->arr[i]);
 			++i;
