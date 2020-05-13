@@ -10,7 +10,32 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-al",
+				// "-la",
+				// "-1",
+				// "-",
+				// ".",
+				// ".",
+				// "-lR",
+				// ".mozz",
+				// "-1d",
+				// "-ld",
+				// ".",
+				// "-1l",
+				// "/dev/dtrace",
+				// "-1R",
+				// ".mozz/test/mouli_test/01_test_opt_R/A",
+				// ".mozz/test/mouli_test/01_test_opt_R/a",
+				// ".mozz/test/mouli_test/01_test_opt_R/rootfile",
+				// ".mozz/test/mouli_test/01_test_opt_R/rootfile",
+				// "-1t",
+				// ".mozz/test/mouli_test/07_test_opt_t"
+				"-l",
+				"/etc"
+				// "/usr/bin",
+				// ".mozz/test/symdir",
+				// "-",
+				// "",
+				// "-R"
 				// "-ld",
 				// "-agR",
 				// "-ldg"
@@ -29,13 +54,16 @@
 				// ".mozz/.DS_Store",
 				// ".mozz/privated"
 				// "/dev"
-				"/Users/mozzart/Documents"
+				// "/Users/mozzart/Documents"
+				// ".mozz/test"
+				// ".mozz/test/.hiddendir"
 			],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
-			"MIMode": "lldb"
+			"MIMode": "lldb",
+			"preLaunchTask": "${defaultBuildTask}"
 		}
 	]
 }

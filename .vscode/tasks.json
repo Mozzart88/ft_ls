@@ -53,6 +53,49 @@
 				"$gcc"
 			],
 			"group": "build"
+		},
+		{
+			"type": "shell",
+			"label": "Build whith make",
+			"command": "make",
+			"args": [
+				"-C",
+				"${workspaceFolder}",
+				"CC=clang",
+				"DEBUG=1"
+			],
+			"options": {
+				"cwd": "/usr/bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Build whith remake",
+			"command": "make",
+			"args": [
+				"-C",
+				"${workspaceFolder}",
+				"CC=clang",
+				"DEBUG=1",
+				"re"
+			],
+			"options": {
+				"cwd": "/usr/bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }
