@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 04:28:02 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/09 14:38:20 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/12 19:43:22 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ t_vect	*ft_new_vect(void *a, size_t s, size_t l)
 	return (v);
 }
 
-void	*ft_destroy_vect(t_vect *v)
+void	*ft_destroy_vect(t_vect **v)
 {
-	v->arr = NULL;
-	v->size = 0;
-	v->len = 0;
-	v = NULL;
-	free(v);
+	(*v)->arr = NULL;
+	(*v)->size = 0;
+	(*v)->len = 0;
+	(*v) = NULL;
+	free(*v);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/11 19:23:47 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/13 07:40:50 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/types.h>
 #include  <errno.h>
 
-#define LETER_FLAGS "adfgGlrRtu"
+#define LETER_FLAGS "adfgGlrRtu1"
 /*
 **	Include directory entries whose names begin with a dot (.).
 */ 
@@ -85,7 +85,7 @@
 **	All entries flags mask: -af
 */ 
 #define AE_FLAGS	0x5
-#define FLAGS_COUNT 10
+#define FLAGS_COUNT 11
 #define WORD_FLAGS {}
 #define STRICT_FLAGS_ORDER 1
 
@@ -107,7 +107,8 @@ typedef	struct		s_rec
 	int				content_size;
     char*           _errstr;
     char			xattrs[__DARWIN_MAXPATHLEN];
-    char			lnk_to[__DARWIN_MAXPATHLEN];
+    char			lnk_path[__DARWIN_MAXPATHLEN];
+    struct s_rec	*lnk_to;
 }					t_rec;
 typedef struct		s_datetime
 {
@@ -140,12 +141,16 @@ typedef struct		s_maxvallen
 
 t_rec*   ft_new_rec(t_de* de, char* name, char path[MAXNAMLEN]);
 t_de	*ft_copyde(t_de *de);
-int		ft_msort(t_vect *v, t_us asc, int f(t_ull, t_ull));
+int		ft_msort(t_vect *v, t_us asc, long long f(t_ull, t_ull));
 void    ft_sort_recs(t_vect *arr, uint32_t flags);
-void	ft_ls(t_vect *p, uint32_t f, char *path);
-void	ft_print_recs(t_vect *r, uint32_t f, t_us d);
+void	ft_ls(t_vect *p, uint32_t f);
+// void	ft_print_recs(t_vect *r, uint32_t f, t_us d);
+void	ft_print_all(t_vect *r, uint32_t *f);
+void	ft_print_files(t_vect *r, uint32_t *f);
+void	ft_print_dirs(t_vect *r, uint32_t *f);
 char	*ft_get_path(t_rec *r, char *dst);
+char	*ft_get_lnk_path(t_rec *r, char *dst);
 t_vect	*ft_new_vect(void *a, size_t s, size_t l);
-void	*ft_destroy_vect(t_vect *v);
+void	*ft_destroy_vect(t_vect **v);
 
 #endif

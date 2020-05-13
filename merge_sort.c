@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 22:29:26 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/12 04:51:30 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/13 07:40:41 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_swap_pointers(t_ull *a, t_ull *b)
 	return;
 }
 
-static void	merge(t_vect *arr, t_vect *l, t_vect *r, t_us asc, int f(t_ull, t_ull))
+static void	merge(t_vect *arr, t_vect *l, t_vect *r, t_us asc, long long f(t_ull, t_ull))
 {
 	size_t		i;
 	size_t		j;
@@ -33,7 +33,7 @@ static void	merge(t_vect *arr, t_vect *l, t_vect *r, t_us asc, int f(t_ull, t_ul
 	k = 0;
 	while (i < l->len && j < r->len)
 	{
-		if ((f(l->arr[i], r->arr[j]) > 0 && asc) || (f(l->arr[i], r->arr[j]) < 0 && !asc))
+		if ((asc && f(l->arr[i], r->arr[j]) > 0) || (!asc && f(l->arr[i], r->arr[j]) < 0))
 		{
 			ft_swap_pointers(&arr->arr[k], &l->arr[i]);
 			++i;
@@ -60,7 +60,7 @@ static void	merge(t_vect *arr, t_vect *l, t_vect *r, t_us asc, int f(t_ull, t_ul
 	return;
 }
 
-int		ft_msort(t_vect *v, t_us asc, int f(t_ull, t_ull))
+int		ft_msort(t_vect *v, t_us asc, long long f(t_ull, t_ull))
 {
 	// int	ll;
 	// int	rl;
@@ -78,7 +78,7 @@ int		ft_msort(t_vect *v, t_us asc, int f(t_ull, t_ull))
 	// if (!(r = ft_new_vect(&(v->arr[v->len / 2 + 1]), v->size, v->len - l->len)))
 	if (!(r = ft_new_vect(NULL, v->size, v->len - l->len)))
 	{
-		ft_destroy_vect(l);
+		ft_destroy_vect(&l);
 		return (1);
 	}
 	i = 0;

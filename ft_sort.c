@@ -6,13 +6,13 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 21:01:43 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/12 05:21:16 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/13 07:40:25 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	ft_sort_by_name(t_ull a, t_ull b)
+static long long	ft_sort_by_name(t_ull a, t_ull b)
 {
 	t_rec	*ra;
 	t_rec	*rb;
@@ -24,7 +24,7 @@ static int	ft_sort_by_name(t_ull a, t_ull b)
 	return (ft_strcmp(ft_get_path(ra, an), ft_get_path(rb, bn)));
 }
 
-static int	ft_sort_by_mtime(t_ull a, t_ull b)
+static long long	ft_sort_by_mtime(t_ull a, t_ull b)
 {
 	t_rec	*ra;
 	t_rec	*rb;
@@ -40,7 +40,7 @@ static int	ft_sort_by_mtime(t_ull a, t_ull b)
 	return (r);
 }
 
-static int	ft_sort_by_atime(t_ull a, t_ull b)
+static long long	ft_sort_by_atime(t_ull a, t_ull b)
 {
 	t_rec	*ra;
 	t_rec	*rb;
@@ -48,9 +48,9 @@ static int	ft_sort_by_atime(t_ull a, t_ull b)
 
 	ra = (t_rec*)a;
 	rb = (t_rec*)b;
-	r = rb->st->st_mtimespec.tv_sec - ra->st->st_mtimespec.tv_sec;
+	r = rb->st->st_atimespec.tv_sec - ra->st->st_atimespec.tv_sec;
 	if (!r)
-		r = rb->st->st_mtimespec.tv_nsec - ra->st->st_mtimespec.tv_nsec;
+		r = rb->st->st_atimespec.tv_nsec - ra->st->st_atimespec.tv_nsec;
 	if (!r)
 		r = ft_sort_by_name(a, b);
 	return (r);

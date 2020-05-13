@@ -6,39 +6,61 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/12 05:35:22 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/13 07:12:31 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-uint32_t	ft_get_flags(char **av, int *len)
+uint32_t	ft_get_flags(char ***av, int *len)
 {
 	char		*ai;
 	uint32_t	r;
+	uint32_t	b;
 
 	r = 0;
-	while (--*len)
+	// if (ft_strequ(**av, "--"))
+	// {
+	// 	--*len;
+	// 	++*av;
+	// 	return (r);
+	// }
+	while (*len)
 	{
-		if (*av[0] != '-' && STRICT_FLAGS_ORDER)
-			break;
-		++*av;
-		while (**av)
+		if (ft_strequ(**av, "--"))
 		{
-			if ((ai = ft_strchr(LETER_FLAGS, **av)))
-				r |= (1 << (ai - LETER_FLAGS));
-				// arr[ai - LETER_FLAGS] = **av;
+			--*len;
+			++*av;
+			return (r);
+		}
+		if (**av[0] != '-' && STRICT_FLAGS_ORDER)
+			break;
+		if (ft_strlen(**av) <= 1)
+			break;
+		++**av;
+		while (***av)
+		{
+			if ((ai = ft_strchr(LETER_FLAGS, ***av)))
+			{
+				b = (1 << (ai - LETER_FLAGS));
+				if (b & 0x420 && r & 0x420)
+					r ^= (r & 0x420);
+				if (b & 0x408 && r & 0x408)
+					r ^= (r & 0x408);
+				r |= b;
+			}
+				// arr[ai - LETER_FLAGS] = ***av;
 			else
 			{
-				ft_dprintf(2, "/bin/ls: illegal option -- %c\n\
-usage: ls [-@ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1%]\
- [file ...]", **av);
+				ft_dprintf(2, "/bin/ls: illegal option -- %c\n", ***av);
+				ft_dprintf(2, "usage: ls -@ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1%] [file ...]\n", ***av);
 				exit (1);
 			}
-			++*av;
+			++**av;
 			// r <<= 1;
 		}
-		++av;
+		++*av;
+		--*len;
 	}
 	return (r);
 }
@@ -58,11 +80,12 @@ t_vect	*ft_get_params(char **av, int len)
 		return (NULL);
 	while (len--)
 	{
-		if (*av[0] == '-' && STRICT_FLAGS_ORDER)
-		{
-			ft_destroy_vect(v);
-			break;
-		}
+		// printf("%s\n", av[i]);
+		// if (*av[0] == '-' && STRICT_FLAGS_ORDER)
+		// {
+		// 	ft_destroy_vect(&v);
+		// 	break;
+		// }
 		v->arr[i] = *(t_ull*)av;
 		++av;
 		++i;	
@@ -289,9 +312,9 @@ void		ft_set_loc(t_datetime *dt)
 	mon[6] = "Jul июл";
 	mon[7] = "Aug авг";
 	mon[8] = "Sep сен";
-	mon[9] = "Okt окт";
+	mon[9] = "Oct окт";
 	mon[10] = "Nov ноя";
-	mon[11] = "Des дек";
+	mon[11] = "Dec дек";
 	i = -1;
 	while (++i < 12)
 		if ((ft_strstr(mon[i], dt->monstr)))
@@ -338,11 +361,13 @@ void	ft_print_time(t_time t)
 			ft_printf("%3s %2d %02d:%02d ", dt.monstr, dt.mday, dt.hour, dt.min);
 	}
 	else
-		ft_printf("%6d %02d:%02d ", dt.year, dt.hour, dt.min);
+		ft_printf("%2d %6s %-5 d ", dt.mday, dt.monstr, dt.year);
 }
 
 void	ft_print_filename(t_rec *r, t_us f)
 {
+	char lp[__DARWIN_MAXPATHLEN];
+	
 	if (!(f & UG_FLAG))
 		ft_printf("%s", r->de->d_name);
 	else
@@ -361,39 +386,40 @@ void	ft_print_filename(t_rec *r, t_us f)
 			ft_printf("%s", r->de->d_name);
 	}
 	if ((r->st->st_mode & S_IFMT) == S_IFLNK && (f & LF_FLAGS))
-		ft_printf(" -> %s\n", r->lnk_to);
+		ft_printf(" -> %s\n", ft_get_lnk_path(r, lp));
 	else
 		ft_printf("\n");
 }
 /*
 **	Print record info according to flags
 */
-void	ft_print_rifo(t_rec *rd, uint32_t f, t_maxvallen mvl)
+void	ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl)
 {
 	t_us	i;
 
 	i = 0;
-	if (f & LF_FLAGS)
+	if (*f & LF_FLAGS)
 	{
 		ft_print_stat(rd);
 		
 		ft_printf("%* hu ", mvl.lnk, rd->st->st_nlink);
-		if (!(f & G_FLAG)) // 0b1000
-			ft_printf("%-* s ", mvl.un + 1, ft_get_user_name(rd->st->st_uid));
-		ft_printf("%-* s ", mvl.gn + 1, ft_get_group_name(rd->st->st_gid));
+		if (!(*f & G_FLAG)) // 0b1000
+			ft_printf("%-*s ", mvl.un + 1, ft_get_user_name(rd->st->st_uid));
+		ft_printf("%-*s ", mvl.gn + 1, ft_get_group_name(rd->st->st_gid));
 		if ((rd->st->st_mode & S_IFMT) == S_IFCHR || (rd->st->st_mode & S_IFMT) == S_IFBLK)
 		{
 			ft_printf(" %*lld", mvl.maj, (rd->st->st_rdev >> 24) & 0377);
-			ft_printf(", %*lld ", mvl.min, rd->st->st_rdev & 0377);
+			ft_printf(", %*lld ", mvl.min < 3 ? 3 : mvl.min, rd->st->st_rdev & 0377);
 		}
 		else
 			ft_printf("%*lld ", mvl.sl < mvl.maj + mvl.min ? mvl.maj + mvl.min + 3 : mvl.sl, rd->st->st_size);
-		if (f & U_FLAG) // 0b1000000000
+		if (*f & U_FLAG) // 0b1000000000
 			ft_print_time(rd->st->st_atimespec);
 		else
 			ft_print_time(rd->st->st_mtimespec);
 	}
-	ft_print_filename(rd, f); // 0b10000
+	ft_print_filename(rd, *f); // 0b10000
+	*f &= 0xFFF;
 }
 
 void	ft_print_total_blocks(t_vect *rd, uint32_t f)
@@ -447,14 +473,45 @@ int	ft_readdir(char *dname, uint32_t flags)
 		rd->arr[i] = (t_ull)des[i];
 		++i;
 	}
-	if (flags & F_FLAG || flags & L_FLAG) // 0b100 0b100000
+	if (flags & LF_FLAGS && (rd->len > 2 || flags & AE_FLAGS))
 		ft_print_total_blocks(rd, flags);
-	ft_print_recs(rd, flags, 0x4);
+	ft_print_all(rd, &flags);
 	if (flags & UR_FLAG)
-		ft_print_recs(rd, flags, 0x2);
+		ft_print_dirs(rd, &flags);
 	return (0);
 }
-
+t_us		ft_is_dir(mode_t m)
+{
+	if ((m & S_IFMT) == S_IFDIR)
+		return (1);
+	return (0);
+}
+t_us		ft_is_spec(mode_t m)
+{
+	if ((m & S_IFMT) == S_IFSOCK)
+		return (1);
+	if ((m & S_IFMT) == S_IFWHT)
+		return (1);
+	if ((m & S_IFMT) == S_IFBLK)
+		return (1);
+	if ((m & S_IFMT) == S_IFCHR)
+		return (1);
+	if ((m & S_IFMT) == S_IFIFO)
+		return (1);
+	return (0);
+}
+t_us		ft_is_lnk(mode_t m)
+{
+	if ((m & S_IFMT) == S_IFLNK)
+		return (1);
+	return (0);
+}
+t_us		ft_is_reg_file(mode_t m)
+{
+	if ((m & S_IFMT) == S_IFREG)
+		return (1);
+	return (0);
+}
 t_maxvallen	ft_new_mvl(t_vect *v, uint32_t f)
 {
 	size_t		i;
@@ -472,7 +529,7 @@ t_maxvallen	ft_new_mvl(t_vect *v, uint32_t f)
 	while (i < v->len)
 	{
 		r = (t_rec*)v->arr[i];
-		if (r->name[0] != '.' || (f & AE_FLAGS))
+		if (r->name[0] != '.' || (f & AE_FLAGS) || (f & 0x1000))
 		{
 			cvl.lnk = ft_count_digits(r->st->st_nlink);
 			cvl.sl = ft_count_digits(r->st->st_size);
@@ -488,21 +545,135 @@ t_maxvallen	ft_new_mvl(t_vect *v, uint32_t f)
 				mvl.gn = cvl.gn;
 			if (cvl.un > mvl.un)
 				mvl.un = cvl.un;
-			if (cvl.maj > mvl.maj)
-				mvl.maj = cvl.maj;
-			if (cvl.min > mvl.min)
-				mvl.min = cvl.min;
+			if (ft_is_spec(r->st->st_mode))
+			{
+				if (cvl.maj > mvl.maj)
+					mvl.maj = cvl.maj;
+				if (cvl.min > mvl.min)
+					mvl.min = cvl.min;
+			}
 		}
 		++i;
 	}
 	return (mvl);
 }
+/* 
+** if -d flag and many args
+** or if passed one arg as dir and nor recursive
+** or if in recursive and print content
+*/
+void 	ft_print_all(t_vect *r, uint32_t *f)
+{
+	size_t		i;
+	// char		name[__DARWIN_MAXPATHLEN];
+	t_us		p;
+	// int			e;
+	t_maxvallen	mvl;
+
+	i = 0;
+	ft_sort_recs(r, *f);
+	mvl = ft_new_mvl(r, *f);
+	while (i < r->len)
+	{
+		p = ((t_rec*)(r->arr[i]))->name[0] == '.' ? 1 : 0;
+		if (*f & 0x800 && !(*f ^= 0x800))
+			p = 0;
+		if (!p || *f & AE_FLAGS || *f & 0x1000)
+			ft_print_rifo((t_rec*)r->arr[i], f, mvl);
+		++i;
+	}
+}
+/* 
+** if passed many args and no -d flag
+*/
+void 	ft_print_files(t_vect *r, uint32_t *f)
+{
+	size_t		i;
+	t_us		p;
+	t_rec		*rec;
+	t_maxvallen	mvl;
+
+	i = 0;
+	ft_sort_recs(r, *f);
+	mvl = ft_new_mvl(r, *f);
+	while (i < r->len)
+	{
+		rec = ((t_rec*)(r->arr[i]));
+		p = ((t_rec*)(r->arr[i]))->name[0] == '.' ? 1 : 0;
+		if (*f & 0x800)
+			p = 0;
+		if (!p || *f & AE_FLAGS)
+		{
+			if (!(ft_is_dir(rec->st->st_mode)) && (!(ft_is_lnk(rec->st->st_mode)) || *f & LF_FLAGS))
+				ft_print_rifo((t_rec*)r->arr[i], f, mvl);
+			else if (ft_is_lnk(rec->st->st_mode) && !(ft_is_dir(rec->lnk_to->st->st_mode)))
+				ft_print_rifo((t_rec*)r->arr[i], f, mvl);
+		}
+		++i;
+	}
+}
+/*
+** if passed many args whith dirs
+** and flag -d not present 
+** or -R flag present
+*/
+void 	ft_print_dirs(t_vect *r, uint32_t *f)
+{
+	size_t		i;
+	char		name[__DARWIN_MAXPATHLEN];
+	t_us		p;
+	int			e;
+	t_maxvallen	mvl;
+
+	i = 0;
+	ft_sort_recs(r, *f);
+	mvl = ft_new_mvl(r, *f);
+	while (i < r->len)
+	{
+		if (AE_FLAGS & *f)
+			p = ft_strequ(((t_rec*)r->arr[i])->name, ".") ? 1 : ft_strequ(((t_rec*)r->arr[i])->name, "..");
+		else
+			p = ((t_rec*)(r->arr[i]))->name[0] == '.' ? 1 : 0;
+		if ((*f & 0x800))
+			p = 0;
+		if (ft_is_dir(((t_rec*)(r->arr[i]))->st->st_mode))
+		{
+			if (!(*f & D_FLAG) && (!p))
+			{
+				ft_get_path((t_rec*)r->arr[i], name);
+				if (*f & 0x1000 && r->len > 1)
+					ft_printf("%s:\n", name);
+				else if (r->len > 1)
+					ft_printf("\n%s:\n", name);
+				if ((e = ft_readdir(name, *f & UR_FLAG ? *f & 0x7FF : (*f & 0x7FF) | D_FLAG)))
+					ft_dprintf(2, "ft_ls: %s: %s\n", ((t_rec*)(r->arr[i]))->name, strerror(e));
+			}
+		}
+		else if (ft_is_lnk(((t_rec*)(r->arr[i]))->st->st_mode) && ft_is_dir(((t_rec*)(r->arr[i]))->lnk_to->st->st_mode) && !(*f & LF_FLAGS))
+		{
+			if (!(*f & D_FLAG) && (!p))
+			{
+				ft_get_path(((t_rec*)r->arr[i])->lnk_to, name);
+				if (*f & 0x1000 && r->len > 1)
+					ft_printf("%s:\n", name);
+				else if (r->len > 1)
+					ft_printf("\n%s:\n", name);
+				if ((e = ft_readdir(name, *f & UR_FLAG ? *f & 0x7FF : (*f & 0x7FF) | D_FLAG)))
+					ft_dprintf(2, "ft_ls: %s: %s\n", ((t_rec*)(r->arr[i]))->lnk_to->name, strerror(e));
+			}
+		}
+		*f &= 0xFFF;
+		++i;
+	}
+}
+
 /*
 **	@d -	0x1 print only files
 **			0x2 print onli dirs
 **			0x4 print all
 **			0x8 print print '.' content
 */
+/* 
 void	ft_print_recs(t_vect *r, uint32_t f, t_us d)
 {
 	size_t		i;
@@ -516,12 +687,13 @@ void	ft_print_recs(t_vect *r, uint32_t f, t_us d)
 	mvl = ft_new_mvl(r, f);
 	while (i < r->len)
 	{
-		p = ((t_rec*)(r->arr[i]))->name[0] == '.' ? 1 : 0;
+		// p = ((t_rec*)(r->arr[i]))->name[0] == '.' ? 1 : 0;
+		p = ft_strequ(((t_rec*)r->arr[i])->name, ".") ? 1 : ft_strequ(((t_rec*)r->arr[i])->name, "..");
 		if (p && !(f & AE_FLAGS) && d != 0x8)
 			;
-		else if ((d == 0x2 || d == 0x8) && (((t_rec*)(r->arr[i]))->st->st_mode & S_IFMT) == S_IFDIR)
+		else if ((d & 0xA) && (((t_rec*)(r->arr[i]))->st->st_mode & S_IFMT) == S_IFDIR)
 		{
-			if (!(f & D_FLAG) && (!p || d == 0x8))
+			if (!(f & D_FLAG) && (!p || d & 0x8))
 			{
 				ft_get_path((t_rec*)r->arr[i], name);
 				if (r->len > 1)
@@ -536,13 +708,13 @@ void	ft_print_recs(t_vect *r, uint32_t f, t_us d)
 			else if (d == 0x8)
 				ft_print_rifo((t_rec*)r->arr[i], f, mvl);
 		}
-		else if ((d == 0x1 && (((t_rec*)(r->arr[i]))->st->st_mode & S_IFMT) != S_IFDIR) || d == 0x4)
+		else if ((d == 0x1 && (((t_rec*)(r->arr[i]))->st->st_mode & S_IFMT) != S_IFDIR && (!p || f & AE_FLAGS)) || d == 0x4)
 			ft_print_rifo((t_rec*)r->arr[i], f, mvl);
 		++i;
 	}
 }
-
-void	ft_ls(t_vect *p, uint32_t f, char *path)
+ */
+void	ft_ls(t_vect *p, uint32_t f)
 {
 	t_us	i;
 	t_vect	*v;
@@ -551,17 +723,17 @@ void	ft_ls(t_vect *p, uint32_t f, char *path)
 	i = 0;
 	if (f)
 		;
-	if (!p->len && ++p->len)
-		*(char**)p->arr[0] = ".";
+	// if (!p->len && ++p->len)
+	// 	*(char**)p->arr[0] = ".";
 	if (!(v = ft_new_vect(NULL, sizeof(t_rec), p->len)))
 		return ;
 	while (i < v->len)
 	{
-		r = ft_new_rec(NULL, (char*)*(p->arr), path);
+		r = ft_new_rec(NULL, (char*)*(p->arr), "");
 		++p->arr;
 		if (r->_errno)
 		{
-			ft_dprintf(2, "ft_ls: %s/%s: %s\n", r->path, r->name, r->_errstr);
+			ft_dprintf(2, "ls: %s: %s\n", (char*)*(p->arr - 1), r->_errstr);
 			// r[i]->destroy(r[i]);
 			--v->len;
 			continue;
@@ -569,20 +741,21 @@ void	ft_ls(t_vect *p, uint32_t f, char *path)
 		v->arr[i] = (t_ull)r;
 		++i;
 	}
+	f |= 0x1800;
 	if (f & D_FLAG)
-		ft_print_recs(v, f, 0x4);
+		ft_print_all(v, &f);
 	else
 	{
-		ft_print_recs(v, f, 0x1);
-		ft_print_recs(v, f, 0x8);
+		ft_print_files(v, &f);
+		ft_print_dirs(v, &f);
 	}
 	return;
 }
 
-static int ft_strcmp_s(t_ull a, t_ull b)
-{
-	return (ft_strcmp((char*)a, (char*)b));
-}
+// static int ft_strcmp_s(t_ull a, t_ull b)
+// {
+// 	return (ft_strcmp((char*)a, (char*)b));
+// }
 
 int		main(int ac, char **av)
 {
@@ -590,17 +763,23 @@ int		main(int ac, char **av)
 	uint32_t	flags;
 	t_vect	*params;
 
+	// char	*dd = "--";
+	// ac = 2;
+	// av[1] = dd;
 	// setlocale(0, "");
 	// ft_printf("%s\n", getenv("LANG"));
 	// ft_printf("%s\n", setlocale(LC_ALL, ""));
+	// ft_printf("%d\n", ac);
 	// exit (0);
 	i = ac;
-	flags = ft_get_flags(++av, &ac);
-	params = ft_get_params((av + (i - ac - 1)), ac);
+	++av;
+	--ac;
+	flags = ft_get_flags(&(av), &ac);
+	params = ft_get_params((av/*  + (i - ac - 1) */), ac);
 	
 
-	if (!(flags & F_FLAG))
-		ft_msort(params, 1, ft_strcmp_s);
-	ft_ls(params, flags, "");
+	// if (!(flags & F_FLAG))
+	// 	ft_msort(params, 1, ft_strcmp_s);
+	ft_ls(params, flags);
 	return (0);
 }
