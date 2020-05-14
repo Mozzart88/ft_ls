@@ -1,63 +1,63 @@
 Makefile:
-	☐ Usual rules
-	☐ Recompile the program if necessary
+	✔ Usual rules @started(20-05-15 02:51) @done(20-05-15 02:51) @lasted(16s)
+	✔ Recompile the program if necessary @started(20-05-15 02:51) @done(20-05-15 02:51) @lasted(16s)
 Libft:
-	☐ At the root of repo
+	✔ At the root of repo @started(20-05-15 02:51) @done(20-05-15 02:51) @lasted(25s)
 Norm:
 	☐ As usual
 Errors:
-	☐ Handle errors sensitivly
-	☐ If you ensure, handle errors like ls
+	✔ Handle errors sensitivly @done(20-05-15 02:51)
+	✔ If you ensure, handle errors like ls @done(20-05-15 02:51)
 Leaks:
-	☐ As usual
+	✔ As usual @started(20-05-13 17:47) @done(20-05-15 02:51) @lasted(1d9h4m42s)
 Author file:
-	☐ As usual
+	✔ As usual @done(20-05-15 02:51)
 Allowed functions:
-	☐ write
-	☐ opendir
-	☐ readdir
-	☐ closedir
-	☐ stat
-	☐ lstat
-	☐ getpwuid
-	☐ getgrgid
-	☐ listxattr
-	☐ time
-	☐ ctime
-	☐ readlink
-	☐ malloc
-	☐ free
-	☐ perror
-	☐ strerror
-	☐ exit
-	☐ Allowed other functions to carry out the bonus part as long as their use is justified during your defence.
+	✔ write @done(20-05-15 02:50)
+	✔ opendir @done(20-05-15 02:50)
+	✔ readdir @done(20-05-15 02:50)
+	✔ closedir @done(20-05-15 02:50)
+	✔ stat @done(20-05-15 02:50)
+	✔ lstat @done(20-05-15 02:50)
+	✔ getpwuid @done(20-05-15 02:50)
+	✔ getgrgid @done(20-05-15 02:50)
+	✔ listxattr @done(20-05-15 02:50)
+	✔ time @done(20-05-15 02:50)
+	✔ ctime @done(20-05-15 02:50)
+	✔ readlink @done(20-05-15 02:50)
+	✔ malloc @done(20-05-15 02:50)
+	✔ free @done(20-05-15 02:50)
+	✔ perror @done(20-05-15 02:50)
+	✔ strerror @done(20-05-15 02:50)
+	✔ exit @done(20-05-15 02:50)
+	✔ Allowed other functions to carry out the bonus part as long as their use is justified during your defence. @done(20-05-15 02:50)
 Mandatory part:
 	☐ Recode system command ls
 	☐ Behavior must be identical to original ls command with the following variations:
-		☐ Optins to recode:
-			☐ -l (If not argument, than you do not have deal with the multiple column format for exit) @started(20-05-10 18:50)
-			☐ -R (RECOMENDED to implement from the very beginning) @started(20-05-10 18:50)
-			☐ -a @started(20-05-10 18:50)
-			☐ -r @started(20-05-10 18:50)
-			☐ -t @started(20-05-10 18:49)
-		☐ ACL and extended attributs not required
-		☐ Output must stay as udentical as pasible to system command
-	☐ man ls
+		Optins to recode:
+			✔ -l (If not argument, than you do not have deal with the multiple column format for exit) @started(20-05-10 18:50) @done(20-05-15 02:50) @lasted(4d8h10s)
+			✔ -R (RECOMENDED to implement from the very beginning) @started(20-05-10 18:50) @done(20-05-15 02:50) @lasted(4d8h8s)
+			✔ -a @started(20-05-10 18:50) @done(20-05-15 02:50) @lasted(4d8h6s)
+			✔ -r @started(20-05-10 18:50) @done(20-05-15 02:50) @lasted(4d8h5s)
+			✔ -t @started(20-05-10 18:49) @done(20-05-15 02:50) @lasted(4d8h1m5s)
+		✔ ACL and extended attributs not required @done(20-05-15 02:49)
+		✔ Output must stay as udentical as pasible to system command @done(20-05-15 02:50)
+	✔ man ls @started(20-05-13 17:46) @done(20-05-15 02:49) @lasted(1d9h3m46s)
 Bonus part:
 	☐ Manage ACL and extended attributs
 	☐ Manage column without option -l (man 4 tty)
 	☐ Manage options:
-		☐ -u @started(20-05-10 18:50)
-		☐ -f @started(20-05-10 18:50)
-		☐ -g @started(20-05-10 18:50)
-		☐ -d @started(20-05-10 18:50)
-	☐ Manage of views in colors (option -G) @started(20-05-10 18:50)
+		✔ -u @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m27s)
+		✔ -f @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m27s)
+		✔ -g @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m28s)
+		✔ -d @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m29s)
+	✔ Manage of views in colors (option -G) @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m34s)
 	☐ Optimization of code (i.ex. time of response on BIG ls -lR)
 Submission:
 	☐ As usual
 Recomended helpers:
-	☐ ft_list_dir (opendir, closedir, readdir)
-	☐ ft_inspect_file (stat)
+	✔ ft_list_dir (opendir, closedir, readdir) @done(20-05-15 02:52)
+	✔ ft_inspect_file (stat) @done(20-05-15 02:52)
 Mans:
 	✔ tty @done(20-05-10 18:18)
 	✔ termios(4) @done(20-05-10 18:46)
@@ -94,7 +94,12 @@ Mans:
 	☐ chmod(1)
 	☐ chmod(2)
 	☐ access(2)
+	✔ getgrent(3) @started(20-05-13 17:45) @done(20-05-13 17:45) @lasted(54s)
 	✔ time(3) @done(20-05-11 14:05)
 	✔ ctime(3) @done(20-05-11 14:05)
 	✔ gettimeofday(2) @started(20-05-11 14:07) @done(20-05-11 14:10) @lasted(3m31s)
 	✔ getenv(3) @done(20-05-11 21:20)
+	Optmisation:
+		☐ Sorting @critical 
+		☐ Vectors @high 
+		☐ Vectors -> Lists @tao

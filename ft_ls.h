@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/13 07:40:50 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/15 00:14:04 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,10 @@ typedef struct group	t_grp;
 typedef struct dirent t_de;
 typedef	struct		s_rec
 {
-	t_de			*de;
 	t_stat			*st;
-	struct s_rec	*conten[512];
-	void			(*sort)(struct s_rec*, char[10]);
-	void			(*print)(struct s_rec*, char[10]);
 	char			path[__DARWIN_MAXPATHLEN];
 	char			name[__DARWIN_MAXNAMLEN];
     int             _errno;
-	int				content_size;
     char*           _errstr;
     char			xattrs[__DARWIN_MAXPATHLEN];
     char			lnk_path[__DARWIN_MAXPATHLEN];
@@ -128,6 +123,9 @@ typedef struct		s_vect
 	t_ull	*arr;
 	size_t	size;
 	size_t	len;
+	size_t	ilen;
+	t_us	is_sorted;
+	void	(*arr_destroier)(void**);
 }					t_vect;
 typedef struct		s_maxvallen
 {
@@ -139,8 +137,7 @@ typedef struct		s_maxvallen
 	t_ull	min;
 }					t_maxvallen;
 
-t_rec*   ft_new_rec(t_de* de, char* name, char path[MAXNAMLEN]);
-t_de	*ft_copyde(t_de *de);
+t_rec*   ft_new_rec(char* name, char path[MAXNAMLEN]);
 int		ft_msort(t_vect *v, t_us asc, long long f(t_ull, t_ull));
 void    ft_sort_recs(t_vect *arr, uint32_t flags);
 void	ft_ls(t_vect *p, uint32_t f);
@@ -150,7 +147,8 @@ void	ft_print_files(t_vect *r, uint32_t *f);
 void	ft_print_dirs(t_vect *r, uint32_t *f);
 char	*ft_get_path(t_rec *r, char *dst);
 char	*ft_get_lnk_path(t_rec *r, char *dst);
-t_vect	*ft_new_vect(void *a, size_t s, size_t l);
+t_vect	*ft_new_vect(void *a, size_t s, size_t l, void arr_destroier(void**));
 void	*ft_destroy_vect(t_vect **v);
+void	ft_destroy_rec(void **record);
 
 #endif

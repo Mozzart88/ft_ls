@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/13 07:12:31 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/15 02:36:12 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ uint32_t	ft_get_flags(char ***av, int *len)
 			else
 			{
 				ft_dprintf(2, "/bin/ls: illegal option -- %c\n", ***av);
-				ft_dprintf(2, "usage: ls -@ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1%] [file ...]\n", ***av);
+				ft_dprintf(2, "usage: ls [-@ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1%] [file ...]\n", ***av);
 				exit (1);
 			}
 			++**av;
@@ -64,6 +64,14 @@ uint32_t	ft_get_flags(char ***av, int *len)
 	}
 	return (r);
 }
+void	ft_strdelv(void **addr)
+{
+	char	**str;
+
+	str = (char**)addr;
+	ft_strdel(str);
+}
+
 
 t_vect	*ft_get_params(char **av, int len)
 {
@@ -76,7 +84,7 @@ t_vect	*ft_get_params(char **av, int len)
 		++len;
 		av[0] = ".";
 	}
-	if (!(v = ft_new_vect(NULL, sizeof(char*), len)))
+	if (!(v = ft_new_vect(NULL, sizeof(char*), len, NULL)))
 		return (NULL);
 	while (len--)
 	{
@@ -93,22 +101,6 @@ t_vect	*ft_get_params(char **av, int len)
 	// arr[i] = NULL;
 	return (v);
 }
-
-t_de	*ft_copyde(t_de *de)
-{
-	t_de	*r;
-
-	if (!(r = (t_de*)malloc(sizeof(t_de))))
-		return (NULL);
-	r->d_ino = de->d_ino;
-	ft_strcpy(r->d_name, de->d_name);
-	r->d_namlen = de->d_namlen;
-	r->d_reclen = de->d_reclen;
-	r->d_seekoff = de->d_seekoff;
-	r->d_type = de->d_type;
-	return (r);
-}
-
 
 char	ft_get_file_type(mode_t m)
 {
@@ -172,10 +164,28 @@ void	ft_print_user(uid_t id)
 char	*ft_get_user_name(uid_t id)
 {
 	t_pwd *p;
+	char	*name;
+	char	buff[_SC_GETPW_R_SIZE_MAX];
 
-	if (!(p = getpwuid(id)) || !(p->pw_name) || !p->pw_name[0])
-		return (ft_itoa_long_un(id));
-	return (p->pw_name);
+	if (!(p = (t_pwd*)malloc(sizeof(t_pwd))))
+		return (NULL);
+	if ((getpwuid_r(id, p, buff, _SC_GETPW_R_SIZE_MAX, &p)) || !p)
+		name = ft_itoa_long_un(id);
+	else
+		name = ft_strdup(p->pw_name);
+	p->pw_name = NULL;
+	p->pw_passwd = NULL;
+	p->pw_class = NULL;
+	p->pw_gecos = NULL;
+	p->pw_dir = NULL;
+	p->pw_shell = NULL;
+	p->pw_change = 0;
+	p->pw_expire = 0;
+	p->pw_uid = 0;
+	p->pw_gid = 0;
+	free(p);
+	p = NULL;
+	return (name);
 }
 
 void	ft_print_group(gid_t id)
@@ -189,10 +199,22 @@ void	ft_print_group(gid_t id)
 char	*ft_get_group_name(gid_t id)
 {
 	t_grp *g;
+	char	*name;
+	char	buff[_SC_GETGR_R_SIZE_MAX * MAXLOGNAME];
 
-	if (!(g = getgrgid(id)) || !(g->gr_name) || !g->gr_name[0])
-		return (ft_itoa_long_un(id));
-	return (g->gr_name);
+	if (!(g = (t_grp*)malloc(sizeof(t_grp))))
+		return (NULL);
+	if ((getgrgid_r(id, g, buff, _SC_GETGR_R_SIZE_MAX * MAXLOGNAME, &g)) || !g)
+		name = ft_itoa_long_un(id);
+	else
+		name = ft_strdup(g->gr_name);
+	g->gr_mem = NULL;
+	g->gr_passwd = NULL;
+	g->gr_name = NULL;
+	g->gr_gid = 0;
+	free(g);
+	g = NULL;
+	return (name);
 }
 
 void		ft_get_month_str(char *arr[12])
@@ -353,6 +375,7 @@ void	ft_print_time(t_time t)
 	tl = time(NULL);
 	dt = ft_localtime(&t);
 	dif_time = ft_difftime(&tl, &t.tv_sec);
+/* 	
 	if (dif_time < (31536000L / 2) && dif_time > (31536000L / 2 * -1))
 	{
 		if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
@@ -360,31 +383,47 @@ void	ft_print_time(t_time t)
 		else
 			ft_printf("%3s %2d %02d:%02d ", dt.monstr, dt.mday, dt.hour, dt.min);
 	}
-	else
+	else if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
 		ft_printf("%2d %6s %-5 d ", dt.mday, dt.monstr, dt.year);
+	else
+		ft_printf("%3s %2d %-5 d ", dt.monstr, dt.mday, dt.year);
+*/
+	if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
+	{
+		if (dif_time < (31536000L / 2) && dif_time >= 0)
+			ft_printf("%2d %6s %02d:%02d ", dt.mday, dt.monstr, dt.hour, dt.min);
+		else
+			ft_printf("%2d %6s %-5 d ", dt.mday, dt.monstr, dt.year);
+	}
+	else
+	{
+		if (dif_time < (31536000L / 2) && dif_time > (31536000L / 2 * -1))
+			ft_printf("%3s %2d %02d:%02d ", dt.monstr, dt.mday, dt.hour, dt.min);
+		else
+			ft_printf("%3s %2d %-5 d ", dt.monstr, dt.mday, dt.year);
+	}
 }
 
 void	ft_print_filename(t_rec *r, t_us f)
 {
 	char lp[__DARWIN_MAXPATHLEN];
 	
-	if (!(f & UG_FLAG))
-		ft_printf("%s", r->de->d_name);
-	else
+	if (f & UG_FLAG)
 	{
 		if ((r->st->st_mode & S_IFMT) == S_IFDIR)
-			ft_printf("\e[34m%s\e[0m", r->de->d_name);
+			ft_printf("\e[34m%s\e[0m", r->name);
 		else if ((r->st->st_mode & S_IFMT) == S_IFCHR)
-			ft_printf("\e[34;103m%s\e[0m", r->de->d_name);
+			ft_printf("\e[34;103m%s\e[0m", r->name);
 		else if ((r->st->st_mode & S_IFMT) == S_IFBLK)
-			ft_printf("\e[34;106m%s\e[0m", r->de->d_name);
+			ft_printf("\e[34;106m%s\e[0m", r->name);
 		else if ((r->st->st_mode & S_IFMT) == S_IFLNK)
-			ft_printf("\e[35m%s\e[0m", r->de->d_name);
+			ft_printf("\e[35m%s\e[0m", r->name);
 		else if ((r->st->st_mode & 0111))
-			ft_printf("\e[31m%s\e[0m", r->de->d_name);
-		else
-			ft_printf("%s", r->de->d_name);
+			ft_printf("\e[31m%s\e[0m", r->name);
 	}
+	ft_bzero(lp, __DARWIN_MAXPATHLEN);
+	ft_printf("%s", f & 0x1000 ? ft_get_path(r, lp) : r->name);
+	ft_bzero(lp, __DARWIN_MAXPATHLEN);
 	if ((r->st->st_mode & S_IFMT) == S_IFLNK && (f & LF_FLAGS))
 		ft_printf(" -> %s\n", ft_get_lnk_path(r, lp));
 	else
@@ -458,14 +497,14 @@ int	ft_readdir(char *dname, uint32_t flags)
 	{
 		while ((dc = readdir(d)))
 		{
-			des[i] = ft_new_rec(dc, dc->d_name, path);
+			des[i] = ft_new_rec(dc->d_name, path);
 			++i;
 		}
 		closedir(d);
 	}
 	else
 		return (errno);
-	if (!(rd = ft_new_vect(NULL, sizeof(t_rec), i)))
+	if (!(rd = ft_new_vect(NULL, sizeof(t_rec), i, ft_destroy_rec)))
 		return (-1);
 	i = 0;
 	while (i < rd->len)
@@ -478,6 +517,7 @@ int	ft_readdir(char *dname, uint32_t flags)
 	ft_print_all(rd, &flags);
 	if (flags & UR_FLAG)
 		ft_print_dirs(rd, &flags);
+	ft_destroy_vect(&rd);
 	return (0);
 }
 t_us		ft_is_dir(mode_t m)
@@ -518,6 +558,7 @@ t_maxvallen	ft_new_mvl(t_vect *v, uint32_t f)
 	t_maxvallen mvl;
 	t_maxvallen cvl;
 	t_rec		*r;
+	char		*names[2];
 
 	mvl.gn = 0;
 	mvl.un = 0;
@@ -535,8 +576,10 @@ t_maxvallen	ft_new_mvl(t_vect *v, uint32_t f)
 			cvl.sl = ft_count_digits(r->st->st_size);
 			cvl.maj = ft_count_digits((r->st->st_rdev >> 24) & 0377);
 			cvl.min = ft_count_digits(r->st->st_rdev & 0377);
-			cvl.gn = ft_strlen(ft_get_group_name(r->st->st_gid));
-			cvl.un = ft_strlen(ft_get_user_name(r->st->st_uid));
+			names[0] = ft_get_group_name(r->st->st_gid);
+			names[1] = ft_get_user_name(r->st->st_uid);
+			cvl.gn = ft_strlen(names[0]);
+			cvl.un = ft_strlen(names[1]);
 			if (cvl.lnk > mvl.lnk)
 				mvl.lnk = cvl.lnk;
 			if (cvl.sl > mvl.sl)
@@ -552,6 +595,8 @@ t_maxvallen	ft_new_mvl(t_vect *v, uint32_t f)
 				if (cvl.min > mvl.min)
 					mvl.min = cvl.min;
 			}
+			ft_strdel(&(names[0]));
+			ft_strdel(&(names[1]));
 		}
 		++i;
 	}
@@ -641,9 +686,9 @@ void 	ft_print_dirs(t_vect *r, uint32_t *f)
 			if (!(*f & D_FLAG) && (!p))
 			{
 				ft_get_path((t_rec*)r->arr[i], name);
-				if (*f & 0x1000 && r->len > 1)
+				if (*f & 0x1000 && r->ilen > 1)
 					ft_printf("%s:\n", name);
-				else if (r->len > 1)
+				else if (r->ilen > 1)
 					ft_printf("\n%s:\n", name);
 				if ((e = ft_readdir(name, *f & UR_FLAG ? *f & 0x7FF : (*f & 0x7FF) | D_FLAG)))
 					ft_dprintf(2, "ft_ls: %s: %s\n", ((t_rec*)(r->arr[i]))->name, strerror(e));
@@ -653,11 +698,12 @@ void 	ft_print_dirs(t_vect *r, uint32_t *f)
 		{
 			if (!(*f & D_FLAG) && (!p))
 			{
-				ft_get_path(((t_rec*)r->arr[i])->lnk_to, name);
+				ft_get_path(((t_rec*)r->arr[i]), name);
 				if (*f & 0x1000 && r->len > 1)
 					ft_printf("%s:\n", name);
 				else if (r->len > 1)
 					ft_printf("\n%s:\n", name);
+				// ft_get_path(((t_rec*)r->arr[i])->lnk_to, name);
 				if ((e = ft_readdir(name, *f & UR_FLAG ? *f & 0x7FF : (*f & 0x7FF) | D_FLAG)))
 					ft_dprintf(2, "ft_ls: %s: %s\n", ((t_rec*)(r->arr[i]))->lnk_to->name, strerror(e));
 			}
@@ -725,16 +771,18 @@ void	ft_ls(t_vect *p, uint32_t f)
 		;
 	// if (!p->len && ++p->len)
 	// 	*(char**)p->arr[0] = ".";
-	if (!(v = ft_new_vect(NULL, sizeof(t_rec), p->len)))
+	if (!(v = ft_new_vect(NULL, sizeof(t_rec), p->len, ft_destroy_rec)))
 		return ;
 	while (i < v->len)
 	{
-		r = ft_new_rec(NULL, (char*)*(p->arr), "");
+		r = ft_new_rec((char*)*(p->arr), "");
 		++p->arr;
 		if (r->_errno)
 		{
 			ft_dprintf(2, "ls: %s: %s\n", (char*)*(p->arr - 1), r->_errstr);
 			// r[i]->destroy(r[i]);
+			// ft_destroy_vect(&v);
+			ft_destroy_rec((void**)&r);
 			--v->len;
 			continue;
 		}
@@ -749,14 +797,17 @@ void	ft_ls(t_vect *p, uint32_t f)
 		ft_print_files(v, &f);
 		ft_print_dirs(v, &f);
 	}
+	// p->arr = p->arr - i;
+	p->arr = p->arr - p->len;
+	p->len = i;
+	ft_destroy_vect(&v);
 	return;
 }
 
-// static int ft_strcmp_s(t_ull a, t_ull b)
-// {
-// 	return (ft_strcmp((char*)a, (char*)b));
-// }
-
+static long long ft_strcmp_s(t_ull a, t_ull b)
+{
+	return (ft_strcmp((char*)a, (char*)b));
+}
 int		main(int ac, char **av)
 {
 	t_us	i;
@@ -778,8 +829,9 @@ int		main(int ac, char **av)
 	params = ft_get_params((av/*  + (i - ac - 1) */), ac);
 	
 
-	// if (!(flags & F_FLAG))
-	// 	ft_msort(params, 1, ft_strcmp_s);
+	if (!(flags & F_FLAG))
+		ft_msort(params, 0, ft_strcmp_s);
 	ft_ls(params, flags);
+	ft_destroy_vect(&params);
 	return (0);
 }

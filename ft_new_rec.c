@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 19:50:11 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/13 05:49:14 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/14 01:38:35 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*ft_get_name(const char *path, char *dst)
 	return (dst);
 }
 
-t_rec		*ft_new_rec(t_de *de, char *name, char path[__DARWIN_MAXPATHLEN])
+t_rec		*ft_new_rec(char *name, char path[__DARWIN_MAXPATHLEN])
 {
 	t_rec	*r;
 	char	p[__DARWIN_MAXPATHLEN];
@@ -70,14 +70,7 @@ t_rec		*ft_new_rec(t_de *de, char *name, char path[__DARWIN_MAXPATHLEN])
 	ft_get_dir(name, (r->path));
 	ft_get_name(name, (r->name));
 	r->_errno = 0;
-	if (de)
-		r->de = ft_copyde(de);
-	else
-	{
-		if (!(r->de = (t_de*)malloc(sizeof(t_de))))
-			return (NULL);
-		ft_strcpy(r->de->d_name, name);
-	}
+	r->lnk_to = NULL;
 	if (!(r->st = (t_stat*)malloc(sizeof(t_stat))))
 		return (NULL);
 	ft_get_path(r, p);
@@ -94,7 +87,28 @@ t_rec		*ft_new_rec(t_de *de, char *name, char path[__DARWIN_MAXPATHLEN])
 	if ((r->st->st_mode & S_IFMT) == S_IFLNK)
 	{
 		readlink(p, r->lnk_path, __DARWIN_MAXPATHLEN);
-		r->lnk_to = ft_new_rec(NULL, r->lnk_path, r->path);
+		r->lnk_to = ft_new_rec(r->lnk_path, r->path);
 	}
 	return (r);
+}
+
+void	ft_destroy_rec(void **p)
+{
+	t_rec **v;
+
+	v = (t_rec**)p;
+	if ((*v)->st)
+		free((*v)->st);
+	(*v)->st = NULL;
+    (*v)->_errno = 0;
+	ft_bzero((*v)->path, __DARWIN_MAXPATHLEN);
+	ft_bzero((*v)->name, __DARWIN_MAXPATHLEN);
+	ft_bzero((*v)->xattrs, __DARWIN_MAXPATHLEN);
+	ft_bzero((*v)->lnk_path, __DARWIN_MAXPATHLEN);
+    free((*v)->_errstr);
+    (*v)->_errstr = NULL;
+    if ((*v)->lnk_to)
+		ft_destroy_rec((void**)&(*v)->lnk_to);
+	free(*v);
+	*v = NULL;
 }

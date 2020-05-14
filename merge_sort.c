@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 22:29:26 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/13 07:40:41 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/13 22:28:36 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ int		ft_msort(t_vect *v, t_us asc, long long f(t_ull, t_ull))
 	// ll = v->len / 2;
 	// rl = v->len - ll;
 	// if (!(l = ft_new_vect(v->arr, v->size, v->len / 2)))
-	if (!(l = ft_new_vect(NULL, v->size, v->len / 2)))
+	if (!(l = ft_new_vect(NULL, v->size, v->len / 2, NULL)))
 		return (1);
 	// if (!(r = ft_new_vect(&(v->arr[v->len / 2 + 1]), v->size, v->len - l->len)))
-	if (!(r = ft_new_vect(NULL, v->size, v->len - l->len)))
+	if (!(r = ft_new_vect(NULL, v->size, v->len - l->len, NULL)))
 	{
 		ft_destroy_vect(&l);
 		return (1);
@@ -96,5 +96,7 @@ int		ft_msort(t_vect *v, t_us asc, long long f(t_ull, t_ull))
 	ft_msort(l, asc, f);
 	ft_msort(r, asc, f);
 	merge(v, l, r, asc, f);
+	ft_destroy_vect(&l);
+	ft_destroy_vect(&r);
 	return (0);
 }
