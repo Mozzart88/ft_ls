@@ -11,8 +11,19 @@
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
 				// "-la",
-				// "-1",
-				// "-",
+				"-1lu",
+				// "/Users/mozzart/Documents/GitHub/ft_ls/.mozz/test/mouli_test/20_test_error_handling/11/a",
+				// "/Users/mozzart/Documents/GitHub/ft_ls/.mozz/test/mouli_test/20_test_error_handling/11/b",
+				// "adir",
+				// "zdir",
+				// "aNotExist",
+				// "zNotExistB",
+				// "afile",
+				// "zfile",
+				// "asymdir",
+				// "zsymdir",
+				// "asymfile",
+				// "zsymfile",
 				// ".",
 				// ".",
 				// "-lR",
@@ -29,8 +40,8 @@
 				// ".mozz/test/mouli_test/01_test_opt_R/rootfile",
 				// "-1t",
 				// ".mozz/test/mouli_test/07_test_opt_t"
-				"-l",
-				"/etc"
+				// "-l",
+				// "/etc"
 				// "/usr/bin",
 				// ".mozz/test/symdir",
 				// "-",
@@ -59,11 +70,11 @@
 				// ".mozz/test/.hiddendir"
 			],
 			"stopAtEntry": true,
-			"cwd": "${workspaceFolder}",
+			"cwd": "${workspaceFolder}/.mozz/test/mouli_test/20_test_error_handling/12",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb",
-			"preLaunchTask": "${defaultBuildTask}"
+			"preLaunchTask": "${defaultBuildTask}",
 		}
 	]
 }

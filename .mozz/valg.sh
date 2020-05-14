@@ -1,2 +1,2 @@
 #! /bin/sh
-valgrind --leak-check=full --leak-check=full --show-leak-kinds=all $1
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --show-reachable=yes -s $1
