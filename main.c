@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/15 18:01:57 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/15 19:39:20 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	ft_print_stat(t_rec *r)
 	}
 	m[10] = r->xattrs[0] ? '@' : '\0';
 	m[11] = '\0';
-	ft_printf("%-11s ", m);
+	printf("%-11s ", m);
 }
 
 void	ft_print_user(uid_t id)
@@ -158,7 +158,7 @@ void	ft_print_user(uid_t id)
 	t_pwd *p;
 	if (!(p = getpwuid(id)))
 		return ;
-	ft_printf("%9s", p->pw_name);
+	printf("%9s", p->pw_name);
 }
 
 char	*ft_get_user_name(uid_t id)
@@ -193,7 +193,7 @@ void	ft_print_group(gid_t id)
 	t_grp *g;
 	if (!(g = getgrgid(id)))
 		return ;
-	ft_printf("%6s", g->gr_name);
+	printf("%6s", g->gr_name);
 }
 
 char	*ft_get_group_name(gid_t id)
@@ -306,7 +306,7 @@ void		ft_get_month_str(char *arr[12])
 	// 	r->day %= 31;
 	// else
 	// 	r->day %= 30;
-	// ft_printf("%llu", **t / 31536000 + 1970);
+	// printf("%llu", **t / 31536000 + 1970);
 	return (r);
 }
  */
@@ -379,28 +379,28 @@ void	ft_print_time(t_time t)
 	if (dif_time < (31536000L / 2) && dif_time > (31536000L / 2 * -1))
 	{
 		if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
-			ft_printf("%2d %6s %02d:%02d ", dt.mday, dt.monstr, dt.hour, dt.min);
+			printf("%2d %6s %02d:%02d ", dt.mday, dt.monstr, dt.hour, dt.min);
 		else
-			ft_printf("%3s %2d %02d:%02d ", dt.monstr, dt.mday, dt.hour, dt.min);
+			printf("%3s %2d %02d:%02d ", dt.monstr, dt.mday, dt.hour, dt.min);
 	}
 	else if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
-		ft_printf("%2d %6s %-5 d ", dt.mday, dt.monstr, dt.year);
+		printf("%2d %6s %-5 d ", dt.mday, dt.monstr, dt.year);
 	else
-		ft_printf("%3s %2d %-5 d ", dt.monstr, dt.mday, dt.year);
+		printf("%3s %2d %-5 d ", dt.monstr, dt.mday, dt.year);
 */
 	if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
 	{
 		if (dif_time < (31536000L / 2) && dif_time >= 0)
-			ft_printf("%2d %6s %02d:%02d ", dt.mday, dt.monstr, dt.hour, dt.min);
+			printf("%2ld %6s %02ld:%02ld ", dt.mday, dt.monstr, dt.hour, dt.min);
 		else
-			ft_printf("%2d %6s %-5 d ", dt.mday, dt.monstr, dt.year);
+			printf("%2ld %6s %-5ld ", dt.mday, dt.monstr, dt.year);
 	}
 	else
 	{
 		if (dif_time < (31536000L / 2) && dif_time > (31536000L / 2 * -1))
-			ft_printf("%3s %2d %02d:%02d ", dt.monstr, dt.mday, dt.hour, dt.min);
+			printf("%3s %2ld %02ld:%02ld ", dt.monstr, dt.mday, dt.hour, dt.min);
 		else
-			ft_printf("%3s %2d %-5 d ", dt.monstr, dt.mday, dt.year);
+			printf("%3s %2ld %-5ld ", dt.monstr, dt.mday, dt.year);
 	}
 }
 
@@ -411,23 +411,23 @@ void	ft_print_filename(t_rec *r, t_us f)
 	if (f & UG_FLAG)
 	{
 		if ((r->st->st_mode & S_IFMT) == S_IFDIR)
-			ft_printf("\e[34m%s\e[0m", r->name);
+			printf("\e[34m%s\e[0m", r->name);
 		else if ((r->st->st_mode & S_IFMT) == S_IFCHR)
-			ft_printf("\e[34;103m%s\e[0m", r->name);
+			printf("\e[34;103m%s\e[0m", r->name);
 		else if ((r->st->st_mode & S_IFMT) == S_IFBLK)
-			ft_printf("\e[34;106m%s\e[0m", r->name);
+			printf("\e[34;106m%s\e[0m", r->name);
 		else if ((r->st->st_mode & S_IFMT) == S_IFLNK)
-			ft_printf("\e[35m%s\e[0m", r->name);
+			printf("\e[35m%s\e[0m", r->name);
 		else if ((r->st->st_mode & 0111))
-			ft_printf("\e[31m%s\e[0m", r->name);
+			printf("\e[31m%s\e[0m", r->name);
 	}
 	ft_bzero(lp, __DARWIN_MAXPATHLEN);
-	ft_printf("%s", f & 0x1000 ? ft_get_path(r, lp) : r->name);
+	printf("%s", f & 0x1000 ? ft_get_path(r, lp) : r->name);
 	ft_bzero(lp, __DARWIN_MAXPATHLEN);
 	if ((r->st->st_mode & S_IFMT) == S_IFLNK && (f & LF_FLAGS))
-		ft_printf(" -> %s\n", ft_get_lnk_path(r, lp));
+		printf(" -> %s\n", ft_get_lnk_path(r, lp));
 	else
-		ft_printf("\n");
+		printf("\n");
 }
 /*
 **	Print record info according to flags
@@ -441,17 +441,17 @@ void	ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl)
 	{
 		ft_print_stat(rd);
 		
-		ft_printf("%* hu ", mvl.lnk, rd->st->st_nlink);
+		printf("%*hu ", (int)mvl.lnk, rd->st->st_nlink);
 		if (!(*f & G_FLAG)) // 0b1000
-			ft_printf("%-*s ", mvl.un + 1, ft_get_user_name(rd->st->st_uid));
-		ft_printf("%-*s ", mvl.gn + 1, ft_get_group_name(rd->st->st_gid));
+			printf("%-*s ", (int)mvl.un + 1, ft_get_user_name(rd->st->st_uid));
+		printf("%-*s ", (int)mvl.gn + 1, ft_get_group_name(rd->st->st_gid));
 		if ((rd->st->st_mode & S_IFMT) == S_IFCHR || (rd->st->st_mode & S_IFMT) == S_IFBLK)
 		{
-			ft_printf(" %*lld", mvl.maj, (rd->st->st_rdev >> 24) & 0377);
-			ft_printf(", %*lld ", mvl.min < 3 ? 3 : mvl.min, rd->st->st_rdev & 0377);
+			printf(" %*lld", (int)mvl.maj, (rd->st->st_rdev >> 24LL) & 0377LL);
+			printf(", %*lld ", mvl.min < 3 ? 3 : (int)mvl.min, rd->st->st_rdev & 0377LL);
 		}
 		else
-			ft_printf("%*lld ", mvl.sl < mvl.maj + mvl.min ? mvl.maj + mvl.min + 3 : mvl.sl, rd->st->st_size);
+			printf("%*lld ", mvl.sl < mvl.maj + mvl.min ? (int)(mvl.maj + mvl.min + 3) : (int)mvl.sl, (long long)rd->st->st_size);
 		if (*f & U_FLAG) // 0b1000000000
 			ft_print_time(rd->st->st_atimespec);
 		else
@@ -477,7 +477,7 @@ void	ft_print_total_blocks(t_vect *rd, uint32_t f)
 		bc += r->st->st_blocks;
 		++i;
 	}
-	ft_printf("total %lld\n", bc);
+	printf("total %lld\n", bc);
 }
 
 int	ft_readdir(char *dname, uint32_t flags)
@@ -690,9 +690,9 @@ void 	ft_print_dirs(t_vect *r, uint32_t *f)
 			{
 				ft_get_path((t_rec*)r->arr[i], name);
 				if (*f & 0x1000 && r->ilen > 1)
-					ft_printf("%s:\n", name);
+					printf("%s:\n", name);
 				else if (r->ilen > 1)
-					ft_printf("\n%s:\n", name);
+					printf("\n%s:\n", name);
 				if ((e = ft_readdir(name, *f & UR_FLAG ? *f & 0x7FF : (*f & 0x7FF) | D_FLAG)))
 					ft_dprintf(2, "ft_ls: %s: %s\n", ((t_rec*)(r->arr[i]))->name, strerror(e));
 			}
@@ -703,9 +703,9 @@ void 	ft_print_dirs(t_vect *r, uint32_t *f)
 			{
 				ft_get_path(((t_rec*)r->arr[i]), name);
 				if (*f & 0x1000 && r->len > 1)
-					ft_printf("%s:\n", name);
+					printf("%s:\n", name);
 				else if (r->len > 1)
-					ft_printf("\n%s:\n", name);
+					printf("\n%s:\n", name);
 				// ft_get_path(((t_rec*)r->arr[i])->lnk_to, name);
 				if ((e = ft_readdir(name, *f & UR_FLAG ? *f & 0x7FF : (*f & 0x7FF) | D_FLAG)))
 					ft_dprintf(2, "ft_ls: %s: %s\n", ((t_rec*)(r->arr[i]))->lnk_to->name, strerror(e));
@@ -746,7 +746,7 @@ void	ft_print_recs(t_vect *r, uint32_t f, t_us d)
 			{
 				ft_get_path((t_rec*)r->arr[i], name);
 				if (r->len > 1)
-					ft_printf("\n%s:\n", name);
+					printf("\n%s:\n", name);
 				if (f & UR_FLAG)
 					e = ft_readdir(name, f);
 				else
@@ -821,9 +821,9 @@ int		main(int ac, char **av)
 	// ac = 2;
 	// av[1] = dd;
 	// setlocale(0, "");
-	// ft_printf("%s\n", getenv("LANG"));
-	// ft_printf("%s\n", setlocale(LC_ALL, ""));
-	// ft_printf("%d\n", ac);
+	// printf("%s\n", getenv("LANG"));
+	// printf("%s\n", setlocale(LC_ALL, ""));
+	// printf("%d\n", ac);
 	// exit (0);
 	i = ac;
 	++av;

@@ -52,7 +52,7 @@ Bonus part:
 		✔ -g @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m28s)
 		✔ -d @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m29s)
 	✔ Manage of views in colors (option -G) @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m34s)
-	☐ Optimization of code (i.ex. time of response on BIG ls -lR)
+	☐ Optimization of code (i.ex. time of response on BIG ls -lR) @started(20-05-15 19:21)
 Submission:
 	☐ As usual
 Recomended helpers:
@@ -100,6 +100,6 @@ Mans:
 	✔ gettimeofday(2) @started(20-05-11 14:07) @done(20-05-11 14:10) @lasted(3m31s)
 	✔ getenv(3) @done(20-05-11 21:20)
 	Optmisation:
-		☐ Sorting @critical @started(20-05-15 17:53)
+		✔ Sorting @critical @started(20-05-15 17:53) @done(20-05-15 19:21) @lasted(1h28m28s)
 		☐ Vectors @high 
 		☐ Vectors -> Lists @tao
