@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/15 02:36:12 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/15 18:01:57 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -616,7 +616,8 @@ void 	ft_print_all(t_vect *r, uint32_t *f)
 	t_maxvallen	mvl;
 
 	i = 0;
-	ft_sort_recs(r, *f);
+	if (r->is_sorted == 0 || r->is_sorted != (*f & 0xFFF))
+		ft_sort_recs(r, *f);
 	mvl = ft_new_mvl(r, *f);
 	while (i < r->len)
 	{
@@ -639,7 +640,8 @@ void 	ft_print_files(t_vect *r, uint32_t *f)
 	t_maxvallen	mvl;
 
 	i = 0;
-	ft_sort_recs(r, *f);
+	if (r->is_sorted == 0 || r->is_sorted != (*f & 0xFFF))
+		ft_sort_recs(r, *f);
 	mvl = ft_new_mvl(r, *f);
 	while (i < r->len)
 	{
@@ -671,7 +673,8 @@ void 	ft_print_dirs(t_vect *r, uint32_t *f)
 	t_maxvallen	mvl;
 
 	i = 0;
-	ft_sort_recs(r, *f);
+	if (r->is_sorted == 0 || r->is_sorted != (*f & 0xFFF))
+		ft_sort_recs(r, *f);
 	mvl = ft_new_mvl(r, *f);
 	while (i < r->len)
 	{

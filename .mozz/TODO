@@ -100,6 +100,6 @@ Mans:
 	✔ gettimeofday(2) @started(20-05-11 14:07) @done(20-05-11 14:10) @lasted(3m31s)
 	✔ getenv(3) @done(20-05-11 21:20)
 	Optmisation:
-		☐ Sorting @critical 
+		☐ Sorting @critical @started(20-05-15 17:53)
 		☐ Vectors @high 
 		☐ Vectors -> Lists @tao

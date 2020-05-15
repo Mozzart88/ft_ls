@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 21:01:43 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/13 07:40:25 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/15 17:56:02 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,5 @@ void		ft_sort_recs(t_vect *arr, uint32_t f)
 		else
 			ft_msort(arr, f & R_FLAG, ft_sort_by_mtime);
 	}
+	arr->is_sorted = f & 0xFFF;
 }
