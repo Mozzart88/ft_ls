@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 22:29:26 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/16 17:23:11 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/16 22:41:46 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static void	ft_swap_pointers(void **a, void **b)
 	t = *a;
 	*a = *b;
 	*b = t;
-	return;
+	return ;
 }
 
-static void	merge(t_vect *arr, t_vect *l, t_vect *r, t_us asc, long long f(void *, void *))
+static void	merge(t_vect *a[3], t_us asc, long long f(void *, void *))
 {
 	size_t		i;
 	size_t		j;
@@ -31,72 +31,42 @@ static void	merge(t_vect *arr, t_vect *l, t_vect *r, t_us asc, long long f(void 
 	i = 0;
 	j = 0;
 	k = 0;
-	while (i < l->len && j < r->len)
+	while (i < a[1]->len && j < a[2]->len)
 	{
-		if ((asc && f(l->arr[i], r->arr[j]) > 0) || (!asc && f(l->arr[i], r->arr[j]) < 0))
-		{
-			ft_swap_pointers(&arr->arr[k], &l->arr[i]);
-			++i;
-		}
+		if ((asc && f(a[1]->arr[i], a[2]->arr[j]) > 0) ||\
+		(!asc && f(a[1]->arr[i], a[2]->arr[j]) < 0))
+			ft_swap_pointers(&a[0]->arr[k], &a[1]->arr[i++]);
 		else
-		{
-			ft_swap_pointers(&arr->arr[k], &r->arr[j]);
-			++j;
-		}
+			ft_swap_pointers(&a[0]->arr[k], &a[2]->arr[j++]);
 		++k;
 	}
-	while (i < l->len)
-	{
-		ft_swap_pointers(&arr->arr[k], &l->arr[i]);
-		++i;
-		++k;
-	}
-	while (j < r->len)
-	{
-		ft_swap_pointers(&arr->arr[k], &r->arr[j]);
-		++j;
-		++k;
-	}
-	return;
+	while (i < a[1]->len)
+		ft_swap_pointers(&a[0]->arr[k++], &a[1]->arr[i++]);
+	while (j < a[2]->len)
+		ft_swap_pointers(&a[0]->arr[k++], &a[2]->arr[j++]);
+	return ;
 }
 
-int		ft_msort(t_vect *v, t_us asc, long long f(void *, void *))
+int			ft_msort(t_vect *v, t_us asc, long long f(void *, void *))
 {
-	// int	ll;
-	// int	rl;
-	size_t	i;
-	t_vect *l;
-	t_vect *r;
+	t_vect	*a[3];
 
 	if (v->len < 2)
 		return (2);
-	// ll = v->len / 2;
-	// rl = v->len - ll;
-	// if (!(l = ft_new_vect(v->arr, v->size, v->len / 2)))
-	if (!(l = ft_new_vect(v->size, v->len / 2, NULL)))
+	if (!(a[1] = ft_new_vect(v->size, v->len / 2, NULL)))
 		return (1);
-	// if (!(r = ft_new_vect(&(v->arr[v->len / 2 + 1]), v->size, v->len - l->len)))
-	if (!(r = ft_new_vect(v->size, v->len - l->len, NULL)))
+	if (!(a[2] = ft_new_vect(v->size, v->len - a[1]->len, NULL)))
 	{
-		ft_destroy_vect(&l);
+		ft_destroy_vect(&a[1]);
 		return (1);
 	}
-	i = 0;
-	while (i < l->len)
-	{
-		l->arr[i] = v->arr[i];
-		++i;
-	}
-	i = 0;
-	while (i < r->len)
-	{
-		r->arr[i] = v->arr[l->len + i];
-		++i;
-	}
-	ft_msort(l, asc, f);
-	ft_msort(r, asc, f);
-	merge(v, l, r, asc, f);
-	ft_destroy_vect(&l);
-	ft_destroy_vect(&r);
+	ft_arr_cpy(a[1]->arr, v->arr, a[1]->len);
+	ft_arr_cpy(a[2]->arr, (v->arr + a[1]->len), a[2]->len);
+	a[0] = v;
+	ft_msort(a[1], asc, f);
+	ft_msort(a[2], asc, f);
+	merge(a, asc, f);
+	ft_destroy_vect(&a[1]);
+	ft_destroy_vect(&a[2]);
 	return (0);
 }

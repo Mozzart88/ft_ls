@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/16 17:21:38 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/16 22:39:00 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,6 @@ t_vect	*ft_new_vect(size_t s, size_t l, void arr_destroier(void**));
 void	*ft_destroy_vect(t_vect **v);
 void	ft_destroy_rec(void **record);
 t_maxvallen ft_new_mvl(t_vect *vector, uint32_t flags);
+void		ft_arr_cpy(void **dst, void **src, size_t len);
 
 #endif

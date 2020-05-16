@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 04:28:02 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/16 17:44:05 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/16 22:42:44 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ t_vect	*ft_new_vect(size_t s, size_t l, void f(void**))
 {
 	t_vect	*v;
 
-	if (!(v =(t_vect*)malloc(sizeof(t_vect))))
+	if (!(v = (t_vect*)malloc(sizeof(t_vect))))
 		return (NULL);
-	
 	if (!(v->arr = (void**)malloc(sizeof(void*) * l)))
 	{
 		v = NULL;
@@ -52,4 +51,16 @@ void	*ft_destroy_vect(t_vect **v)
 	free((*v));
 	(*v) = NULL;
 	return (NULL);
+}
+
+void	ft_arr_cpy(void **dst, void **src, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		dst[i] = src[i];
+		++i;
+	}
 }
