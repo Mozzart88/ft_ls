@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/15 18:01:57 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/16 17:02:42 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,6 +488,7 @@ int	ft_readdir(char *dname, uint32_t flags)
 	t_us	i;
 	char	path[__DARWIN_MAXPATHLEN];
 	t_rec	*des[LINK_MAX];
+	t_maxvallen mvl;
 
 	i = 0;
 	ft_memset(path, 0, __DARWIN_MAXPATHLEN);
@@ -514,7 +515,8 @@ int	ft_readdir(char *dname, uint32_t flags)
 	}
 	if (flags & LF_FLAGS && (rd->len > 2 || flags & AE_FLAGS))
 		ft_print_total_blocks(rd, flags);
-	ft_print_all(rd, &flags);
+	mvl = ft_new_mvl(rd, flags);
+	ft_print_all(rd, &flags, mvl);
 	if (flags & UR_FLAG)
 		ft_print_dirs(rd, &flags);
 	ft_destroy_vect(&rd);
@@ -607,18 +609,18 @@ t_maxvallen	ft_new_mvl(t_vect *v, uint32_t f)
 ** or if passed one arg as dir and nor recursive
 ** or if in recursive and print content
 */
-void 	ft_print_all(t_vect *r, uint32_t *f)
+void 	ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl)
 {
 	size_t		i;
 	// char		name[__DARWIN_MAXPATHLEN];
 	t_us		p;
 	// int			e;
-	t_maxvallen	mvl;
 
 	i = 0;
-	if (r->is_sorted == 0 || r->is_sorted != (*f & 0xFFF))
+	// if (r->is_sorted == 0 || r->is_sorted != (*f & 0xFFF))
+	if (r->is_sorted == 0)
 		ft_sort_recs(r, *f);
-	mvl = ft_new_mvl(r, *f);
+	// mvl = ft_new_mvl(r, *f);
 	while (i < r->len)
 	{
 		p = ((t_rec*)(r->arr[i]))->name[0] == '.' ? 1 : 0;
@@ -632,17 +634,17 @@ void 	ft_print_all(t_vect *r, uint32_t *f)
 /* 
 ** if passed many args and no -d flag
 */
-void 	ft_print_files(t_vect *r, uint32_t *f)
+ void 	ft_print_files(t_vect *r, uint32_t *f, t_maxvallen mvl)
 {
 	size_t		i;
 	t_us		p;
 	t_rec		*rec;
-	t_maxvallen	mvl;
+	// t_maxvallen	mvl;
 
 	i = 0;
-	if (r->is_sorted == 0 || r->is_sorted != (*f & 0xFFF))
+	if (r->is_sorted == 0)
 		ft_sort_recs(r, *f);
-	mvl = ft_new_mvl(r, *f);
+	// mvl = ft_new_mvl(r, *f);
 	while (i < r->len)
 	{
 		rec = ((t_rec*)(r->arr[i]));
@@ -670,12 +672,11 @@ void 	ft_print_dirs(t_vect *r, uint32_t *f)
 	char		name[__DARWIN_MAXPATHLEN];
 	t_us		p;
 	int			e;
-	t_maxvallen	mvl;
 
 	i = 0;
-	if (r->is_sorted == 0 || r->is_sorted != (*f & 0xFFF))
+	if (r->is_sorted == 0)
 		ft_sort_recs(r, *f);
-	mvl = ft_new_mvl(r, *f);
+	// mvl = ft_new_mvl(r, *f);
 	while (i < r->len)
 	{
 		if (AE_FLAGS & *f)
@@ -768,6 +769,7 @@ void	ft_ls(t_vect *p, uint32_t f)
 	t_us	i;
 	t_vect	*v;
 	t_rec	*r;
+	t_maxvallen mvl;
 
 	i = 0;
 	if (f)
@@ -793,11 +795,12 @@ void	ft_ls(t_vect *p, uint32_t f)
 		++i;
 	}
 	f |= 0x1800;
+	mvl = ft_new_mvl(v, f);
 	if (f & D_FLAG)
-		ft_print_all(v, &f);
+		ft_print_all(v, &f, mvl);
 	else
 	{
-		ft_print_files(v, &f);
+		ft_print_files(v, &f, mvl);
 		ft_print_dirs(v, &f);
 	}
 	// p->arr = p->arr - i;
