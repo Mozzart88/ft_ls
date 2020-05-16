@@ -6,13 +6,13 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 21:01:43 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/15 17:56:02 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/15 20:59:09 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static long long	ft_sort_by_name(t_ull a, t_ull b)
+static long long	ft_sort_by_name(void *a, void *b)
 {
 	t_rec	*ra;
 	t_rec	*rb;
@@ -24,7 +24,7 @@ static long long	ft_sort_by_name(t_ull a, t_ull b)
 	return (ft_strcmp(ft_get_path(ra, an), ft_get_path(rb, bn)));
 }
 
-static long long	ft_sort_by_mtime(t_ull a, t_ull b)
+static long long	ft_sort_by_mtime(void *a, void *b)
 {
 	t_rec	*ra;
 	t_rec	*rb;
@@ -40,7 +40,7 @@ static long long	ft_sort_by_mtime(t_ull a, t_ull b)
 	return (r);
 }
 
-static long long	ft_sort_by_atime(t_ull a, t_ull b)
+static long long	ft_sort_by_atime(void *a, void *b)
 {
 	t_rec	*ra;
 	t_rec	*rb;

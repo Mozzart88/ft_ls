@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/15 00:14:04 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/16 08:45:25 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct		s_datetime
 }					t_datetime;
 typedef struct		s_vect
 {
-	t_ull	*arr;
+	void	**arr;
 	size_t	size;
 	size_t	len;
 	size_t	ilen;
@@ -138,7 +138,7 @@ typedef struct		s_maxvallen
 }					t_maxvallen;
 
 t_rec*   ft_new_rec(char* name, char path[MAXNAMLEN]);
-int		ft_msort(t_vect *v, t_us asc, long long f(t_ull, t_ull));
+int		ft_msort(t_vect *v, t_us asc, long long f(void*, void*));
 void    ft_sort_recs(t_vect *arr, uint32_t flags);
 void	ft_ls(t_vect *p, uint32_t f);
 // void	ft_print_recs(t_vect *r, uint32_t f, t_us d);
@@ -147,8 +147,9 @@ void	ft_print_files(t_vect *r, uint32_t *f);
 void	ft_print_dirs(t_vect *r, uint32_t *f);
 char	*ft_get_path(t_rec *r, char *dst);
 char	*ft_get_lnk_path(t_rec *r, char *dst);
-t_vect	*ft_new_vect(void *a, size_t s, size_t l, void arr_destroier(void**));
+t_vect	*ft_new_vect(void **a, size_t s, size_t l, void arr_destroier(void**));
 void	*ft_destroy_vect(t_vect **v);
+void	*ft_soft_destroy_vect(t_vect **v);
 void	ft_destroy_rec(void **record);
 
 #endif
