@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/16 17:02:42 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/16 17:33:09 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_vect	*ft_get_params(char **av, int len)
 		++len;
 		av[0] = ".";
 	}
-	if (!(v = ft_new_vect(NULL, sizeof(char*), len, NULL)))
+	if (!(v = ft_new_vect(sizeof(char*), len, NULL)))
 		return (NULL);
 	while (len--)
 	{
@@ -94,7 +94,7 @@ t_vect	*ft_get_params(char **av, int len)
 		// 	ft_destroy_vect(&v);
 		// 	break;
 		// }
-		v->arr[i] = *(t_ull*)av;
+		v->arr[i] = *av;
 		++av;
 		++i;	
 	}
@@ -173,18 +173,21 @@ char	*ft_get_user_name(uid_t id)
 		name = ft_itoa_long_un(id);
 	else
 		name = ft_strdup(p->pw_name);
-	p->pw_name = NULL;
-	p->pw_passwd = NULL;
-	p->pw_class = NULL;
-	p->pw_gecos = NULL;
-	p->pw_dir = NULL;
-	p->pw_shell = NULL;
-	p->pw_change = 0;
-	p->pw_expire = 0;
-	p->pw_uid = 0;
-	p->pw_gid = 0;
-	free(p);
-	p = NULL;
+	if (p)
+	{
+		p->pw_name = NULL;
+		p->pw_passwd = NULL;
+		p->pw_class = NULL;
+		p->pw_gecos = NULL;
+		p->pw_dir = NULL;
+		p->pw_shell = NULL;
+		p->pw_change = 0;
+		p->pw_expire = 0;
+		p->pw_uid = 0;
+		p->pw_gid = 0;
+		free(p);
+		p = NULL;
+	}
 	return (name);
 }
 
@@ -505,12 +508,12 @@ int	ft_readdir(char *dname, uint32_t flags)
 	}
 	else
 		return (errno);
-	if (!(rd = ft_new_vect(NULL, sizeof(t_rec), i, ft_destroy_rec)))
+	if (!(rd = ft_new_vect(sizeof(t_rec), i, ft_destroy_rec)))
 		return (-1);
 	i = 0;
 	while (i < rd->len)
 	{
-		rd->arr[i] = (t_ull)des[i];
+		rd->arr[i] = des[i];
 		++i;
 	}
 	if (flags & LF_FLAGS && (rd->len > 2 || flags & AE_FLAGS))
@@ -776,7 +779,7 @@ void	ft_ls(t_vect *p, uint32_t f)
 		;
 	// if (!p->len && ++p->len)
 	// 	*(char**)p->arr[0] = ".";
-	if (!(v = ft_new_vect(NULL, sizeof(t_rec), p->len, ft_destroy_rec)))
+	if (!(v = ft_new_vect(sizeof(t_rec), p->len, ft_destroy_rec)))
 		return ;
 	while (i < v->len)
 	{
@@ -791,7 +794,7 @@ void	ft_ls(t_vect *p, uint32_t f)
 			--v->len;
 			continue;
 		}
-		v->arr[i] = (t_ull)r;
+		v->arr[i] = r;
 		++i;
 	}
 	f |= 0x1800;
@@ -810,7 +813,7 @@ void	ft_ls(t_vect *p, uint32_t f)
 	return;
 }
 
-static long long ft_strcmp_s(t_ull a, t_ull b)
+static long long ft_strcmp_s(void* a, void* b)
 {
 	return (ft_strcmp((char*)a, (char*)b));
 }

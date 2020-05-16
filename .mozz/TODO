@@ -51,6 +51,10 @@ Bonus part:
 		✔ -f @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m27s)
 		✔ -g @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m28s)
 		✔ -d @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m29s)
+		☐ -s @low 
+		☐ -S @low 
+		☐ -A @low 
+		☐ -p @low 
 	✔ Manage of views in colors (option -G) @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m34s)
 	☐ Optimization of code (i.ex. time of response on BIG ls -lR)
 Submission:
@@ -100,6 +104,6 @@ Mans:
 	✔ gettimeofday(2) @started(20-05-11 14:07) @done(20-05-11 14:10) @lasted(3m31s)
 	✔ getenv(3) @done(20-05-11 21:20)
 	Optmisation:
-		☐ Sorting @critical @started(20-05-15 17:53)
-		☐ Vectors @high 
-		☐ Vectors -> Lists @tao
+		✘ Sorting @critical @started(20-05-15 17:53) @cancelled(20-05-16 20:49) @wasted(1d2h56m10s)
+		✔ Vectors @high @done(20-05-16 20:49)
+		✘ Vectors -> Lists @tao @started(20-05-16 20:49) @cancelled(20-05-16 20:49) @wasted(23s)
