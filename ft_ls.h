@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 10:24:56 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 11:40:48 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,14 @@ typedef struct		s_maxvallen
 	t_ull	maj;
 	t_ull	min;
 }					t_maxvallen;
+typedef struct		s_dir
+{
+	DIR		*dir;
+	t_de	*dirent;
+	size_t	len;
+	t_rec	*contrect[LINK_MAX];
+}					t_dir;
+
 
 t_rec*   ft_new_rec(char* name, char path[MAXNAMLEN]);
 int		ft_msort(t_vect *v, t_us asc, long long f(void*, void*));
@@ -174,5 +182,6 @@ char	*ft_get_user_name(uid_t id);
 void	ft_print_group(gid_t id);
 char	*ft_get_group_name(gid_t id);
 void	ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl);
+int	ft_readdir(char *dname, uint32_t flags);
 
 #endif

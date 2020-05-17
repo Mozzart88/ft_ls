@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 10:25:59 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 11:02:07 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,49 +29,6 @@ void	ft_print_total_blocks(t_vect *rd, uint32_t f)
 		++i;
 	}
 	ft_printf("total %lld\n", bc);
-}
-
-int	ft_readdir(char *dname, uint32_t flags)
-{
-	DIR		*d;
-	t_de	*dc;
-	t_vect	*rd;
-	t_us	i;
-	char	path[__DARWIN_MAXPATHLEN];
-	t_rec	*des[LINK_MAX];
-	t_maxvallen mvl;
-
-	i = 0;
-	ft_memset(path, 0, __DARWIN_MAXPATHLEN);
-	ft_strcpy(path, dname);
-	ft_strcat(path, "/");
-	if ((d = opendir(dname)))
-	{
-		while ((dc = readdir(d)))
-		{
-			des[i] = ft_new_rec(dc->d_name, path);
-			++i;
-		}
-		closedir(d);
-	}
-	else
-		return (errno);
-	if (!(rd = ft_new_vect(sizeof(t_rec), i, ft_destroy_rec)))
-		return (-1);
-	i = 0;
-	while (i < rd->len)
-	{
-		rd->arr[i] = des[i];
-		++i;
-	}
-	if (flags & LF_FLAGS && (rd->len > 2 || flags & AE_FLAGS))
-		ft_print_total_blocks(rd, flags);
-	mvl = ft_new_mvl(rd, flags);
-	ft_print_all(rd, &flags, mvl);
-	if (flags & UR_FLAG)
-		ft_print_dirs(rd, &flags);
-	ft_destroy_vect(&rd);
-	return (0);
 }
 
 t_maxvallen	ft_new_mvl(t_vect *v, uint32_t f)
@@ -131,6 +88,8 @@ void 	ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl)
 	t_us		p;
 
 	i = 0;
+	if (*f & LF_FLAGS && (r->len > 2 || *f & AE_FLAGS))
+		ft_print_total_blocks(r, *f);
 	if (r->is_sorted == 0)
 		ft_sort_recs(r, *f);
 	while (i < r->len)
