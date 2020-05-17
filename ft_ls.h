@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 08:01:41 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 09:41:45 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@
 #define FLAGS_COUNT 11
 #define WORD_FLAGS {}
 #define STRICT_FLAGS_ORDER 1
+#define FT_PUSAGE "/bin/ls: illegal option -- %c\nusage: ls \
+[-@ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1%] [file ...]\n"
 
 typedef struct stat	t_stat;
 typedef struct timespec	t_time;
@@ -159,5 +161,8 @@ t_us		ft_is_lnk(mode_t m);
 t_us		ft_is_reg_file(mode_t m);
 char	*ft_get_path(t_rec *r, char *dst);
 char	*ft_get_lnk_path(t_rec *r, char *dst);
+uint32_t	ft_get_flags(char ***av, int *len);
+t_vect	*ft_get_params(char **av, int len);
+void			ft_print_usage(char f, int exit_code);
 
 #endif
