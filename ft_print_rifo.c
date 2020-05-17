@@ -6,11 +6,20 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:21:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 10:41:05 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 21:47:38 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static char	ft_get_xmode(acl_t acl, char *xattrs)
+{
+	char c;
+
+	c = acl ? '+' : '\0';
+	c = xattrs[0] ? '@' : c;
+	return (c);
+}
 
 static void	ft_print_stat(t_rec *r)
 {
@@ -36,7 +45,7 @@ static void	ft_print_stat(t_rec *r)
 			m[i] = r->st->st_mode & j ? t[i - 1] : '-';
 		mask = i % 3 == 0 ? mask >> 1 : mask;
 	}
-	m[10] = r->xattrs[0] ? '@' : '\0';
+	m[10] = ft_get_xmode(r->acl, r->xattrs);
 	m[11] = '\0';
 	ft_printf("%-11s ", m);
 }

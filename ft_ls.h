@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 15:40:36 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 20:29:10 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <errno.h>
+# include <sys/acl.h>
 
 /*
 ** @todo: add 1 and S flags
@@ -123,9 +124,10 @@ typedef	struct			s_rec
 	char				name[__DARWIN_MAXNAMLEN];
 	int					err_no;
 	char				*err_str;
-	char				xattrs[__DARWIN_MAXPATHLEN];
+	char				xattrs[XATTR_MAXNAMELEN];
 	char				lnk_path[__DARWIN_MAXPATHLEN];
 	struct s_rec		*lnk_to;
+	acl_t				acl;
 }						t_rec;
 typedef struct			s_datetime
 {
