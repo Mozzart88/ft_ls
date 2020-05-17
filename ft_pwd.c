@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:07:32 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 10:16:33 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 18:48:57 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ char	*ft_get_user_name(uid_t id)
 		p->pw_expire = 0;
 		p->pw_uid = 0;
 		p->pw_gid = 0;
-		ft_free((void**)p);
+		free(p);
+		p = NULL;
 	}
 	return (name);
 }
