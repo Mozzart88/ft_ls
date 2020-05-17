@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 07:44:34 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 08:01:41 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,66 +23,69 @@
 # include <sys/types.h>
 #include  <errno.h>
 
+/*
+** @todo: add 1 and S flags
+*/
 #define LETER_FLAGS "adfgGlrRtu1"
 /*
-**	Include directory entries whose names begin with a dot (.).
+** Include directory entries whose names begin with a dot (.).
 */ 
 #define A_FLAG		0x1
 /*
-**	Directories are listed as plain files (not searched recursively).
+** Directories are listed as plain files (not searched recursively).
 */ 
 #define D_FLAG		0x2
 /*
-**	Output is not sorted.
-**	This option turns on the -a option.
+** Output is not sorted.
+** This option turns on the -a option.
 */ 
 #define F_FLAG		0x4
 /*
-**	This option is only available for compatibility with POSIX;
-**	it is used to display the group name in the long (-l)
-**	format output (the owner name is suppressed).
+** This option is only available for compatibility with POSIX;
+** it is used to display the group name in the long (-l)
+** format output (the owner name is suppressed).
 */ 
 #define G_FLAG		0x8
 /*
-**	Enable colorized output.
-**	This option is equivalent to defining `CLICOLOR` in the environment.
+** Enable colorized output.
+** This option is equivalent to defining `CLICOLOR` in the environment.
 */ 
 #define UG_FLAG		0x10
 /*
-**	(The lowercase letter "ell".) List in long format.
-**	If the output is to a terminal, a total sum for all the file
-**	sizes is output on a line before the long listing.
+** (The lowercase letter "ell".) List in long format.
+** If the output is to a terminal, a total sum for all the file
+** sizes is output on a line before the long listing.
 */ 
 #define L_FLAG		0x20
 /*
-**	Reverse the order of the sort to get reverse lexicographical order or the
-**	oldest entries first (or largest files last, if combined with sort by size
+** Reverse the order of the sort to get reverse lexicographical order or the
+** oldest entries first (or largest files last, if combined with sort by size
 */ 
 #define R_FLAG		0x40
 /*
-**	Recursively list subdirectories encountered.
+** Recursively list subdirectories encountered.
 */ 
 #define UR_FLAG		0x80
 /*
-**	Sort by time modified (most recently modified first) before sorting the
-**	operands by lexicographical order.
+** Sort by time modified (most recently modified first) before sorting the
+** operands by lexicographical order.
 */ 
 #define T_FLAG		0x100
 /*
-**	Use time of last access, instead of last modification of the file for
-**	sorting (-t) or long printing (-l).
+** Use time of last access, instead of last modification of the file for
+** sorting (-t) or long printing (-l).
 */ 
 #define U_FLAG		0x200
 /*
-**	Sorting flags mask: -frtu
+** Sorting flags mask: -frtu
 */ 
 #define SORT_FLAGS	0x344
 /*
-**	Long format flags mask: -lg
+** Long format flags mask: -lg
 */ 
 #define LF_FLAGS	0x28
 /*
-**	All entries flags mask: -af
+** All entries flags mask: -af
 */ 
 #define AE_FLAGS	0x5
 #define FLAGS_COUNT 11

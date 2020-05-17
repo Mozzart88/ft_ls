@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 21:01:43 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/16 17:20:55 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 08:07:07 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,22 @@ static long long	ft_sort_by_atime(void *a, void *b)
 		r = ft_sort_by_name(a, b);
 	return (r);
 }
-/* 
-static void		ft_sort_by_type(t_rec **arr)
+
+static long long	ft_sort_by_size(void *a, void *b)
 {
-	if (arr || l)
-		return ;
-}
- */
-void		ft_sort_by_size()
-{
-	return ;
+	t_rec	*ra;
+	t_rec	*rb;
+	long	r;
+
+	ra = (t_rec*)a;
+	rb = (t_rec*)b;
+	r = rb->st->st_size - ra->st->st_size;
+	if (!r)
+		r = ft_sort_by_name(a, b);
+	return (r);
 }
 
-void		ft_sort_recs(t_vect *arr, uint32_t f)
+void				ft_sort_recs(t_vect *arr, uint32_t f)
 {
 	if (f & F_FLAG)
 		return ;
@@ -79,6 +82,9 @@ void		ft_sort_recs(t_vect *arr, uint32_t f)
 		else
 			ft_msort(arr, f & R_FLAG, ft_sort_by_mtime);
 	}
-	// arr->is_sorted = f & 0xFFF;
+	if (f == 0xFFFFF)
+	{
+		ft_msort(arr, f & R_FLAG, ft_sort_by_size);
+	}
 	arr->is_sorted = 1;
 }
