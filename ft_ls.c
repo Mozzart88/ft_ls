@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 14:05:34 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 14:38:18 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 15:41:07 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static t_us	ft_read_params(t_vect *v, t_vect *p)
 		if ((r = ft_new_rec((char*)*(p->arr), "")) == NULL)
 			return (1);
 		++p->arr;
-		if (r->_errno)
+		if (r->err_no)
 		{
-			ft_perr((char*)*(p->arr - 1), r->_errstr);
+			ft_perr((char*)*(p->arr - 1), r->err_str);
 			ft_destroy_rec((void**)&r);
 			--v->len;
 			continue;

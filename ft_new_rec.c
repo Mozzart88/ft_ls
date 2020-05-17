@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 19:50:11 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 07:44:38 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 15:41:07 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ t_rec			*ft_new_rec(char *name, char path[__DARWIN_MAXPATHLEN])
 	ft_get_dir(path, (r->path));
 	ft_get_dir(name, (r->path));
 	ft_get_name(name, (r->name));
-	r->_errno = 0;
+	r->err_no = 0;
 	if (!(r->st = (t_stat*)malloc(sizeof(t_stat))))
 		return (NULL);
 	ft_get_path(r, p);
 	if (lstat(p, r->st))
 	{
-		r->_errno = errno;
-		r->_errstr = strerror(errno);
+		r->err_no = errno;
+		r->err_str = strerror(errno);
 	}
 	ft_memset(r->xattrs, 0, __DARWIN_MAXPATHLEN);
 	listxattr(p, r->xattrs, __DARWIN_MAXPATHLEN, XATTR_SHOWCOMPRESSION);
@@ -85,13 +85,13 @@ void			ft_destroy_rec(void **p)
 	if ((*v)->st)
 		free((*v)->st);
 	(*v)->st = NULL;
-	(*v)->_errno = 0;
+	(*v)->err_no = 0;
 	ft_bzero((*v)->path, __DARWIN_MAXPATHLEN);
 	ft_bzero((*v)->name, __DARWIN_MAXPATHLEN);
 	ft_bzero((*v)->xattrs, __DARWIN_MAXPATHLEN);
 	ft_bzero((*v)->lnk_path, __DARWIN_MAXPATHLEN);
-	free((*v)->_errstr);
-	(*v)->_errstr = NULL;
+	free((*v)->err_str);
+	(*v)->err_str = NULL;
 	if ((*v)->lnk_to)
 		ft_destroy_rec((void**)&(*v)->lnk_to);
 	free(*v);
