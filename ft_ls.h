@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 09:41:45 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 09:50:34 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,6 @@ char	*ft_get_lnk_path(t_rec *r, char *dst);
 uint32_t	ft_get_flags(char ***av, int *len);
 t_vect	*ft_get_params(char **av, int len);
 void			ft_print_usage(char f, int exit_code);
+char	ft_get_file_type(mode_t m);
 
 #endif
