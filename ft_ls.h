@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 14:12:47 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 14:38:15 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	ft_print_dirs(t_vect *r, uint32_t *f);
 t_vect	*ft_new_vect(size_t s, size_t l, void arr_destroier(void**));
 void	*ft_destroy_vect(t_vect **v);
 void	ft_destroy_rec(void **record);
-t_maxvallen ft_new_mvl(t_vect *vector, uint32_t flags);
+t_maxvallen ft_get_mvl(t_vect *vector, uint32_t flags);
 void		ft_arr_cpy(void **dst, void **src, size_t len);
 t_us		ft_is_dir(mode_t m);
 t_us		ft_is_spec(mode_t m);

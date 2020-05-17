@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 14:05:34 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 14:26:55 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 14:38:18 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		ft_ls(t_vect *p, uint32_t f)
 	if ((ft_read_params(v, p)) == 1)
 		exit(1);
 	f |= 0x1800;
-	mvl = ft_new_mvl(v, f);
+	mvl = ft_get_mvl(v, f);
 	if (f & D_FLAG)
 		ft_print_all(v, &f, mvl);
 	else

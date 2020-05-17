@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:00:33 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 11:45:34 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 14:38:20 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				ft_readdir(char *dname, uint32_t f)
 
 	if ((r = ft_opendir(dname)) == NULL)
 		return (errno);
-	mvl = ft_new_mvl(r, f);
+	mvl = ft_get_mvl(r, f);
 	ft_print_all(r, &f, mvl);
 	if (f & UR_FLAG)
 		ft_print_dirs(r, &f);
