@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/16 22:39:00 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 07:44:34 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,16 @@ void	ft_ls(t_vect *p, uint32_t f);
 void	ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void	ft_print_files(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void	ft_print_dirs(t_vect *r, uint32_t *f);
-char	*ft_get_path(t_rec *r, char *dst);
-char	*ft_get_lnk_path(t_rec *r, char *dst);
 t_vect	*ft_new_vect(size_t s, size_t l, void arr_destroier(void**));
 void	*ft_destroy_vect(t_vect **v);
 void	ft_destroy_rec(void **record);
 t_maxvallen ft_new_mvl(t_vect *vector, uint32_t flags);
 void		ft_arr_cpy(void **dst, void **src, size_t len);
+t_us		ft_is_dir(mode_t m);
+t_us		ft_is_spec(mode_t m);
+t_us		ft_is_lnk(mode_t m);
+t_us		ft_is_reg_file(mode_t m);
+char	*ft_get_path(t_rec *r, char *dst);
+char	*ft_get_lnk_path(t_rec *r, char *dst);
 
 #endif
