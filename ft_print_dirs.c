@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 12:35:54 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 13:48:22 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 14:01:35 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static	void	ft_print_content(uint32_t f, t_rec *r, size_t l)
 	if ((e = ft_readdir(n, f & UR_FLAG ? f & 0x7FF : (f & 0x7FF) | D_FLAG)))
 	{
 		en = ft_is_lnk(r->st->st_mode) ? r->lnk_to->name : r->name;
-		ft_dprintf(2, "ft_ls: %s: %s\n", en, strerror(e));
+		ft_perr(en, strerror(e));
 	}
 }
 

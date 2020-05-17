@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 12:21:05 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 13:59:21 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@
 #define STRICT_FLAGS_ORDER 1
 #define FT_PUSAGE "/bin/ls: illegal option -- %c\nusage: ls \
 [-@ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1%] [file ...]\n"
+#define FT_ERRSTR "ls: %s: %s\n"
 
 typedef struct stat	t_stat;
 typedef struct timespec	t_time;
@@ -184,5 +185,6 @@ char	*ft_get_group_name(gid_t id);
 void	ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl);
 int	ft_readdir(char *dname, uint32_t flags);
 void 	ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl);
+void			ft_perr(char *file, char *errstr);
 
 #endif

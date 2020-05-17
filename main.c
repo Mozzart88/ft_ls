@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 12:36:35 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 14:01:12 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_ls(t_vect *p, uint32_t f)
 		++p->arr;
 		if (r->_errno)
 		{
-			ft_dprintf(2, "ls: %s: %s\n", (char*)*(p->arr - 1), r->_errstr);
+			ft_perr((char*)*(p->arr - 1), r->_errstr);
 			ft_destroy_rec((void**)&r);
 			--v->len;
 			continue;
