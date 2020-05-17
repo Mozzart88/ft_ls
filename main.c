@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 09:51:40 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 10:04:28 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,88 +106,6 @@ char	*ft_get_group_name(gid_t id)
 	free(g);
 	g = NULL;
 	return (name);
-}
-
-void		ft_get_month_str(char *arr[12])
-{
-	t_us	i;
-
-	i = 0;
-	while (i < 12)
-	{
-		if (i == 0)
-			arr[i] = "Jan";
-		else if (i == 1)
-			arr[i] = "Feb";
-		else if (i == 2)
-			arr[i] = "Mar";
-		else if (i == 3)
-			arr[i] = "Apr";
-		else if (i == 4)
-			arr[i] = "May";
-		else if (i == 5)
-			arr[i] = "Jun";
-		else if (i == 6)
-			arr[i] = "Jul";
-		else if (i == 7)
-			arr[i] = "Aug";
-		else if (i == 8)
-			arr[i] = "Sep";
-		else if (i == 9)
-			arr[i] = "Oct";
-		else if (i == 10)
-			arr[i] = "Nov";
-		else if (i == 11)
-			arr[i] = "Des";
-		++i;
-	}
-	
-}
-
-void		ft_set_loc(t_datetime *dt)
-{
-	char 	*mon[12];
-	int	i;
-
-	mon[0] = "Jan янв";
-	mon[1] = "Feb фев";
-	mon[2] = "Mar мар";
-	mon[3] = "Apr апр";
-	mon[4] = "May май";
-	mon[5] = "Jun июн";
-	mon[6] = "Jul июл";
-	mon[7] = "Aug авг";
-	mon[8] = "Sep сен";
-	mon[9] = "Oct окт";
-	mon[10] = "Nov ноя";
-	mon[11] = "Dec дек";
-	i = -1;
-	while (++i < 12)
-		if ((ft_strstr(mon[i], dt->monstr)))
-			dt->monstr = (mon[i] + 4);
-}
-
-t_datetime	ft_localtime(t_time *t)
-{
-	t_datetime	dt;
-	char		*ct;
-
-	ct = ctime(&t->tv_sec);
-	dt.daystr = ft_strsub(ct, 0, 3);
-	dt.monstr = ft_strsub(ct, 4, 3);
-	dt.mday = ft_atoi(ft_strsub(ct, 8, 2));
-	dt.hour = ft_atoi(ft_strsub(ct, 11, 2));
-	dt.min = ft_atoi(ft_strsub(ct, 14, 2));
-	dt.sec = ft_atoi(ft_strsub(ct, 17, 2));
-	dt.year = ft_atoi(ft_strsub(ct, 20, 4));
-	if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
-		ft_set_loc(&dt);
-	return (dt);
-}
-
-time_t	ft_difftime(time_t *t1, time_t *t2)
-{
-	return (*t1 - *t2);
 }
 
 void	ft_print_time(t_time t)
