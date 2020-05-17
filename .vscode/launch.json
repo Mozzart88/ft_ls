@@ -10,11 +10,10 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-l",
-				"/"
+				"-1aR",
 			],
 			"stopAtEntry": true,
-			"cwd": "${workspaceFolder}/.mozz/test/mouli_test/20_test_error_handling/12",
+			"cwd": "${workspaceFolder}/.mozz/test/mouli_test/09_test_aR",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb",

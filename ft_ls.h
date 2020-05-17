@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 20:29:10 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 23:24:52 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,31 @@
 ** All entries flags mask: -af
 */
 # define AE_FLAGS	0x5
+
+/*
+** User defined bit mask
+*/
+# define FT_U_BITS	0x1800
+
+/*
+** First entry bit
+*/
+# define FT_F_BIT	0x1000
+
+/*
+** All flags mask
+*/
+# define FT_ALL_FLAGS	0xFFF
+
+/*
+** All program mask
+*/
+# define FT_ALL_PFLAGS	0x7FF
+
+/*
+** First zero point bit
+*/
+# define FT_ZP_BIT	0x800
 
 # define FLAGS_COUNT 11
 # define WORD_FLAGS {}

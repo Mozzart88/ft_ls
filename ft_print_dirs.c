@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 12:35:54 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 14:01:35 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 23:23:31 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_us		ft_is_hidden(uint32_t f, char *name)
 		p = ft_strequ(name, ".") ? 1 : ft_strequ(name, "..");
 	else
 		p = name[0] == '.' ? 1 : 0;
-	if ((f & 0x800))
+	if ((f & FT_ZP_BIT))
 		p = 0;
 	return (p);
 }
@@ -32,11 +32,11 @@ static	void	ft_print_content(uint32_t f, t_rec *r, size_t l)
 	int		e;
 
 	ft_get_path(r, n);
-	if (f & 0x1000 && l > 1)
+	if (f & FT_F_BIT && l > 1)
 		ft_printf("%s:\n", n);
 	else if (l > 1)
 		ft_printf("\n%s:\n", n);
-	if ((e = ft_readdir(n, f & UR_FLAG ? f & 0x7FF : (f & 0x7FF) | D_FLAG)))
+	if ((e = ft_readdir(n, f & UR_FLAG ? f & FT_ALL_PFLAGS : (f & FT_ALL_PFLAGS) | D_FLAG)))
 	{
 		en = ft_is_lnk(r->st->st_mode) ? r->lnk_to->name : r->name;
 		ft_perr(en, strerror(e));
@@ -66,7 +66,7 @@ void			ft_print_dirs(t_vect *v, uint32_t *f)
 				if (ft_is_dir(r->lnk_to->st->st_mode) && !(*f & LF_FLAGS))
 					ft_print_content(*f, (t_rec*)v->arr[i], v->ilen);
 		}
-		*f &= 0xFFF;
+		*f &= FT_ALL_FLAGS;
 		++i;
 	}
 }

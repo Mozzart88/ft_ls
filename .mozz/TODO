@@ -44,7 +44,7 @@ Mandatory part:
 		✔ Output must stay as udentical as pasible to system command @done(20-05-15 02:50)
 	✔ man ls @started(20-05-13 17:46) @done(20-05-15 02:49) @lasted(1d9h3m46s)
 Bonus part:
-	☐ Manage ACL and extended attributs @started(20-05-17 18:58)
+	✔ Manage ACL and extended attributs @started(20-05-17 18:58) @done(20-05-17 21:58) @lasted(3h1s)
 	☐ Manage column without option -l (man 4 tty)
 	Manage options:
 		✔ -u @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m27s)
@@ -108,3 +108,4 @@ Mans:
 		✘ Sorting @critical @started(20-05-15 17:53) @cancelled(20-05-16 20:49) @wasted(1d2h56m10s)
 		✔ Vectors @high @done(20-05-16 20:49)
 		✘ Vectors -> Lists @tao @started(20-05-16 20:49) @cancelled(20-05-16 20:49) @wasted(23s)
+		☐ xflags @started(20-05-17 22:05)
