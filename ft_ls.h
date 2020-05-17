@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 10:18:00 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 10:24:56 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,5 +173,6 @@ void	ft_print_user(uid_t id);
 char	*ft_get_user_name(uid_t id);
 void	ft_print_group(gid_t id);
 char	*ft_get_group_name(gid_t id);
+void	ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl);
 
 #endif
