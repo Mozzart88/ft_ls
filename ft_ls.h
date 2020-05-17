@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 13:59:21 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/17 14:12:47 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,5 +186,6 @@ void	ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl);
 int	ft_readdir(char *dname, uint32_t flags);
 void 	ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void			ft_perr(char *file, char *errstr);
+void	ft_ls(t_vect *p, uint32_t f);
 
 #endif
