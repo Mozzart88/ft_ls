@@ -4,7 +4,7 @@ Makefile:
 Libft:
 	✔ At the root of repo @started(20-05-15 02:51) @done(20-05-15 02:51) @lasted(25s)
 Norm:
-	☐ As usual
+	☐ As usual @started(20-05-17 18:57)
 Errors:
 	✔ Handle errors sensitivly @done(20-05-15 02:51)
 	✔ If you ensure, handle errors like ls @done(20-05-15 02:51)
@@ -44,17 +44,18 @@ Mandatory part:
 		✔ Output must stay as udentical as pasible to system command @done(20-05-15 02:50)
 	✔ man ls @started(20-05-13 17:46) @done(20-05-15 02:49) @lasted(1d9h3m46s)
 Bonus part:
-	☐ Manage ACL and extended attributs
+	☐ Manage ACL and extended attributs @started(20-05-17 18:58)
 	☐ Manage column without option -l (man 4 tty)
-	☐ Manage options:
+	Manage options:
 		✔ -u @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m27s)
 		✔ -f @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m27s)
 		✔ -g @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m28s)
 		✔ -d @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m29s)
 		☐ -s @low 
-		☐ -S @low 
+		☐ -S @low
 		☐ -A @low 
 		☐ -p @low 
+		☐ -n @low
 	✔ Manage of views in colors (option -G) @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m34s)
 	☐ Optimization of code (i.ex. time of response on BIG ls -lR)
 Submission:

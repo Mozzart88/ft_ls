@@ -58,3 +58,62 @@ Legend: (.) Ok / (F) Fail / (S) Segfault / (B) Bus error / (T) Timeout / (A) Abo
 [ ----------END OF UNIT TESTS---------- ]
 
 >>>> Result: 32/50 test suites passed. 181/241 tests passed (dots).
+
+>>>> Tests for ft_ls
+Source: github.com/yyang42/moulitest
+Legend: (.) Ok / (F) Fail / (S) Segfault / (B) Bus error / (T) Timeout / (A) Abort
+
+[ -------STARTING ALL UNIT TESTS------- ]
+>>>> 09_test_opt_aR.spec.c ------- [Ok !] ..
+>>>> bonus_34_test_redis.spec.c -- [Ok !] .
+>>>> bonus_08_test_opt_1.spec.c -- [Ok !] ..
+>>>> 23_test_no_groupname.spec.c - [Ok !] .
+>>>> 22_test_no_username.spec.c -- [Ok !] .
+>>>> 21_test_symlink.spec.c ------ [Ok !] ....
+>>>> 13_test_hyphen_hard.spec.c -- [Ok !] ........
+>>>> 25_perm_special_bits.spec.c - [Ok !] ................
+>>>> 24_test_multiple_files.spec.c [Ok !] ...
+>>>> 07_test_opt_tR_bis.spec.c --- [Ok !] .
+>>>> sys_00_test_user_bin.spec.c - [Ok !] ....
+>>>> 08_test_opt_l.spec.c -------- [Ok !] .......
+>>>> 02_test_sorted.spec.c ------- [Ok !] ...
+>>>> bonus_01_test_opt_d.spec.c -- [Ok !] ..........
+>>>> bonus_20_test_opt_comb_aA.spe [FAIL] FF [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> sys_01_test_dev.spec.c ------ [FAIL] .FF [FAIL] unitTest_01 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> sys_03_test_many_files.spec.c [Ok !] .
+>>>> 04_test_opt_a.spec.c -------- [Ok !] ..
+>>>> bonus_02_test_opt_p.spec.c -- [FAIL] FFFFF [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> bonus_11_test_opt_g.spec.c -- [Ok !] ...
+>>>> 06_test_opt_rR.spec.c ------- [Ok !] ....
+>>>> 00_test_without_opt.spec.c -- [Ok !] ...
+>>>> bonus_21_test_opt_mix_sort.sp [FAIL] FF [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> 01_test_opt_R.spec.c -------- [Ok !] .......
+>>>> bonus_03_test_opt_U.spec.c -- [FAIL] FFF [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> bonus_10_test_opt_T.spec.c -- [FAIL] F [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> bonus_06_test_opt_u.spec.c -- [FAIL] ....FF................ [FAIL] unitTest_04 -> strcmp(ls(mix_cmd1), ft_ls(mix_cmd1)) == 0
+>>>> bonus_13_test_opt_F_Fp.spec.c [FAIL] FFFFFFF [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> 03_test_multiple_dir.spec.c - [Ok !] .....
+>>>> 07_test_opt_t.spec.c -------- [Ok !] .......
+>>>> bonus_05_test_opt_S.spec.c -- [FAIL] FFFFF [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> sys_02_test_etc.spec.c ------ [Ok !] .
+>>>> bonus_07_test_opt_A.spec.c -- [FAIL] FFFF [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> 05_test_opt_r.spec.c -------- [Ok !] ...
+>>>> sys_04_test_var_run.spec.c -- [FAIL] F [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> bonus_30_test_xattr.spec.c -- [Ok !] .
+>>>> 30_test_opt_mix.spec.c ------ [Ok !] .
+>>>> bonus_32_test_ACL.spec.c ---- [Ok !] .
+>>>> bonus_12_test_opt_o_og.spec.c [FAIL] FFFF [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> bonus_09_test_opt_f.spec.c -- [Ok !] ..
+>>>> 11_test_single_file.spec.c -- [Ok !] ..
+>>>> 14_test_hyphen_harder.spec.c  [Ok !] ..........
+>>>> bonus_04_test_opt_c.spec.c -- [FAIL] FFFFF.. [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> 10_test_opt_aRl.spec.c ------ [Ok !] .
+>>>> 26_perm_special_bits_dir.spec [Ok !] ................
+>>>> 20_test_error_handling.spec.c [Ok !] .........................
+>>>> bonus_22_test_sort_comb.spec. [FAIL] FFFFFFFFFFFF [FAIL] unitTest_00 -> strcmp(ls(cmd), ft_ls(cmd)) == 0
+>>>> bonus_31_test_usr_xattr.spec. [Ok !] ..
+>>>> bonus_40_dir_root.spec.c ---- [Ok !] .
+>>>> 12_test_permissions.spec.c -- [Ok !] ..
+[ ----------END OF UNIT TESTS---------- ]
+
+>>>> Result: 36/50 test suites passed. 186/241 tests passed (dots).
