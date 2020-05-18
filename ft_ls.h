@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/18 11:20:43 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 12:02:50 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 /*
 ** @todo: add 1 and S flags
 */
-# define LETER_FLAGS "adfgGlrRtu1S"
-# define FLAGS_COUNT 12
+# define LETER_FLAGS "adfgGlrRtu1Sp"
+# define FLAGS_COUNT 13
 
 /*
 ** Include directory entries whose names begin with a dot (.).
@@ -97,10 +97,14 @@
 # define ONE_FLAG		0x400
 
 /*
-** Use time of last access, instead of last modification of the file for
-** sorting (-t) or long printing (-l).
+** Sort files by size.
 */
 # define US_FLAG		0x800
+
+/*
+** Write a slash (‘/’) after each filename if that file is a directory.
+*/
+# define P_FLAG		0x1000
 
 /*
 ** Sorting flags mask: -frtuS
@@ -135,12 +139,12 @@
 /*
 ** All flags mask
 */
-# define FT_ALL_FLAGS	0x1FFF
+# define FT_ALL_FLAGS	0x3FFF
 
 /*
 ** All program mask
 */
-# define FT_ALL_PFLAGS	0xFFF
+# define FT_ALL_PFLAGS	0x1FFF
 
 # define WORD_FLAGS {}
 # define STRICT_FLAGS_ORDER 1

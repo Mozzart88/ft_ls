@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:21:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 23:18:00 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 12:00:57 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,17 @@ static void	ft_print_filename(t_rec *r, t_us f)
 			ft_printf("\e[35m%s\e[0m", r->name);
 		else if ((r->st->st_mode & 0111))
 			ft_printf("\e[31m%s\e[0m", r->name);
+		else
+			ft_printf("%s", f & FT_F_BIT ? ft_get_path(r, lp) : r->name);
 	}
-	ft_bzero(lp, __DARWIN_MAXPATHLEN);
-	ft_printf("%s", f & FT_F_BIT ? ft_get_path(r, lp) : r->name);
-	ft_bzero(lp, __DARWIN_MAXPATHLEN);
-	if ((r->st->st_mode & S_IFMT) == S_IFLNK && (f & LF_FLAGS))
-		ft_printf(" -> %s\n", ft_get_lnk_path(r, lp));
 	else
-		ft_printf("\n");
+		ft_printf("%s", f & FT_F_BIT ? ft_get_path(r, lp) : r->name);
+	if (f & P_FLAG && (r->st->st_mode & S_IFMT) == S_IFDIR)
+		ft_printf("/");
+	if ((r->st->st_mode & S_IFMT) == S_IFLNK && (f & LF_FLAGS))
+		ft_printf(" -> %s", ft_get_lnk_path(r, lp));
+	ft_printf("\n");
+	ft_bzero(lp, __DARWIN_MAXPATHLEN);
 }
 
 void		ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl)

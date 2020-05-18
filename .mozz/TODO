@@ -52,9 +52,9 @@ Bonus part:
 		✔ -g @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m28s)
 		✔ -d @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m29s)
 		☐ -s @low 
-		☐ -S @low
+		✔ -S @low @done(20-05-18 11:24)
 		☐ -A @low 
-		☐ -p @low 
+		☐ -p @low @started(20-05-18 11:26)
 		☐ -n @low
 	✔ Manage of views in colors (option -G) @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m34s)
 	☐ Optimization of code (i.ex. time of response on BIG ls -lR)
@@ -108,4 +108,4 @@ Mans:
 		✘ Sorting @critical @started(20-05-15 17:53) @cancelled(20-05-16 20:49) @wasted(1d2h56m10s)
 		✔ Vectors @high @done(20-05-16 20:49)
 		✘ Vectors -> Lists @tao @started(20-05-16 20:49) @cancelled(20-05-16 20:49) @wasted(23s)
-		☐ xflags @started(20-05-17 22:05)
+		✔ xflags @started(20-05-17 22:05) @done(20-05-18 11:24) @lasted(13h19m28s)
