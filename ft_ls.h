@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/18 15:17:40 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 16:15:20 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 /*
 ** @todo: add 1 and S flags
 */
-# define LETER_FLAGS "adfgGlrRtu1SpA"
-# define FLAGS_COUNT 14
+# define LETER_FLAGS "adfgGlrRtu1SpAn"
+# define FLAGS_COUNT 15
 
 /*
 ** Include directory entries whose names begin with a dot (.).
@@ -112,14 +112,20 @@
 # define UA_FLAG		0x2000
 
 /*
+** Display user and group IDs numerically, rather than converting to a
+** user or group name in a long (-l) output. This option turns on the -l option.
+*/
+# define N_FLAG		0x4000
+
+/*
 ** Sorting flags mask: -frtuS
 */
 # define SORT_FLAGS	0xb44
 
 /*
-** Long format flags mask: -lg
+** Long format flags mask: -lgn
 */
-# define LF_FLAGS	0x28
+# define LF_FLAGS	0x4028
 
 /*
 ** All entries flags mask: -afA
@@ -144,12 +150,12 @@
 /*
 ** All flags mask
 */
-# define FT_ALL_FLAGS	0x7FFF
+# define FT_ALL_FLAGS	0xFFFF
 
 /*
 ** All program mask
 */
-# define FT_ALL_PFLAGS	0x3FFF
+# define FT_ALL_PFLAGS	0x7FFF
 
 # define WORD_FLAGS {}
 # define STRICT_FLAGS_ORDER 1
@@ -242,9 +248,9 @@ void					ft_get_month_str(char *arr[12]);
 void					ft_set_loc(t_datetime *dt);
 t_datetime				ft_localtime(t_time *t);
 time_t					ft_difftime(time_t *t1, time_t *t2);
-void					ft_print_user(uid_t id);
+void					ft_print_user(uid_t id, t_ull un, uint32_t f);
 char					*ft_get_user_name(uid_t id);
-void					ft_print_group(gid_t id);
+void					ft_print_group(gid_t id, t_ull gn, uint32_t f);
 char					*ft_get_group_name(gid_t id);
 void					ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl);
 int						ft_readdir(char *dname, uint32_t flags);

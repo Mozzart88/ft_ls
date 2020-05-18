@@ -55,7 +55,7 @@ Bonus part:
 		✔ -S @low @done(20-05-18 11:24)
 		✔ -A @low @started(20-05-18 12:11) @done(20-05-18 15:52) @lasted(3h41m10s)
 		✔ -p @low @started(20-05-18 11:26) @done(20-05-18 12:11) @lasted(45m3s)
-		☐ -n @low
+		✔ -n @low @started(20-05-18 15:53) @done(20-05-18 17:09) @lasted(1h16m23s)
 	✔ Manage of views in colors (option -G) @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m34s)
 	☐ Optimization of code (i.ex. time of response on BIG ls -lR)
 Submission:

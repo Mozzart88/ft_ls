@@ -6,19 +6,21 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:16:57 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 18:49:14 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 16:35:15 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_print_group(gid_t id)
+void	ft_print_group(gid_t id, t_ull gn, uint32_t f)
 {
-	t_grp *g;
+	char *g;
 
-	if (!(g = getgrgid(id)))
-		return ;
-	ft_printf("%6s", g->gr_name);
+	if (f & N_FLAG)
+		g = ft_itoa_long_un(id);
+	else
+		g = ft_get_group_name(id);
+	ft_printf("%-*s ", gn + 1, g);
 }
 
 char	*ft_get_group_name(gid_t id)

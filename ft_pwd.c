@@ -6,22 +6,43 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:07:32 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 18:48:57 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 17:08:34 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_print_user(uid_t id)
+void		ft_print_user(uid_t id, t_ull un, uint32_t f)
 {
-	t_pwd *p;
+	char *p;
 
-	if (!(p = getpwuid(id)))
-		return ;
-	ft_printf("%9s", p->pw_name);
+	if (f & N_FLAG)
+		p = ft_itoa_long_un(id);
+	else
+		p = ft_get_user_name(id);
+	ft_printf("%-*s ", un + 1, p);
 }
 
-char	*ft_get_user_name(uid_t id)
+static void	ft_free_pwd(t_pwd **p)
+{
+	if (p && *p)
+	{
+		(*p)->pw_name = NULL;
+		(*p)->pw_passwd = NULL;
+		(*p)->pw_class = NULL;
+		(*p)->pw_gecos = NULL;
+		(*p)->pw_dir = NULL;
+		(*p)->pw_shell = NULL;
+		(*p)->pw_change = 0;
+		(*p)->pw_expire = 0;
+		(*p)->pw_uid = 0;
+		(*p)->pw_gid = 0;
+		free(*p);
+		*p = NULL;
+	}
+}
+
+char		*ft_get_user_name(uid_t id)
 {
 	t_pwd	*p;
 	char	*name;
@@ -33,20 +54,6 @@ char	*ft_get_user_name(uid_t id)
 		name = ft_itoa_long_un(id);
 	else
 		name = ft_strdup(p->pw_name);
-	if (p)
-	{
-		p->pw_name = NULL;
-		p->pw_passwd = NULL;
-		p->pw_class = NULL;
-		p->pw_gecos = NULL;
-		p->pw_dir = NULL;
-		p->pw_shell = NULL;
-		p->pw_change = 0;
-		p->pw_expire = 0;
-		p->pw_uid = 0;
-		p->pw_gid = 0;
-		free(p);
-		p = NULL;
-	}
+	ft_free_pwd(&p);
 	return (name);
 }

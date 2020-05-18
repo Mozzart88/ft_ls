@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:54:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/18 15:46:23 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 16:20:02 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	ft_set_mvl(t_maxvallen *cvl, t_maxvallen *mvl, mode_t mode)
 	}
 }
 
-static void	ft_set_cvl(t_maxvallen *cvl, t_rec *r)
+static void	ft_set_cvl(t_maxvallen *cvl, t_rec *r, uint32_t ugi)
 {
 	char		*names[2];
 
@@ -39,8 +39,16 @@ static void	ft_set_cvl(t_maxvallen *cvl, t_rec *r)
 	cvl->sl = ft_count_digits(r->st->st_size);
 	cvl->maj = ft_count_digits((r->st->st_rdev >> 24) & 0377);
 	cvl->min = ft_count_digits(r->st->st_rdev & 0377);
-	names[0] = ft_get_group_name(r->st->st_gid);
-	names[1] = ft_get_user_name(r->st->st_uid);
+	if (ugi)
+	{
+		names[0] = ft_itoa_long_un(r->st->st_gid);
+		names[1] = ft_itoa_long_un(r->st->st_uid);
+	}
+	else
+	{
+		names[0] = ft_get_group_name(r->st->st_gid);
+		names[1] = ft_get_user_name(r->st->st_uid);
+	}
 	cvl->gn = ft_strlen(names[0]);
 	cvl->un = ft_strlen(names[1]);
 	ft_strdel(&(names[0]));
@@ -73,12 +81,12 @@ t_maxvallen	ft_get_mvl(t_vect *v, uint32_t f)
 		p = ft_is_hidden(&f, r->name);
 		if (f & (UA_FLAG) && p != 2)
 		{
-			ft_set_cvl(&cvl, r);
+			ft_set_cvl(&cvl, r, f & N_FLAG);
 			ft_set_mvl(&cvl, &mvl, r->st->st_mode);
 		}
 		else if (!p || f & (AE_FLAGS ^ UA_FLAG) || f & FT_F_BIT)
 		{
-			ft_set_cvl(&cvl, r);
+			ft_set_cvl(&cvl, r, f & N_FLAG);
 			ft_set_mvl(&cvl, &mvl, r->st->st_mode);
 		}
 		++i;

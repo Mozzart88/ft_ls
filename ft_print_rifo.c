@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:21:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/18 12:00:57 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 17:02:52 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	ft_print_time(t_time t)
 	}
 }
 
-static void	ft_print_filename(t_rec *r, t_us f)
+static void	ft_print_filename(t_rec *r, uint32_t f)
 {
 	char lp[__DARWIN_MAXPATHLEN];
 
@@ -117,8 +117,8 @@ void		ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl)
 		ft_print_stat(rd);
 		ft_printf("%* hu ", mvl.lnk, rd->st->st_nlink);
 		if (!(*f & G_FLAG))
-			ft_printf("%-*s ", mvl.un + 1, ft_get_user_name(rd->st->st_uid));
-		ft_printf("%-*s ", mvl.gn + 1, ft_get_group_name(rd->st->st_gid));
+			ft_print_user(rd->st->st_uid, mvl.un, *f);
+		ft_print_group(rd->st->st_gid, mvl.gn, *f);
 		if (ft_is_spec(rd->st->st_mode))
 		{
 			offset = mvl.min < 3 ? 3 : mvl.min;

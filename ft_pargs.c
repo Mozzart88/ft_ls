@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 08:25:36 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 09:42:29 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 16:56:33 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ static int		ft_is_legal_flag(char *f)
 	return (0);
 }
 
-static uint32_t	ft_get_mask(uint32_t r, t_us offset)
+static uint32_t	ft_get_mask(uint32_t f, t_us offset)
 {
 	uint32_t	b;
 
 	b = (1 << offset);
-	if (b & 0x420 && r & 0x420)
-		r ^= (r & 0x420);
-	if (b & 0x408 && r & 0x408)
-		r ^= (r & 0x408);
-	return (r | b);
+	if (b & 0x420 && f & 0x420)
+		f ^= (f & 0x420);
+	if (b & 0x408 && f & 0x408)
+		f ^= (f & 0x408);
+	return (f | b);
 }
 
-static uint32_t	ft_parse_flag(uint32_t r, char *av)
+static uint32_t	ft_parse_flag(uint32_t f, char *av)
 {
 	char *ai;
 
@@ -43,10 +43,10 @@ static uint32_t	ft_parse_flag(uint32_t r, char *av)
 	{
 		if (!(ai = ft_strchr(LETER_FLAGS, *av)))
 			ft_print_usage(*av, 1);
-		r = ft_get_mask(r, (ai - LETER_FLAGS));
+		f = ft_get_mask(f, (ai - LETER_FLAGS));
 		++av;
 	}
-	return (r);
+	return (f);
 }
 
 uint32_t		ft_get_flags(char ***av, int *len)
