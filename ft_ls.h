@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/18 16:15:20 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 17:57:13 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 /*
 ** @todo: add 1 and S flags
 */
-# define LETER_FLAGS "adfgGlrRtu1SpAn"
-# define FLAGS_COUNT 15
+# define LETER_FLAGS "adfgGlrRtu1SpAncU"
+# define FLAGS_COUNT 17
 
 /*
 ** Include directory entries whose names begin with a dot (.).
@@ -38,7 +38,6 @@
 /*
 ** Directories are listed as plain files (not searched recursively).
 */
-
 # define D_FLAG		0x2
 
 /*
@@ -118,9 +117,21 @@
 # define N_FLAG		0x4000
 
 /*
-** Sorting flags mask: -frtuS
+** Use time when file status was last changed for sorting (-t) or long printing
+** (-l).
 */
-# define SORT_FLAGS	0xb44
+# define C_FLAG		0x8000
+
+/*
+** Use time of file creation, instead of last modification for sorting (-t) or
+** long output (-l).
+*/
+# define UU_FLAG		0x10000
+
+/*
+** Sorting flags mask: -frtuScU
+*/
+# define SORT_FLAGS	0x18B44
 
 /*
 ** Long format flags mask: -lgn
@@ -150,12 +161,12 @@
 /*
 ** All flags mask
 */
-# define FT_ALL_FLAGS	0xFFFF
+# define FT_ALL_FLAGS	0x3FFFF
 
 /*
 ** All program mask
 */
-# define FT_ALL_PFLAGS	0x7FFF
+# define FT_ALL_PFLAGS	0x1FFFF
 
 # define WORD_FLAGS {}
 # define STRICT_FLAGS_ORDER 1
@@ -258,5 +269,11 @@ void					ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void					ft_perr(char *file, char *errstr);
 void					ft_ls(t_vect *p, uint32_t f);
 t_us					ft_is_hidden(uint32_t *f, char *name);
+long long				ft_sort_by_mtime(void *a, void *b);
+long long				ft_sort_by_atime(void *a, void *b);
+long long				ft_sort_by_ctime(void *a, void *b);
+long long				ft_sort_by_utime(void *a, void *b);
+long long				ft_sort_by_name(void *a, void *b);
+void					ft_print_time(t_time t);
 
 #endif

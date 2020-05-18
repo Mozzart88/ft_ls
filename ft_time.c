@@ -6,11 +6,39 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 09:58:13 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 10:04:18 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 17:28:32 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void		ft_print_time(t_time t)
+{
+	time_t		tl;
+	t_datetime	dt;
+	long long	dif_time;
+	char		*f;
+
+	tl = time(NULL);
+	dt = ft_localtime(&t);
+	dif_time = ft_difftime(&tl, &t.tv_sec);
+	if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
+	{
+		f = "%2d %6s %02d:%02d ";
+		if (dif_time < (31536000L / 2) && dif_time >= 0)
+			ft_printf(f, dt.mday, dt.monstr, dt.hour, dt.min);
+		else
+			ft_printf("%2d %6s %-5 d ", dt.mday, dt.monstr, dt.year);
+	}
+	else
+	{
+		f = "%3s %2d %02d:%02d ";
+		if (dif_time < (31536000L / 2) && dif_time > (31536000L / 2 * -1))
+			ft_printf(f, dt.monstr, dt.mday, dt.hour, dt.min);
+		else
+			ft_printf("%3s %2d %-5 d ", dt.monstr, dt.mday, dt.year);
+	}
+}
 
 void		ft_get_month_str(char *arr[12])
 {

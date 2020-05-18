@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:21:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/18 17:02:52 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 17:58:35 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,34 +50,6 @@ static void	ft_print_stat(t_rec *r)
 	ft_printf("%-11s ", m);
 }
 
-static void	ft_print_time(t_time t)
-{
-	time_t		tl;
-	t_datetime	dt;
-	long long	dif_time;
-	char		*f;
-
-	tl = time(NULL);
-	dt = ft_localtime(&t);
-	dif_time = ft_difftime(&tl, &t.tv_sec);
-	if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
-	{
-		f = "%2d %6s %02d:%02d ";
-		if (dif_time < (31536000L / 2) && dif_time >= 0)
-			ft_printf(f, dt.mday, dt.monstr, dt.hour, dt.min);
-		else
-			ft_printf("%2d %6s %-5 d ", dt.mday, dt.monstr, dt.year);
-	}
-	else
-	{
-		f = "%3s %2d %02d:%02d ";
-		if (dif_time < (31536000L / 2) && dif_time > (31536000L / 2 * -1))
-			ft_printf(f, dt.monstr, dt.mday, dt.hour, dt.min);
-		else
-			ft_printf("%3s %2d %-5 d ", dt.monstr, dt.mday, dt.year);
-	}
-}
-
 static void	ft_print_filename(t_rec *r, uint32_t f)
 {
 	char lp[__DARWIN_MAXPATHLEN];
@@ -107,6 +79,18 @@ static void	ft_print_filename(t_rec *r, uint32_t f)
 	ft_bzero(lp, __DARWIN_MAXPATHLEN);
 }
 
+static void	ft_print_ls_time(t_stat *st, uint32_t f)
+{
+	if (f & U_FLAG)
+		ft_print_time(st->st_atimespec);
+	else if (f & C_FLAG)
+		ft_print_time(st->st_ctimespec);
+	else if (f & UU_FLAG)
+		ft_print_time(st->st_birthtimespec);
+	else
+		ft_print_time(st->st_mtimespec);
+}
+
 void		ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl)
 {
 	t_ull	offset;
@@ -127,10 +111,7 @@ void		ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl)
 		}
 		else
 			ft_printf("%*lld ", offset, rd->st->st_size);
-		if (*f & U_FLAG)
-			ft_print_time(rd->st->st_atimespec);
-		else
-			ft_print_time(rd->st->st_mtimespec);
+		ft_print_ls_time(rd->st, *f);
 	}
 	ft_print_filename(rd, *f);
 	*f &= FT_ALL_FLAGS;
