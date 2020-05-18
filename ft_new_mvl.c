@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:54:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 22:16:43 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 15:46:23 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,20 @@ t_maxvallen	ft_get_mvl(t_vect *v, uint32_t f)
 	t_maxvallen mvl;
 	t_maxvallen cvl;
 	t_rec		*r;
+	t_us		p;
 
 	ft_reset_mvl(&mvl);
 	i = 0;
 	while (i < v->len)
 	{
 		r = (t_rec*)v->arr[i];
-		if (r->name[0] != '.' || (f & AE_FLAGS) || (f & FT_F_BIT))
+		p = ft_is_hidden(&f, r->name);
+		if (f & (UA_FLAG) && p != 2)
+		{
+			ft_set_cvl(&cvl, r);
+			ft_set_mvl(&cvl, &mvl, r->st->st_mode);
+		}
+		else if (!p || f & (AE_FLAGS ^ UA_FLAG) || f & FT_F_BIT)
 		{
 			ft_set_cvl(&cvl, r);
 			ft_set_mvl(&cvl, &mvl, r->st->st_mode);

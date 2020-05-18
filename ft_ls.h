@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/18 12:02:50 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 15:17:40 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 /*
 ** @todo: add 1 and S flags
 */
-# define LETER_FLAGS "adfgGlrRtu1Sp"
-# define FLAGS_COUNT 13
+# define LETER_FLAGS "adfgGlrRtu1SpA"
+# define FLAGS_COUNT 14
 
 /*
 ** Include directory entries whose names begin with a dot (.).
@@ -107,6 +107,11 @@
 # define P_FLAG		0x1000
 
 /*
+** Write a slash (‘/’) after each filename if that file is a directory.
+*/
+# define UA_FLAG		0x2000
+
+/*
 ** Sorting flags mask: -frtuS
 */
 # define SORT_FLAGS	0xb44
@@ -117,9 +122,9 @@
 # define LF_FLAGS	0x28
 
 /*
-** All entries flags mask: -af
+** All entries flags mask: -afA
 */
-# define AE_FLAGS	0x5
+# define AE_FLAGS	0x2005
 
 /*
 ** First zero point bit
@@ -139,12 +144,12 @@
 /*
 ** All flags mask
 */
-# define FT_ALL_FLAGS	0x3FFF
+# define FT_ALL_FLAGS	0x7FFF
 
 /*
 ** All program mask
 */
-# define FT_ALL_PFLAGS	0x1FFF
+# define FT_ALL_PFLAGS	0x3FFF
 
 # define WORD_FLAGS {}
 # define STRICT_FLAGS_ORDER 1
@@ -246,5 +251,6 @@ int						ft_readdir(char *dname, uint32_t flags);
 void					ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void					ft_perr(char *file, char *errstr);
 void					ft_ls(t_vect *p, uint32_t f);
+t_us					ft_is_hidden(uint32_t *f, char *name);
 
 #endif

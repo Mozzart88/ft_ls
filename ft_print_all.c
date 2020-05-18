@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:48:46 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 22:16:43 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 15:25:00 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ void		ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl)
 		ft_sort_recs(r, *f);
 	while (i < r->len)
 	{
-		p = ((t_rec*)(r->arr[i]))->name[0] == '.' ? 1 : 0;
-		if (*f & FT_ZP_BIT && !(*f ^= FT_ZP_BIT))
-			p = 0;
-		if (!p || *f & AE_FLAGS || *f & FT_F_BIT)
+		p = ft_is_hidden(f, ((t_rec*)(r->arr[i]))->name);
+		if (*f & FT_ZP_BIT)
+			*f ^= FT_ZP_BIT;
+		if (*f & (UA_FLAG) && p != 2)
+			ft_print_rifo((t_rec*)r->arr[i], f, mvl);
+		else if (!p || *f & (AE_FLAGS ^ UA_FLAG) || *f & FT_F_BIT)
 			ft_print_rifo((t_rec*)r->arr[i], f, mvl);
 		++i;
 	}
