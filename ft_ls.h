@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 23:24:52 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 11:20:43 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 /*
 ** @todo: add 1 and S flags
 */
-# define LETER_FLAGS "adfgGlrRtu1"
+# define LETER_FLAGS "adfgGlrRtu1S"
+# define FLAGS_COUNT 12
 
 /*
 ** Include directory entries whose names begin with a dot (.).
@@ -90,9 +91,21 @@
 # define U_FLAG		0x200
 
 /*
-** Sorting flags mask: -frtu
+** Use time of last access, instead of last modification of the file for
+** sorting (-t) or long printing (-l).
 */
-# define SORT_FLAGS	0x344
+# define ONE_FLAG		0x400
+
+/*
+** Use time of last access, instead of last modification of the file for
+** sorting (-t) or long printing (-l).
+*/
+# define US_FLAG		0x800
+
+/*
+** Sorting flags mask: -frtuS
+*/
+# define SORT_FLAGS	0xb44
 
 /*
 ** Long format flags mask: -lg
@@ -105,31 +118,30 @@
 # define AE_FLAGS	0x5
 
 /*
-** User defined bit mask
+** First zero point bit
 */
-# define FT_U_BITS	0x1800
+# define FT_ZP_BIT	0x1 << FLAGS_COUNT
 
 /*
 ** First entry bit
 */
-# define FT_F_BIT	0x1000
+# define FT_F_BIT	0x1 << (FLAGS_COUNT + 1)
+
+/*
+** User defined bit mask
+*/
+# define FT_U_BITS	FT_F_BIT | FT_ZP_BIT
 
 /*
 ** All flags mask
 */
-# define FT_ALL_FLAGS	0xFFF
+# define FT_ALL_FLAGS	0x1FFF
 
 /*
 ** All program mask
 */
-# define FT_ALL_PFLAGS	0x7FF
+# define FT_ALL_PFLAGS	0xFFF
 
-/*
-** First zero point bit
-*/
-# define FT_ZP_BIT	0x800
-
-# define FLAGS_COUNT 11
 # define WORD_FLAGS {}
 # define STRICT_FLAGS_ORDER 1
 # define FT_PROG_NAME "ls"
