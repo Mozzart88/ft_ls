@@ -52,6 +52,7 @@ Bonus part:
 		✔ -g @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m28s)
 		✔ -d @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m29s)
 		☐ -s @low 
+		✔ -o @low @started(20-05-18 18:18) @done(20-05-18 20:57) @lasted(2h39m2s)
 		✔ -c @low @started(20-05-18 17:17) @done(20-05-18 17:44) @lasted(27m39s)
 		✔ -U @low @started(20-05-18 17:44) @done(20-05-18 17:55) @lasted(11m32s)
 		✔ -S @low @done(20-05-18 11:24)

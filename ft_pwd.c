@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:07:32 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/18 17:08:34 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 20:55:32 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ void		ft_print_user(uid_t id, t_ull un, uint32_t f)
 {
 	char *p;
 
-	if (f & N_FLAG)
-		p = ft_itoa_long_un(id);
-	else
-		p = ft_get_user_name(id);
-	ft_printf("%-*s ", un + 1, p);
+	if (!(f & G_FLAG))
+	{
+		if (f & N_FLAG)
+			p = ft_itoa_long_un(id);
+		else
+			p = ft_get_user_name(id);
+		ft_printf("%-*s ", un + 1, p);
+	}
 }
 
 static void	ft_free_pwd(t_pwd **p)

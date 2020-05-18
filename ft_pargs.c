@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 08:25:36 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/18 17:51:01 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 19:18:18 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,20 @@ static int		ft_is_legal_flag(char *f)
 
 static uint32_t	ft_get_mask(uint32_t f, t_us offset)
 {
-	uint32_t	b;
+	uint32_t		b;
+	static uint32_t	gob = 0x0;
 
 	b = (1 << offset);
+	if (b & 0x20008)
+		gob |= b;
 	if (b & 0x420 && f & 0x420)
 		f ^= (f & 0x420);
-	if (b & 0x408 && f & 0x408)
-		f ^= (f & 0x408);
+	if (b & 0x20408 && f & 0x20408)
+	{
+		f ^= (f & 0x20408);
+		if (b & 0x20008)
+			b |= gob;
+	}
 	if (b & 0x18200 && f & 0x18200)
 		f ^= (f & 0x18200);
 	return (f | b);

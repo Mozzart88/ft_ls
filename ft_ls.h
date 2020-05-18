@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/18 17:57:13 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/18 20:53:18 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 /*
 ** @todo: add 1 and S flags
 */
-# define LETER_FLAGS "adfgGlrRtu1SpAncU"
-# define FLAGS_COUNT 17
+# define LETER_FLAGS "adfgGlrRtu1SpAncUo"
+# define FLAGS_COUNT 18
 
 /*
 ** Include directory entries whose names begin with a dot (.).
@@ -129,14 +129,19 @@
 # define UU_FLAG		0x10000
 
 /*
+** List in long format, but omit the group id.
+*/
+# define O_FLAG		0x20000
+
+/*
 ** Sorting flags mask: -frtuScU
 */
 # define SORT_FLAGS	0x18B44
 
 /*
-** Long format flags mask: -lgn
+** Long format flags mask: -lgno
 */
-# define LF_FLAGS	0x4028
+# define LF_FLAGS	0x24028
 
 /*
 ** All entries flags mask: -afA
@@ -161,12 +166,12 @@
 /*
 ** All flags mask
 */
-# define FT_ALL_FLAGS	0x3FFFF
+# define FT_ALL_FLAGS	0x7FFFF
 
 /*
 ** All program mask
 */
-# define FT_ALL_PFLAGS	0x1FFFF
+# define FT_ALL_PFLAGS	0x3FFFF
 
 # define WORD_FLAGS {}
 # define STRICT_FLAGS_ORDER 1
@@ -275,5 +280,7 @@ long long				ft_sort_by_ctime(void *a, void *b);
 long long				ft_sort_by_utime(void *a, void *b);
 long long				ft_sort_by_name(void *a, void *b);
 void					ft_print_time(t_time t);
+void					ft_print_owners(t_stat *st, t_maxvallen mvl,\
+uint32_t f);
 
 #endif
