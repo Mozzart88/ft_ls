@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/18 20:53:18 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/19 18:24:38 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@
 # include <sys/acl.h>
 
 /*
-** @todo: add 1 and S flags
+** @todo: Sort definitions
+** @todo: Check for static functiomns
 */
+
 # define LETER_FLAGS "adfgGlrRtu1SpAncUo"
 # define FLAGS_COUNT 18
 
@@ -173,7 +175,7 @@
 */
 # define FT_ALL_PFLAGS	0x3FFFF
 
-# define WORD_FLAGS {}
+// # define WORD_FLAGS {}
 # define STRICT_FLAGS_ORDER 1
 # define FT_PROG_NAME "ls"
 # define FT_PUSAGE "%s: illegal option -- %c\nusage: ls %s [file ...]\n"
@@ -262,7 +264,7 @@ void					ft_print_usage(char f, int exit_code);
 char					ft_get_file_type(mode_t m);
 void					ft_get_month_str(char *arr[12]);
 void					ft_set_loc(t_datetime *dt);
-t_datetime				ft_localtime(t_time *t);
+// t_datetime				ft_localtime(t_time *t);
 time_t					ft_difftime(time_t *t1, time_t *t2);
 void					ft_print_user(uid_t id, t_ull un, uint32_t f);
 char					*ft_get_user_name(uid_t id);

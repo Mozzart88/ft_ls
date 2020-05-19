@@ -6,7 +6,7 @@
 #    By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 15:27:16 by tvanessa          #+#    #+#              #
-#    Updated: 2020/05/18 21:57:03 by mozzart          ###   ########.fr        #
+#    Updated: 2020/05/19 14:30:29 by mozzart          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SS = $(S)main.c ft_new_rec.c ft_sort.c merge_sort.c vector.c ft_fs_functions.c f
 H = -I . -I libft -I libft/ft_printf
 NAME = ft_ls
 CC = clang
-CF = -Wall -Wextra -Werror
+CF = -Wall -Wextra -Werror -g
 CL = -L libft/ -lft
 CI = -I . -I libft/
 

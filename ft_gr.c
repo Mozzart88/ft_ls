@@ -6,12 +6,16 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:16:57 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/18 22:20:58 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/19 18:17:33 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
+** @todo: Compare perfomance betwin itoa and printf
+** @todo: Implement ft_get_group_name and check perfomance
+*/
 void	ft_print_group(gid_t id, t_ull gn, uint32_t f)
 {
 	char *g;
@@ -23,6 +27,7 @@ void	ft_print_group(gid_t id, t_ull gn, uint32_t f)
 		else
 			g = ft_get_group_name(id);
 		ft_printf("%-*s ", gn + 1, g);
+		ft_strdel(&g);
 	}
 }
 
