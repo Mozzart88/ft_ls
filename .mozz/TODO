@@ -4,7 +4,7 @@ Makefile:
 Libft:
 	✔ At the root of repo @started(20-05-15 02:51) @done(20-05-15 02:51) @lasted(25s)
 Norm:
-	☐ As usual @started(20-05-17 18:57)
+	✔ As usual @started(20-05-17 18:57) @done(20-05-19 08:35) @lasted(1d13h38m6s)
 Errors:
 	✔ Handle errors sensitivly @done(20-05-15 02:51)
 	✔ If you ensure, handle errors like ls @done(20-05-15 02:51)
@@ -32,8 +32,8 @@ Allowed functions:
 	✔ exit @done(20-05-15 02:50)
 	✔ Allowed other functions to carry out the bonus part as long as their use is justified during your defence. @done(20-05-15 02:50)
 Mandatory part:
-	☐ Recode system command ls
-	☐ Behavior must be identical to original ls command with the following variations:
+	✔ Recode system command ls @done(20-05-19 08:35)
+	✔ Behavior must be identical to original ls command with the following variations: @done(20-05-19 08:35)
 		Optins to recode:
 			✔ -l (If not argument, than you do not have deal with the multiple column format for exit) @started(20-05-10 18:50) @done(20-05-15 02:50) @lasted(4d8h10s)
 			✔ -R (RECOMENDED to implement from the very beginning) @started(20-05-10 18:50) @done(20-05-15 02:50) @lasted(4d8h8s)
@@ -107,8 +107,8 @@ Mans:
 	✔ ctime(3) @done(20-05-11 14:05)
 	✔ gettimeofday(2) @started(20-05-11 14:07) @done(20-05-11 14:10) @lasted(3m31s)
 	✔ getenv(3) @done(20-05-11 21:20)
-	Optmisation:
-		✘ Sorting @critical @started(20-05-15 17:53) @cancelled(20-05-16 20:49) @wasted(1d2h56m10s)
-		✔ Vectors @high @done(20-05-16 20:49)
-		✘ Vectors -> Lists @tao @started(20-05-16 20:49) @cancelled(20-05-16 20:49) @wasted(23s)
-		✔ xflags @started(20-05-17 22:05) @done(20-05-18 11:24) @lasted(13h19m28s)
+Optmisation:
+	✘ Sorting @critical @started(20-05-15 17:53) @cancelled(20-05-16 20:49) @wasted(1d2h56m10s)
+	✔ Vectors @high @done(20-05-16 20:49)
+	✘ Vectors -> Lists @tao @started(20-05-16 20:49) @cancelled(20-05-16 20:49) @wasted(23s)
+	✔ xflags @started(20-05-17 22:05) @done(20-05-18 11:24) @lasted(13h19m28s)
