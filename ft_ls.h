@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/20 10:18:44 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/20 19:32:07 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,9 @@
 # define LF_FLAGS	0x24028
 
 /*
-** All entries flags mask: -afA
+** All entries flags mask: -af
 */
-# define AE_FLAGS	0x2005
+# define AE_FLAGS	0x5
 
 /*
 ** First zero point bit
@@ -276,7 +276,7 @@ int						ft_readdir(char *dname, uint32_t flags);
 void					ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void					ft_perr(char *file, char *errstr);
 void					ft_ls(t_vect *p, uint32_t f);
-t_us					ft_is_hidden(uint32_t *f, char *name);
+t_us					ft_is_hidden(uint32_t f, char *name);
 long long				ft_sort_by_mtime(void *a, void *b);
 long long				ft_sort_by_atime(void *a, void *b);
 long long				ft_sort_by_ctime(void *a, void *b);

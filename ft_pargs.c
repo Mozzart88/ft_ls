@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 08:25:36 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/18 19:18:18 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/20 17:18:43 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ static uint32_t	ft_get_mask(uint32_t f, t_us offset)
 		f ^= (f & 0x20408);
 		if (b & 0x20008)
 			b |= gob;
+	}
+	if (b & (AE_FLAGS | UA_FLAG))
+	{
+		if (f & AE_FLAGS)
+			return (f);
+		if (f & UA_FLAG)
+			f ^= UA_FLAG;
 	}
 	if (b & 0x18200 && f & 0x18200)
 		f ^= (f & 0x18200);

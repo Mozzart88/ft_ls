@@ -6,27 +6,29 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 12:35:54 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/19 22:59:05 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/20 19:43:02 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_us			ft_is_hidden(uint32_t *f, char *name)
+t_us			ft_is_hidden(uint32_t f, char *name)
 {
 	t_us	p;
 
-	if ((AE_FLAGS) & *f)
-	{
-		p = ft_strequ(name, ".") ? 1 : ft_strequ(name, "..");
-		if (p)
-			p = 2;
-	}
-	else
-		p = name[0] == '.' ? 1 : 0;
-	if ((*f & FT_ZP_BIT))
-		p = 0;
+	if (f & (FT_ZP_BIT | AE_FLAGS))
+		return (0);
+	if (f & UA_FLAG)
+		return (ft_strequ(name, ".") ? 1 : ft_strequ(name, ".."));
+	return (name[0] == '.' ? 1 : 0);
 	return (p);
+}
+
+t_us			ft_is_pdir(uint32_t f, char *name)
+{
+	if (f & (FT_ZP_BIT))
+		return (0);
+	return (ft_strequ(name, ".") ? 1 : ft_strequ(name, ".."));
 }
 
 static	void	ft_print_content(uint32_t f, t_rec *r, size_t l)
@@ -55,14 +57,17 @@ void			ft_print_dirs(t_vect *v, uint32_t *f)
 	t_us		p;
 	t_rec		*r;
 	char		ft;
+	// uint32_t	ff;
 
 	if (v->is_sorted == 0)
 		ft_sort_recs(v, *f);
 	i = 0;
+	// ff = *f | UA_FLAG;
 	while (i < v->len)
 	{
 		r = (t_rec*)v->arr[i];
-		p = ft_is_hidden(f, r->name);
+		p = ft_is_pdir(*f, r->name);
+		p = p ? p : ft_is_hidden(*f, r->name);
 		ft = ft_get_file_type(r->st->st_mode);
 		if (!(*f & D_FLAG) && (p == 0) && (ft == 'd' || ft == 'l'))
 		{

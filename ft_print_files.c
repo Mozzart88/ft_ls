@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 12:13:17 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/19 22:59:15 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/20 20:27:18 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ft_print_files(t_vect *r, uint32_t *f, t_maxvallen mvl)
 	{
 		rec = ((t_rec*)(r->arr[i]));
 		p = ((t_rec*)(r->arr[i]))->name[0] == '.' ? 1 : 0;
-		if (*f & FT_ZP_BIT)
-			p = 0;
+		// if (*f & FT_ZP_BIT)
+		// 	p = 0;
 		if (!p || *f & AE_FLAGS)
 		{
 			ft = ft_get_file_type(rec->st->st_mode);

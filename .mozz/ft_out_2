@@ -1,0 +1,32 @@
+ls: c: Permission denied
+ls: CallHistoryDB: Operation not permitted
+ls: CallHistoryTransactions: Operation not permitted
+ls: FileProvider: Operation not permitted
+ls: MobileSync: Operation not permitted
+ls: com.apple.TCC: Operation not permitted
+ls: com.apple.sharedfilelist: Operation not permitted
+ls: Autosave Information: Operation not permitted
+ls: CloudKit: Operation not permitted
+ls: com.apple.Safari: Operation not permitted
+ls: com.apple.ap.adprivacyd: Operation not permitted
+ls: com.apple.safaridavclient: Operation not permitted
+ls: com.apple.CloudDocs.MobileDocumentsFileProvider: Operation not permitted
+ls: com.apple.Home: Operation not permitted
+ls: com.apple.Safari: Operation not permitted
+ls: com.apple.VoiceMemos: Operation not permitted
+ls: com.apple.archiveutility: Operation not permitted
+ls: com.apple.iChat: Operation not permitted
+ls: com.apple.mail: Operation not permitted
+ls: com.apple.news: Operation not permitted
+ls: com.apple.stocks: Operation not permitted
+ls: Cookies: Operation not permitted
+ls: HomeKit: Operation not permitted
+ls: IdentityServices: Operation not permitted
+ls: Mail: Operation not permitted
+ls: Messages: Operation not permitted
+ls: CoreSpotlight: Operation not permitted
+ls: com.apple.IntelligentSuggestions: Operation not permitted
+ls: PersonalizationPortrait: Operation not permitted
+ls: Safari: Operation not permitted
+ls: Sharing: Operation not permitted
+ls: Suggestions: Operation not permitted

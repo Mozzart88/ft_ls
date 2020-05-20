@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 19:50:11 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/19 21:22:22 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/20 13:04:30 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_rec			*ft_new_rec(char *name, char path[__DARWIN_MAXPATHLEN])
 	ft_get_name(name, (r->name));
 	r->err_no = 0;
 	r->st = NULL;
+	r->lnk_to = NULL;
+	r->acl = NULL;
 	if (!(r->st = (t_stat*)malloc(sizeof(t_stat))))
 		return (NULL);
 	ft_get_path(r, p);
