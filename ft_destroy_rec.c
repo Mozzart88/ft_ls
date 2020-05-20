@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 21:33:49 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 21:34:27 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/19 23:15:21 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void			ft_destroy_rec(void **p)
 {
 	t_rec *r;
 
-	r = *(t_rec**)p;
+	if (!*p || !(r = *(t_rec**)p))
+		return ;
+	if (r->lnk_to)
+		ft_destroy_rec((void**)&r->lnk_to);
 	if (r->st)
 		free(r->st);
 	r->st = NULL;
@@ -27,8 +30,6 @@ void			ft_destroy_rec(void **p)
 	ft_bzero(r->lnk_path, __DARWIN_MAXPATHLEN);
 	free(r->err_str);
 	r->err_str = NULL;
-	if (r->lnk_to)
-		ft_destroy_rec((void**)&r->lnk_to);
 	if (r->acl)
 		acl_free((void*)r->acl);
 	free(r);

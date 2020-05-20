@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/19 18:24:38 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/20 10:18:44 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <time.h>
 # include <uuid/uuid.h>
 # include <sys/xattr.h>
-# include <sys/stat.h>
-# include <sys/types.h>
+// # include <sys/stat.h>
+// # include <sys/types.h>
 # include <errno.h>
 # include <sys/acl.h>
 
@@ -209,7 +209,7 @@ typedef struct			s_datetime
 	long				year;
 	long				wday;
 	long				yday;
-	char				*daystr;
+	// char				*daystr;
 	char				*monstr;
 }						t_datetime;
 typedef struct			s_vect
@@ -235,7 +235,7 @@ typedef struct			s_dir
 	DIR					*dir;
 	t_de				*dirent;
 	size_t				len;
-	t_rec				*contrect[LINK_MAX];
+	t_rec				*content[LINK_MAX];
 }						t_dir;
 
 t_rec					*ft_new_rec(char *name, char path[MAXNAMLEN]);
@@ -252,7 +252,8 @@ void					*ft_destroy_vect(t_vect **v);
 void					ft_destroy_rec(void **record);
 t_maxvallen				ft_get_mvl(t_vect *vector, uint32_t flags);
 void					ft_arr_cpy(void **dst, void **src, size_t len);
-t_us					ft_is_dir(mode_t m);
+// t_us					ft_is_dir(mode_t m);
+t_us					ft_is_dir(t_rec *m);
 t_us					ft_is_spec(mode_t m);
 t_us					ft_is_lnk(mode_t m);
 t_us					ft_is_reg_file(mode_t m);

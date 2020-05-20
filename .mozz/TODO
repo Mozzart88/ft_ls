@@ -112,3 +112,8 @@ Optmisation:
 	✔ Vectors @high @done(20-05-16 20:49)
 	✘ Vectors -> Lists @tao @started(20-05-16 20:49) @cancelled(20-05-16 20:49) @wasted(23s)
 	✔ xflags @started(20-05-17 22:05) @done(20-05-18 11:24) @lasted(13h19m28s)
+Bugs:
+	☐ Leading slash in "-Rl /" command
+	☐ Memleaks "-Rl" @started(20-05-19 18:03)
+	☐ Segfault in big queries
+	☐ ft_localtime - string/llu convertion

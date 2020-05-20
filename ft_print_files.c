@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 12:13:17 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 22:14:55 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/19 22:59:15 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	ft_print_files(t_vect *r, uint32_t *f, t_maxvallen mvl)
 			ft = ft_get_file_type(rec->st->st_mode);
 			if (ft != 'd' && (ft != 'l' || *f & LF_FLAGS))
 				ft_print_rifo((t_rec*)r->arr[i], f, mvl);
-			else if (ft == 'l' && !(ft_is_dir(rec->lnk_to->st->st_mode)))
+			// else if (ft == 'l' && !(ft_is_dir(rec->lnk_to->st->st_mode)))
+			else if (ft == 'l' && !(ft_is_dir(rec->lnk_to)))
 				ft_print_rifo((t_rec*)r->arr[i], f, mvl);
 		}
 		++i;

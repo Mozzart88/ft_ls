@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:00:33 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 14:38:20 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/19 20:33:01 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,19 @@ static t_vect	*ft_opendir(char *dname)
 	d.len = 0;
 	while ((d.dirent = readdir(d.dir)))
 	{
-		d.contrect[d.len] = ft_new_rec(d.dirent->d_name, path);
-		++d.len;
+		d.content[d.len] = ft_new_rec(d.dirent->d_name, path);
+		if (d.content[d.len]->err_no)
+		{
+			ft_perr(d.content[d.len]->name, d.content[d.len]->err_str);
+			ft_destroy_rec((void**)&d.content[d.len]);
+		}
+		else
+			++d.len;
 	}
 	closedir(d.dir);
 	if (!(v = ft_new_vect(sizeof(t_rec), d.len, ft_destroy_rec)))
 		return (NULL);
-	ft_arr_cpy(v->arr, (void**)d.contrect, d.len);
+	ft_arr_cpy(v->arr, (void**)d.content, d.len);
 	return (v);
 }
 

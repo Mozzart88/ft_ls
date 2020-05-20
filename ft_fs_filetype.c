@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 09:53:00 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/17 09:56:09 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/19 22:58:43 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ char	ft_get_file_type(mode_t m)
 	return ('-');
 }
 
-t_us	ft_is_dir(mode_t m)
+// t_us	ft_is_dir(mode_t m)
+t_us	ft_is_dir(t_rec *m)
 {
-	if ((m & S_IFMT) == S_IFDIR)
+	if (m->st->st_mode && ((m->st->st_mode & S_IFMT) == S_IFDIR))
 		return (1);
 	return (0);
 }

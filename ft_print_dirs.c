@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 12:35:54 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/18 15:49:36 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/19 22:59:05 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,20 @@ void			ft_print_dirs(t_vect *v, uint32_t *f)
 		r = (t_rec*)v->arr[i];
 		p = ft_is_hidden(f, r->name);
 		ft = ft_get_file_type(r->st->st_mode);
-		if (!(*f & D_FLAG) && (p == 0))
+		if (!(*f & D_FLAG) && (p == 0) && (ft == 'd' || ft == 'l'))
 		{
-			if (ft == 'd')
-				ft_print_content(*f, (t_rec*)v->arr[i], v->ilen);
-			else if (ft == 'l')
-				if (ft_is_dir(r->lnk_to->st->st_mode) && !(*f & LF_FLAGS))
+			if (ft == 'l')
+			{
+				// if (ft_is_dir(r->lnk_to->st->st_mode) && !(*f & LF_FLAGS))
+				if (ft_is_dir(r->lnk_to) && !(*f & LF_FLAGS))
 					ft_print_content(*f, (t_rec*)v->arr[i], v->ilen);
+
+			}
+			else
+				ft_print_content(*f, (t_rec*)v->arr[i], v->ilen);
+			// if (ft == 'd')
+			ft_destroy_rec((void**)&v->arr[i]);
+			v->arr[i] = NULL;
 		}
 		*f &= FT_ALL_FLAGS;
 		++i;
