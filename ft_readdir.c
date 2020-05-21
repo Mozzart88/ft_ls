@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:00:33 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/21 17:11:14 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 18:24:36 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ static t_vect	*ft_opendir(char *dname, uint32_t f)
 		if (ft_is_hidden(f, d.dirent->d_name))
 			continue ;
 		d.content[d.len] = ft_new_rec(d.dirent->d_name, path);
-		if (d.content[d.len]->err_no)
+		if (!d.content[d.len] || d.content[d.len]->err_no)
 		{
+			if (!d.content[d.len])
+				continue;
 			ft_perr(d.content[d.len]->name, d.content[d.len]->err_str);
 			ft_destroy_rec((void**)&d.content[d.len]);
 			d.content[d.len] = NULL;
