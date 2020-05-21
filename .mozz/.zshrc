@@ -1,4 +1,4 @@
-export WD="/Users/mozzart/Documents/GitHub/ft_ls"
+export WD="$HOME/ft_ls"
 export PATH="$WD:$WD/.mozz:$PATH"
 alias valg="bash $WD/.mozz/valg.sh"
 alias build="bash $WD/.mozz/build.sh"
