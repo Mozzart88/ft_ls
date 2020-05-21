@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 04:28:02 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/16 22:42:44 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/19 22:21:32 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ void	*ft_destroy_vect(t_vect **v)
 
 	while ((*v)->len-- > 0)
 	{
-		p = (void*)&((*v)->arr[(*v)->len]);
-		if ((*v)->arr_destroier)
-			(*v)->arr_destroier(p);
+		if ((p = (void*)&((*v)->arr[(*v)->len])))
+		// p = (void*)&((*v)->arr[(*v)->len]);
+			if ((*v)->arr_destroier)
+				(*v)->arr_destroier(p);
 		(*v)->arr[(*v)->len] = NULL;
 	}
 	(*v)->size = 0;

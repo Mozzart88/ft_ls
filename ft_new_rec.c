@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 19:50:11 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/17 21:39:45 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 13:51:54 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,29 @@ t_rec			*ft_new_rec(char *name, char path[__DARWIN_MAXPATHLEN])
 	ft_get_dir(name, (r->path));
 	ft_get_name(name, (r->name));
 	r->err_no = 0;
+	r->st = NULL;
+	r->lnk_to = NULL;
+	r->acl = NULL;
 	if (!(r->st = (t_stat*)malloc(sizeof(t_stat))))
+	{
+		ft_destroy_rec((void**)&r);
 		return (NULL);
+	}
 	ft_get_path(r, p);
 	if (lstat(p, r->st))
 	{
+		free(r->st);
+		r->st = NULL;
 		r->err_no = errno;
 		r->err_str = strerror(errno);
 	}
-	ft_bzero(r->xattrs, __DARWIN_MAXPATHLEN);
-	listxattr(p, r->xattrs, XATTR_MAXNAMELEN, XATTR_NOFOLLOW);
-	r->acl = ft_get_acl(p, r->st->st_mode);
-	r->lnk_to = ft_get_lnk(r, p);
+	else
+	{
+		ft_bzero(r->xattrs, __DARWIN_MAXPATHLEN);
+		listxattr(p, r->xattrs, XATTR_MAXNAMELEN, XATTR_NOFOLLOW);
+		r->acl = ft_get_acl(p, r->st->st_mode);
+		// if (ft_is_lnk(r->st->st_mode))
+			r->lnk_to = ft_get_lnk(r, p);
+	}
 	return (r);
 }

@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/18 20:53:18 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/20 19:32:07 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@
 # include <time.h>
 # include <uuid/uuid.h>
 # include <sys/xattr.h>
-# include <sys/stat.h>
-# include <sys/types.h>
+// # include <sys/stat.h>
+// # include <sys/types.h>
 # include <errno.h>
 # include <sys/acl.h>
 
 /*
-** @todo: add 1 and S flags
+** @todo: Sort definitions
+** @todo: Check for static functiomns
 */
+
 # define LETER_FLAGS "adfgGlrRtu1SpAncUo"
 # define FLAGS_COUNT 18
 
@@ -144,9 +146,9 @@
 # define LF_FLAGS	0x24028
 
 /*
-** All entries flags mask: -afA
+** All entries flags mask: -af
 */
-# define AE_FLAGS	0x2005
+# define AE_FLAGS	0x5
 
 /*
 ** First zero point bit
@@ -173,7 +175,7 @@
 */
 # define FT_ALL_PFLAGS	0x3FFFF
 
-# define WORD_FLAGS {}
+// # define WORD_FLAGS {}
 # define STRICT_FLAGS_ORDER 1
 # define FT_PROG_NAME "ls"
 # define FT_PUSAGE "%s: illegal option -- %c\nusage: ls %s [file ...]\n"
@@ -207,7 +209,7 @@ typedef struct			s_datetime
 	long				year;
 	long				wday;
 	long				yday;
-	char				*daystr;
+	// char				*daystr;
 	char				*monstr;
 }						t_datetime;
 typedef struct			s_vect
@@ -233,7 +235,7 @@ typedef struct			s_dir
 	DIR					*dir;
 	t_de				*dirent;
 	size_t				len;
-	t_rec				*contrect[LINK_MAX];
+	t_rec				*content[LINK_MAX];
 }						t_dir;
 
 t_rec					*ft_new_rec(char *name, char path[MAXNAMLEN]);
@@ -250,7 +252,8 @@ void					*ft_destroy_vect(t_vect **v);
 void					ft_destroy_rec(void **record);
 t_maxvallen				ft_get_mvl(t_vect *vector, uint32_t flags);
 void					ft_arr_cpy(void **dst, void **src, size_t len);
-t_us					ft_is_dir(mode_t m);
+// t_us					ft_is_dir(mode_t m);
+t_us					ft_is_dir(t_rec *m);
 t_us					ft_is_spec(mode_t m);
 t_us					ft_is_lnk(mode_t m);
 t_us					ft_is_reg_file(mode_t m);
@@ -262,7 +265,7 @@ void					ft_print_usage(char f, int exit_code);
 char					ft_get_file_type(mode_t m);
 void					ft_get_month_str(char *arr[12]);
 void					ft_set_loc(t_datetime *dt);
-t_datetime				ft_localtime(t_time *t);
+// t_datetime				ft_localtime(t_time *t);
 time_t					ft_difftime(time_t *t1, time_t *t2);
 void					ft_print_user(uid_t id, t_ull un, uint32_t f);
 char					*ft_get_user_name(uid_t id);
@@ -273,7 +276,7 @@ int						ft_readdir(char *dname, uint32_t flags);
 void					ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void					ft_perr(char *file, char *errstr);
 void					ft_ls(t_vect *p, uint32_t f);
-t_us					ft_is_hidden(uint32_t *f, char *name);
+t_us					ft_is_hidden(uint32_t f, char *name);
 long long				ft_sort_by_mtime(void *a, void *b);
 long long				ft_sort_by_atime(void *a, void *b);
 long long				ft_sort_by_ctime(void *a, void *b);

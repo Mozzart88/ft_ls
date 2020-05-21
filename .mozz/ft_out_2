@@ -1,0 +1,4 @@
+ls: .: Permission denied
+ls: ..: Permission denied
+ls: c: Permission denied
+ls: privated: Permission denied

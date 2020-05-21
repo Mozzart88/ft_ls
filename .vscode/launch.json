@@ -10,10 +10,11 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-A"
+				"-lR",
+				"/Users/mozzart//Documents/Sites/reshina/test.reshina/spaw/empty",
 			],
 			"stopAtEntry": true,
-			"cwd": "${workspaceFolder}/.mozz/test/mouli_test/01_test_opt_R",
+			"cwd": "${workspaceFolder}/.mozz/test/mouli_test/20_test_error_handling/11",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb",
