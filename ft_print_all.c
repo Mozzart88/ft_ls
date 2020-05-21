@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:48:46 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/20 20:59:22 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 08:32:12 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	ft_print_total_blocks(t_vect *rd, uint32_t f)
 		bc += r->st->st_blocks;
 		++i;
 	}
-	ft_printf("total %lld\n", bc);
+	if (rd->len)
+		ft_printf("total %lld\n", bc);
 }
 
 void		ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl)
@@ -38,8 +39,8 @@ void		ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl)
 
 	i = 0;
 	if (*f & LF_FLAGS && (r->ilen > 2 || *f & AE_FLAGS))
-	// if (*f & LF_FLAGS && !(*f & FT_ZP_BIT) )
 		ft_print_total_blocks(r, *f);
+	// if (*f & LF_FLAGS && !(*f & FT_ZP_BIT) )
 	if (r->is_sorted == 0)
 		ft_sort_recs(r, *f);
 	while (i < r->len)
