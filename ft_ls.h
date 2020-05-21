@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/20 19:32:07 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 00:07:46 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,15 +190,49 @@ typedef struct dirent	t_de;
 typedef	struct			s_rec
 {
 	t_stat				*st;
+	// char				*path;
+	// char				*name;
 	char				path[__DARWIN_MAXPATHLEN];
 	char				name[__DARWIN_MAXNAMLEN];
 	int					err_no;
 	char				*err_str;
+	// char				*xattrs;
+	// char				*lnk_path;
 	char				xattrs[XATTR_MAXNAMELEN];
 	char				lnk_path[__DARWIN_MAXPATHLEN];
 	struct s_rec		*lnk_to;
 	acl_t				acl;
 }						t_rec;
+// typedef	struct			s_rec
+// {
+// 	// t_stat				*st;
+// 	dev_t           st_dev;
+// 	mode_t          st_mode;
+// 	nlink_t         st_nlink;
+// 	uid_t           st_uid;
+// 	gid_t           st_gid;
+// 	dev_t           st_rdev;
+// 	struct  timespec st_atimespec;
+// 	struct  timespec st_mtimespec;
+// 	struct  timespec st_ctimespec;
+// 	off_t           st_size;
+// 	blkcnt_t        st_blocks;
+// 	blksize_t       st_blksize;
+// 	__uint32_t      st_flags;
+// 	__uint32_t      st_gen;
+// 	char				*path;
+// 	char				*name;
+// 	// char				path[__DARWIN_MAXPATHLEN];
+// 	// char				name[__DARWIN_MAXNAMLEN];
+// 	int					err_no;
+// 	char				*err_str;
+// 	char				*xattrs;
+// 	char				*lnk_path;
+// 	// char				xattrs[XATTR_MAXNAMELEN];
+// 	// char				lnk_path[__DARWIN_MAXPATHLEN];
+// 	struct s_rec		*lnk_to;
+// 	acl_t				acl;
+// }						t_rec;
 typedef struct			s_datetime
 {
 	long				sec;
@@ -215,7 +249,7 @@ typedef struct			s_datetime
 typedef struct			s_vect
 {
 	void				**arr;
-	size_t				size;
+	// size_t				size;
 	size_t				len;
 	size_t				ilen;
 	t_us				is_sorted;
@@ -235,7 +269,8 @@ typedef struct			s_dir
 	DIR					*dir;
 	t_de				*dirent;
 	size_t				len;
-	t_rec				*content[LINK_MAX];
+	// t_rec				*content[LINK_MAX];
+	t_rec				**content;
 }						t_dir;
 
 t_rec					*ft_new_rec(char *name, char path[MAXNAMLEN]);
@@ -246,7 +281,7 @@ void					ft_ls(t_vect *p, uint32_t f);
 void					ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void					ft_print_files(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void					ft_print_dirs(t_vect *r, uint32_t *f);
-t_vect					*ft_new_vect(size_t s, size_t l, \
+t_vect					*ft_new_vect(/* size_t s,  */size_t l, \
 void arr_destroier(void**));
 void					*ft_destroy_vect(t_vect **v);
 void					ft_destroy_rec(void **record);

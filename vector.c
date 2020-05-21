@@ -6,13 +6,13 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 04:28:02 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/19 22:21:32 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 21:11:34 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_vect	*ft_new_vect(size_t s, size_t l, void f(void**))
+t_vect	*ft_new_vect(/* size_t s,  */size_t l, void f(void**))
 {
 	t_vect	*v;
 
@@ -23,7 +23,7 @@ t_vect	*ft_new_vect(size_t s, size_t l, void f(void**))
 		v = NULL;
 		free(v);
 	}
-	v->size = s;
+	// v->size = s;
 	v->len = l;
 	v->ilen = l;
 	v->is_sorted = 0;
@@ -43,7 +43,7 @@ void	*ft_destroy_vect(t_vect **v)
 				(*v)->arr_destroier(p);
 		(*v)->arr[(*v)->len] = NULL;
 	}
-	(*v)->size = 0;
+	// (*v)->size = 0;
 	(*v)->len = 0;
 	(*v)->ilen = 0;
 	(*v)->is_sorted = 0;

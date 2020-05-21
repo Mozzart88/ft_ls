@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 22:29:26 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/21 16:43:05 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 21:09:06 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ int			ft_msort(t_vect *v, t_us asc, long long f(void *, void *))
 		ft_isort(v, asc, f);
 		return (2);
 	}
-	if (!(a[1] = ft_new_vect(v->size, v->len / 2, NULL)))
+	if (!(a[1] = ft_new_vect(/* v->size,  */v->len / 2, NULL)))
 		return (1);
-	if (!(a[2] = ft_new_vect(v->size, v->len - a[1]->len, NULL)))
+	if (!(a[2] = ft_new_vect(/* v->size,  */v->len - a[1]->len, NULL)))
 	{
 		ft_destroy_vect(&a[1]);
 		return (1);

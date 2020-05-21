@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 21:33:49 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/19 23:15:21 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 21:26:09 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void			ft_destroy_rec(void **p)
 	ft_bzero(r->name, __DARWIN_MAXPATHLEN);
 	ft_bzero(r->xattrs, XATTR_MAXNAMELEN);
 	ft_bzero(r->lnk_path, __DARWIN_MAXPATHLEN);
-	free(r->err_str);
-	r->err_str = NULL;
+	// free(r->err_str);
+	// r->err_str = NULL;
+	if (r->err_str)
+		ft_strdel(&r->err_str);
 	if (r->acl)
 		acl_free((void*)r->acl);
 	free(r);

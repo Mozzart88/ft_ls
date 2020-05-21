@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 14:05:34 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/20 12:40:13 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 21:11:38 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		ft_ls(t_vect *p, uint32_t f)
 	t_vect		*v;
 	t_maxvallen	mvl;
 
-	if (!(v = ft_new_vect(sizeof(t_rec), p->len, ft_destroy_rec)))
+	if (!(v = ft_new_vect(/* sizeof(t_rec),  */p->len, ft_destroy_rec)))
 		return ;
 	if ((ft_read_params(v, p)) == 1)
 		exit(1);
