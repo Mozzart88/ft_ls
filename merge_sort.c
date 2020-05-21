@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 22:29:26 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/16 22:41:46 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 16:43:05 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,40 @@ static void	ft_swap_pointers(void **a, void **b)
 	*b = t;
 	return ;
 }
+
+static void	ft_isort(t_vect *v, t_us asc, long long f(void*, void*))
+{
+	size_t	i;
+	size_t	j;
+	void	*temp;
+
+	i = 1;
+	while (i < v->len)
+	{
+		temp = v->arr[i];
+		j = i;
+		if (!asc)
+		{
+			while (j > 0 && f(v->arr[j - 1], temp) > 0)
+			{
+					v->arr[j] = v->arr[j - 1];
+				--j;
+			}
+		}
+		else
+		{
+			while (j > 0 && f(v->arr[j - 1], temp) < 0)
+			{
+					v->arr[j] = v->arr[j - 1];
+				--j;
+			}
+		}
+		v->arr[j] = temp;
+		++i;
+	}
+	return;
+}
+
 
 static void	merge(t_vect *a[3], t_us asc, long long f(void *, void *))
 {
@@ -51,8 +85,11 @@ int			ft_msort(t_vect *v, t_us asc, long long f(void *, void *))
 {
 	t_vect	*a[3];
 
-	if (v->len < 2)
+	if (v->len < 20)
+	{
+		ft_isort(v, asc, f);
 		return (2);
+	}
 	if (!(a[1] = ft_new_vect(v->size, v->len / 2, NULL)))
 		return (1);
 	if (!(a[2] = ft_new_vect(v->size, v->len - a[1]->len, NULL)))
