@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 19:50:11 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/20 13:04:30 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 13:51:54 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,15 @@ t_rec			*ft_new_rec(char *name, char path[__DARWIN_MAXPATHLEN])
 	r->lnk_to = NULL;
 	r->acl = NULL;
 	if (!(r->st = (t_stat*)malloc(sizeof(t_stat))))
+	{
+		ft_destroy_rec((void**)&r);
 		return (NULL);
+	}
 	ft_get_path(r, p);
 	if (lstat(p, r->st))
 	{
+		free(r->st);
+		r->st = NULL;
 		r->err_no = errno;
 		r->err_str = strerror(errno);
 	}
