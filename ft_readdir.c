@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:00:33 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/21 10:16:19 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 17:11:14 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ static t_vect	*ft_opendir(char *dname, uint32_t f)
 	t_dir		d;
 	size_t		i;
 
+	if (!dname || dname[0] == 0x0)
+		return (NULL);
+	ft_bzero(path, __DARWIN_MAXPATHLEN);
 	if (ft_strequ(dname, "/"))
 		path[0] = '/';
 	else
 	{
-		ft_bzero(path, __DARWIN_MAXPATHLEN);
 		ft_strcpy(path, dname);
-		ft_strcat(path, "/");
+		path[ft_strlen(dname)] = '/';
 	}
 	if ((d.dir = opendir(dname)) == NULL)
 		return (NULL);
@@ -40,6 +42,7 @@ static t_vect	*ft_opendir(char *dname, uint32_t f)
 		{
 			ft_perr(d.content[d.len]->name, d.content[d.len]->err_str);
 			ft_destroy_rec((void**)&d.content[d.len]);
+			d.content[d.len] = NULL;
 		}
 		else
 			++d.len;

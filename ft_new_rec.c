@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 19:50:11 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/21 13:51:54 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 17:07:35 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ static char		*ft_get_dir(const char *path, char *dst)
 {
 	char *path_end;
 
+	if (!path || !*path )
+		return (NULL);
 	path_end = ft_strrchr(path, '/');
 	if (path_end)
 	{
-		ft_strncat(dst, path, (path_end - path));
-		ft_strcat(dst, "/");
+		ft_strncpy(dst, path, (path_end - path));
+		dst[path_end - path] = '/';
 	}
 	return (dst);
 }
