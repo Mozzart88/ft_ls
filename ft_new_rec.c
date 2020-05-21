@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 19:50:11 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/21 17:07:35 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 20:11:44 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static t_rec	*ft_get_lnk(t_rec *rec, char file[__DARWIN_MAXPATHLEN])
 	if (ft_is_lnk(rec->st->st_mode))
 	{
 		readlink(file, rec->lnk_path, __DARWIN_MAXPATHLEN);
-		return (ft_new_rec(rec->lnk_path, rec->path));
+		return (ft_new_rec(rec->lnk_path, ""));
+		// return (ft_new_rec(rec->lnk_path, rec->path));
 	}
 	return (NULL);
 }

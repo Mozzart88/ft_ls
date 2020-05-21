@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:48:46 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/21 08:32:12 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/21 20:12:25 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void		ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl)
 		ft_sort_recs(r, *f);
 	while (i < r->len)
 	{
+		if (!(r->arr[i]) && ++i)
+			continue;
 		p = ft_is_hidden(*f, ((t_rec*)(r->arr[i]))->name);
 		if (*f & FT_ZP_BIT)
 			*f ^= FT_ZP_BIT;
