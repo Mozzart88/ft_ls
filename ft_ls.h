@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/22 00:07:46 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 00:34:07 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,16 +190,16 @@ typedef struct dirent	t_de;
 typedef	struct			s_rec
 {
 	t_stat				*st;
-	// char				*path;
-	// char				*name;
-	char				path[__DARWIN_MAXPATHLEN];
-	char				name[__DARWIN_MAXNAMLEN];
+	char				*path;
+	char				*name;
+	// char				path[__DARWIN_MAXPATHLEN];
+	// char				name[__DARWIN_MAXNAMLEN];
 	int					err_no;
 	char				*err_str;
-	// char				*xattrs;
-	// char				*lnk_path;
-	char				xattrs[XATTR_MAXNAMELEN];
-	char				lnk_path[__DARWIN_MAXPATHLEN];
+	char				*xattrs;
+	char				*lnk_path;
+	// char				xattrs[XATTR_MAXNAMELEN];
+	// char				lnk_path[__DARWIN_MAXPATHLEN];
 	struct s_rec		*lnk_to;
 	acl_t				acl;
 }						t_rec;

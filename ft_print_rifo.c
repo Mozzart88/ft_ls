@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:21:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/18 20:52:44 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 01:23:20 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	ft_get_xmode(acl_t acl, char *xattrs)
 	char c;
 
 	c = acl ? '+' : '\0';
-	c = xattrs[0] ? '@' : c;
+	c = xattrs && xattrs[0] ? '@' : c;
 	return (c);
 }
 
