@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/22 06:09:56 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 06:13:17 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <time.h>
 # include <uuid/uuid.h>
 # include <sys/xattr.h>
-// # include <sys/stat.h>
-// # include <sys/types.h>
 # include <errno.h>
 # include <sys/acl.h>
 
@@ -28,7 +26,6 @@
 ** @todo: Sort definitions
 ** @todo: Check for static functiomns
 */
-
 # define LETER_FLAGS "adfgGlrRtu1SpAncUo"
 # define FLAGS_COUNT 18
 
@@ -175,7 +172,6 @@
 */
 # define FT_ALL_PFLAGS	0x3FFFF
 
-// # define WORD_FLAGS {}
 # define STRICT_FLAGS_ORDER 1
 # define FT_PROG_NAME "ls"
 # define FT_PUSAGE "%s: illegal option -- %c\nusage: ls %s [file ...]\n"
@@ -192,47 +188,13 @@ typedef	struct			s_rec
 	t_stat				*st;
 	char				*path;
 	char				*name;
-	// char				path[__DARWIN_MAXPATHLEN];
-	// char				name[__DARWIN_MAXNAMLEN];
 	int					err_no;
 	char				*err_str;
 	char				*xattrs;
 	char				*lnk_path;
-	// char				xattrs[XATTR_MAXNAMELEN];
-	// char				lnk_path[__DARWIN_MAXPATHLEN];
 	struct s_rec		*lnk_to;
 	acl_t				acl;
 }						t_rec;
-// typedef	struct			s_rec
-// {
-// 	// t_stat				*st;
-// 	dev_t           st_dev;
-// 	mode_t          st_mode;
-// 	nlink_t         st_nlink;
-// 	uid_t           st_uid;
-// 	gid_t           st_gid;
-// 	dev_t           st_rdev;
-// 	struct  timespec st_atimespec;
-// 	struct  timespec st_mtimespec;
-// 	struct  timespec st_ctimespec;
-// 	off_t           st_size;
-// 	blkcnt_t        st_blocks;
-// 	blksize_t       st_blksize;
-// 	__uint32_t      st_flags;
-// 	__uint32_t      st_gen;
-// 	char				*path;
-// 	char				*name;
-// 	// char				path[__DARWIN_MAXPATHLEN];
-// 	// char				name[__DARWIN_MAXNAMLEN];
-// 	int					err_no;
-// 	char				*err_str;
-// 	char				*xattrs;
-// 	char				*lnk_path;
-// 	// char				xattrs[XATTR_MAXNAMELEN];
-// 	// char				lnk_path[__DARWIN_MAXPATHLEN];
-// 	struct s_rec		*lnk_to;
-// 	acl_t				acl;
-// }						t_rec;
 typedef struct			s_datetime
 {
 	long				sec;
@@ -243,13 +205,11 @@ typedef struct			s_datetime
 	long				year;
 	long				wday;
 	long				yday;
-	// char				*daystr;
 	char				*monstr;
 }						t_datetime;
 typedef struct			s_vect
 {
 	void				**arr;
-	// size_t				size;
 	size_t				len;
 	size_t				ilen;
 	t_us				is_sorted;
@@ -269,7 +229,6 @@ typedef struct			s_dir
 	DIR					*dir;
 	t_de				*dirent;
 	long				len;
-	// t_rec				*content[LINK_MAX];
 	t_rec				**content;
 }						t_dir;
 
@@ -281,13 +240,12 @@ void					ft_ls(t_vect *p, uint32_t f);
 void					ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void					ft_print_files(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void					ft_print_dirs(t_vect *r, uint32_t *f);
-t_vect					*ft_new_vect(/* size_t s,  */size_t l, \
+t_vect					*ft_new_vect(size_t l, \
 void *arr_destroier(void**));
 void					*ft_destroy_vect(t_vect **v);
 void					*ft_destroy_rec(void **record);
 t_maxvallen				ft_get_mvl(t_vect *vector, uint32_t flags);
 void					ft_arr_cpy(void **dst, void **src, size_t len);
-// t_us					ft_is_dir(mode_t m);
 t_us					ft_is_dir(t_rec *m);
 t_us					ft_is_spec(mode_t m);
 t_us					ft_is_lnk(mode_t m);
@@ -300,7 +258,6 @@ void					ft_print_usage(char f, int exit_code);
 char					ft_get_file_type(mode_t m);
 void					ft_get_month_str(char *arr[12]);
 void					ft_set_loc(t_datetime *dt);
-// t_datetime				ft_localtime(t_time *t);
 time_t					ft_difftime(time_t *t1, time_t *t2);
 /*
 ** @todo: See group functions todo
@@ -329,6 +286,6 @@ void					ft_print_owners(t_stat *st, t_maxvallen mvl,\
 uint32_t f);
 t_rec					*ft_new_clear_rec(void);
 void					*ft_st_error(t_rec *r);
-void					ft_rec_set_x(t_rec *r, char* p);
+void					ft_rec_set_x(t_rec *r, char *p);
 
 #endif
