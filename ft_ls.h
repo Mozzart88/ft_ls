@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/22 00:34:07 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 04:23:03 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ typedef struct			s_vect
 	size_t				len;
 	size_t				ilen;
 	t_us				is_sorted;
-	void				(*arr_destroier)(void**);
+	void				*(*arr_destroier)(void**);
 }						t_vect;
 typedef struct			s_maxvallen
 {
@@ -282,9 +282,9 @@ void					ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void					ft_print_files(t_vect *r, uint32_t *f, t_maxvallen mvl);
 void					ft_print_dirs(t_vect *r, uint32_t *f);
 t_vect					*ft_new_vect(/* size_t s,  */size_t l, \
-void arr_destroier(void**));
+void *arr_destroier(void**));
 void					*ft_destroy_vect(t_vect **v);
-void					ft_destroy_rec(void **record);
+void					*ft_destroy_rec(void **record);
 t_maxvallen				ft_get_mvl(t_vect *vector, uint32_t flags);
 void					ft_arr_cpy(void **dst, void **src, size_t len);
 // t_us					ft_is_dir(mode_t m);
@@ -320,5 +320,8 @@ long long				ft_sort_by_name(void *a, void *b);
 void					ft_print_time(t_time t);
 void					ft_print_owners(t_stat *st, t_maxvallen mvl,\
 uint32_t f);
+t_rec					*ft_new_clear_rec(void);
+void					*ft_st_error(t_rec *r);
+void					ft_rec_set_x(t_rec *r, char* p);
 
 #endif

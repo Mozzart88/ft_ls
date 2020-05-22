@@ -6,13 +6,13 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 04:28:02 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/21 21:11:34 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 04:13:23 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_vect	*ft_new_vect(/* size_t s,  */size_t l, void f(void**))
+t_vect	*ft_new_vect(/* size_t s,  */size_t l, void *f(void**))
 {
 	t_vect	*v;
 
