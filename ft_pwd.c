@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:07:32 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/19 18:19:50 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 03:36:53 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ void		ft_print_user(uid_t id, t_ull un, uint32_t f)
 
 char		*ft_get_user_name(uid_t id)
 {
-	t_pwd	*p;
+	static t_pwd	*p;
 	char	*name;
 
-	if (!(p = getpwuid(id)))
+	if (p && p->pw_uid == id)
+		name = ft_strdup(p->pw_name);
+	else if (!(p = getpwuid(id)))
 		name = ft_itoa_long_un(id);
 	else
 		name = ft_strdup(p->pw_name);

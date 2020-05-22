@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:54:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/20 19:33:08 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 03:08:30 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@ static void	ft_set_cvl(t_maxvallen *cvl, t_rec *r, uint32_t ugi)
 	cvl->min = ft_count_digits(r->st->st_rdev & 0377);
 	if (ugi)
 	{
-		names[0] = ft_itoa_long_un(r->st->st_gid);
-		names[1] = ft_itoa_long_un(r->st->st_uid);
+		cvl->gn = ft_count_digits(r->st->st_gid);
+		cvl->un = ft_count_digits(r->st->st_uid);
 	}
 	else
 	{
 		names[0] = ft_get_group_name(r->st->st_gid);
 		names[1] = ft_get_user_name(r->st->st_uid);
+		cvl->gn = ft_strlen(names[0]);
+		cvl->un = ft_strlen(names[1]);
+		ft_strdel(&(names[0]));
+		ft_strdel(&(names[1]));
 	}
-	cvl->gn = ft_strlen(names[0]);
-	cvl->un = ft_strlen(names[1]);
-	ft_strdel(&(names[0]));
-	ft_strdel(&(names[1]));
 }
 
 static void	ft_reset_mvl(t_maxvallen *mvl)
@@ -79,12 +79,7 @@ t_maxvallen	ft_get_mvl(t_vect *v, uint32_t f)
 	{
 		r = (t_rec*)v->arr[i];
 		p = ft_is_hidden(f, r->name);
-		if (f & (UA_FLAG) && p != 2)
-		{
-			ft_set_cvl(&cvl, r, f & N_FLAG);
-			ft_set_mvl(&cvl, &mvl, r->st->st_mode);
-		}
-		else if (!p || f & (AE_FLAGS ^ UA_FLAG) || f & FT_F_BIT)
+		if (!p)
 		{
 			ft_set_cvl(&cvl, r, f & N_FLAG);
 			ft_set_mvl(&cvl, &mvl, r->st->st_mode);
