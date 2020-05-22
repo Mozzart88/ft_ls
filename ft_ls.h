@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/22 06:06:55 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 06:09:56 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,9 @@ void					ft_get_month_str(char *arr[12]);
 void					ft_set_loc(t_datetime *dt);
 // t_datetime				ft_localtime(t_time *t);
 time_t					ft_difftime(time_t *t1, time_t *t2);
+/*
+** @todo: See group functions todo
+*/
 void					ft_print_user(uid_t id, t_ull un, uint32_t f);
 char					*ft_get_user_name(uid_t id);
 /*

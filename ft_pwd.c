@@ -6,15 +6,12 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:07:32 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/22 03:36:53 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 06:10:26 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-/* 
-** @todo: See group functions todo
-*/
 void		ft_print_user(uid_t id, t_ull un, uint32_t f)
 {
 	char *p;
@@ -32,8 +29,8 @@ void		ft_print_user(uid_t id, t_ull un, uint32_t f)
 
 char		*ft_get_user_name(uid_t id)
 {
-	static t_pwd	*p;
-	char	*name;
+	char			*name;
+	static t_pwd	*p = NULL;
 
 	if (p && p->pw_uid == id)
 		name = ft_strdup(p->pw_name);
