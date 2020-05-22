@@ -6,3 +6,6 @@ ls -lR ~ > /dev/null  10,73s user 43,39s system 63% cpu 1:25,28 totalreal2m54.
 real	2m48.308s
 user	0m48.293s
 sys		1m20.058s
+real	2m40.752s
+user	0m41.927s
+sys	1m13.161s
