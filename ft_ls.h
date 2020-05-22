@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/22 04:23:03 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 05:35:20 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,7 @@ typedef struct			s_dir
 {
 	DIR					*dir;
 	t_de				*dirent;
-	size_t				len;
+	long				len;
 	// t_rec				*content[LINK_MAX];
 	t_rec				**content;
 }						t_dir;
