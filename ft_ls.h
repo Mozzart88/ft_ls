@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/22 05:35:20 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 06:06:55 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,6 +304,10 @@ void					ft_set_loc(t_datetime *dt);
 time_t					ft_difftime(time_t *t1, time_t *t2);
 void					ft_print_user(uid_t id, t_ull un, uint32_t f);
 char					*ft_get_user_name(uid_t id);
+/*
+** @todo: Compare perfomance betwin itoa and printf
+** @todo: Implement ft_get_group_name and check perfomance
+*/
 void					ft_print_group(gid_t id, t_ull gn, uint32_t f);
 char					*ft_get_group_name(gid_t id);
 void					ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl);

@@ -6,16 +6,12 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:16:57 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/22 03:08:28 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 06:07:00 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-/*
-** @todo: Compare perfomance betwin itoa and printf
-** @todo: Implement ft_get_group_name and check perfomance
-*/
 void	ft_print_group(gid_t id, t_ull gn, uint32_t f)
 {
 	char *g;
@@ -33,8 +29,9 @@ void	ft_print_group(gid_t id, t_ull gn, uint32_t f)
 
 char	*ft_get_group_name(gid_t id)
 {
+	char			*name;
 	static t_grp	*g = NULL;
-	char	*name;
+
 	if (g && g->gr_gid == id)
 		name = ft_strdup(g->gr_name);
 	else if (!(g = getgrgid(id)))
