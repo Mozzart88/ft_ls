@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 09:58:13 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/19 19:52:22 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 06:37:42 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ void		ft_get_month_str(char *arr[12])
 	arr[11] = "Des";
 }
 
-/* 
-** @todo: See ft_localtime todo
-*/
 void		ft_set_loc(t_datetime *dt)
 {
 	char	*mon[12];
@@ -57,35 +54,20 @@ void		ft_set_loc(t_datetime *dt)
 	ft_strdel(&m);
 }
 
-/* 
-** @todo: Check perfomance without strdup and mem allocations
-*/
 t_datetime	*ft_localtime(t_time *t)
 {
 	t_datetime	*dt;
 	char		*ct;
-	char		*s;
 
 	ct = ctime(&t->tv_sec);
 	if (!(dt = (t_datetime*)malloc(sizeof(t_datetime))))
 		return (NULL);
-	// (dt)->daystr = ft_strsub(ct, 0, 3);
 	(dt)->monstr = ft_strsub(ct, 4, 3);
-	s = ft_strsub(ct, 8, 2);
-	(dt)->mday = ft_atoi(s);
-	ft_strdel(&s);
-	s = ft_strsub(ct, 11, 2);
-	(dt)->hour = ft_atoi(s);
-	ft_strdel(&s);
-	s = ft_strsub(ct, 14, 2);
-	(dt)->min = ft_atoi(s);
-	ft_strdel(&s);
-	s = ft_strsub(ct, 17, 2);
-	(dt)->sec = ft_atoi(s);
-	ft_strdel(&s);
-	s = ft_strsub(ct, 20, 4);
-	(dt)->year = ft_atoi(s);
-	ft_strdel(&s);
+	(dt)->mday = ft_strsub(ct, 8, 2);
+	(dt)->hour = ft_strsub(ct, 11, 2);
+	(dt)->min = ft_strsub(ct, 14, 2);
+	(dt)->sec = ft_strsub(ct, 17, 2);
+	(dt)->year = ft_strsub(ct, 20, 4);
 	if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
 		ft_set_loc(dt);
 	return (dt);
@@ -108,21 +90,19 @@ void		ft_print_time(t_time t)
 	dif_time = ft_difftime(&tl, &t.tv_sec);
 	if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
 	{
-		f = "%2d %6s %02d:%02d ";
+		f = "%2s %6s %02s:%02s ";
 		if (dif_time < (31536000L / 2) && dif_time >= 0)
 			ft_printf(f, (dt)->mday, (dt)->monstr, (dt)->hour, (dt)->min);
 		else
-			ft_printf("%2d %6s %-5 d ", (dt)->mday, (dt)->monstr, (dt)->year);
+			ft_printf("%2s %6s %5 s ", (dt)->mday, (dt)->monstr, (dt)->year);
 	}
 	else
 	{
-		f = "%3s %2d %02d:%02d ";
+		f = "%3s %2s %02s:%02s ";
 		if (dif_time < (31536000L / 2) && dif_time > (31536000L / 2 * -1))
 			ft_printf(f, (dt)->monstr, (dt)->mday, (dt)->hour, (dt)->min);
 		else
-			ft_printf("%3s %2d %-5 d ", (dt)->monstr, (dt)->mday, (dt)->year);
+			ft_printf("%3s %2s %5 s ", (dt)->monstr, (dt)->mday, (dt)->year);
 	}
-	ft_strdel(&(dt->monstr));
-	free(dt);
-	dt = NULL;
+	ft_clear_time(&dt);
 }

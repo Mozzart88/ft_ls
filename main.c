@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:30:02 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/18 20:52:14 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 06:39:25 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ void				ft_print_owners(t_stat *st, t_maxvallen mvl, uint32_t f)
 		ft_print_user(st->st_uid, mvl.un, f);
 		ft_print_group(st->st_gid, mvl.gn, f);
 	}
+}
+
+void				ft_clear_time(t_datetime **dt)
+{
+	ft_strdel(&((*dt)->monstr));
+	ft_strdel(&((*dt)->mday));
+	ft_strdel(&((*dt)->hour));
+	ft_strdel(&((*dt)->min));
+	ft_strdel(&((*dt)->sec));
+	ft_strdel(&((*dt)->year));
+	free(*dt);
+	*dt = NULL;
 }
 
 static long long	ft_strcmp_s(void *a, void *b)

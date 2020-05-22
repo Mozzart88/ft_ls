@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/22 06:13:17 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 06:39:02 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,14 +197,14 @@ typedef	struct			s_rec
 }						t_rec;
 typedef struct			s_datetime
 {
-	long				sec;
-	long				min;
-	long				hour;
-	long				mday;
-	long				mon;
-	long				year;
-	long				wday;
-	long				yday;
+	char				*sec;
+	char				*min;
+	char				*hour;
+	char				*mday;
+	char				*mon;
+	char				*year;
+	char				*wday;
+	char				*yday;
 	char				*monstr;
 }						t_datetime;
 typedef struct			s_vect
@@ -257,6 +257,9 @@ t_vect					*ft_get_params(char **av, int len);
 void					ft_print_usage(char f, int exit_code);
 char					ft_get_file_type(mode_t m);
 void					ft_get_month_str(char *arr[12]);
+/*
+** @todo: See ft_localtime todo
+*/
 void					ft_set_loc(t_datetime *dt);
 time_t					ft_difftime(time_t *t1, time_t *t2);
 /*
@@ -287,5 +290,11 @@ uint32_t f);
 t_rec					*ft_new_clear_rec(void);
 void					*ft_st_error(t_rec *r);
 void					ft_rec_set_x(t_rec *r, char *p);
+
+/*
+** @todo: Check perfomance without strdup and mem allocations
+*/
+t_datetime				*ft_localtime(t_time *t);
+void					ft_clear_time(t_datetime **dt);
 
 #endif
