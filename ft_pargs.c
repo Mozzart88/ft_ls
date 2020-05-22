@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 08:25:36 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/21 21:11:38 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 05:37:20 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_vect			*ft_get_params(char **av, int len)
 		++len;
 		av[0] = ".";
 	}
-	if (!(v = ft_new_vect(/* sizeof(char*),  */len, NULL)))
+	if (!(v = ft_new_vect(len, NULL)))
 		return (NULL);
 	while (len--)
 	{
