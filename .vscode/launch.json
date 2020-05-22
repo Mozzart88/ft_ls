@@ -10,11 +10,12 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"./",
-				".",
+				"-1",
+				"\--"
+				"-file",
 			],
 			"stopAtEntry": true,
-			"cwd": "${workspaceFolder}/.mozz",
+			"cwd": "${workspaceFolder}/.mozz/test/mouli_test/13_test_hyphen_hard/03",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb",
