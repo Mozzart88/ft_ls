@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 21:33:49 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/22 04:13:56 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/22 04:30:13 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void			*ft_destroy_rec(void **p)
 	return (NULL);
 }
 
-void	*ft_st_error(t_rec *r)
+void			*ft_st_error(t_rec *r)
 {
-		free(r->st);
-		r->st = NULL;
-		r->err_no = errno;
-		r->err_str = strerror(errno);
-		return (NULL);
+	free(r->st);
+	r->st = NULL;
+	r->err_no = errno;
+	r->err_str = strerror(errno);
+	return (NULL);
 }
