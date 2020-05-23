@@ -6,7 +6,7 @@
 #    By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 15:27:16 by tvanessa          #+#    #+#              #
-#    Updated: 2020/05/22 04:01:05 by mozzart          ###   ########.fr        #
+#    Updated: 2020/05/23 10:38:20 by mozzart          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,7 @@ all: $(NAME)
 $(NAME): $(SS:.c=.o)
 	@make -C libft
 	@$(CC) $(CF) $(H) -o $(NAME) $(SS:.c=.o) $(CL)
-	@# ar rc $(NAME) $(SS:.c=.o)
-	# cp $(NAME) $(VNAME)
+	# @# ar rc $(NAME) $(SS:.c=.o)
 
 clean:
 	make -C libft/ clean
