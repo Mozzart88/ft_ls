@@ -1,6 +1,6 @@
 # Project folders
-# .mozz
-# .vs*
+.mozz
+.vs*
 # .git*
 # README*
 ft_ls

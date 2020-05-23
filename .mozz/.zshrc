@@ -1,7 +1,0 @@
-[ -d $HOME/Documents/GitHub/ft_ls ] && export WD="$HOME/Documents/GitHub/ft_ls"
-[ -d $HOME/ft_ls ] && export WD="$HOME/ft_ls"
-export PATH="$WD:$WD/.mozz:$PATH"
-alias valg="bash $WD/.mozz/valg.sh"
-alias build="bash $WD/.mozz/build.sh"
-alias norm="bash $WD/.mozz/norm.sh"
-alias man_out="bash $WD/.mozz/man.sh"
