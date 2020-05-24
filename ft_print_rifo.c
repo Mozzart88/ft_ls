@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:21:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/22 01:23:20 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/23 13:18:08 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	ft_print_filename(t_rec *r, uint32_t f)
 static void	ft_print_ls_time(t_stat *st, uint32_t f)
 {
 	if (f & U_FLAG)
-		ft_print_time(st->st_atimespec);
+		ft_print_time(st->st_atime);
 	else if (f & C_FLAG)
 		ft_print_time(st->st_ctimespec);
 	else if (f & UU_FLAG)
