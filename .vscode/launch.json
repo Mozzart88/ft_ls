@@ -10,12 +10,10 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-1",
-				"\--"
-				"-file",
+				"-1Ra",
 			],
 			"stopAtEntry": true,
-			"cwd": "${workspaceFolder}/.mozz/test/mouli_test/13_test_hyphen_hard/03",
+			"cwd": "${workspaceFolder}/.mozz/test/lnk_clsr",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb",
