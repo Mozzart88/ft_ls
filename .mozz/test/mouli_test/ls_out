@@ -1,15 +1,9 @@
-total 16
-drwxr-xr-x   4 mozzart  staff  128 19 май 13:36 01_test_opt_R
-drwxr-xr-x   7 mozzart  staff  224 19 май 13:36 02
-drwxr-xr-x   8 mozzart  staff  256 20 май 16:58 06_test_opt_rR
-drwxr-xr-x   7 mozzart  staff  224 19 май 13:36 06_test_opt_u
-drwxr-xr-x  10 mozzart  staff  320 19 май 13:36 06_test_opt_u_16_17
-drwxr-xr-x   6 mozzart  staff  192 19 май 13:36 07_test_opt_t
-drwxr-xr-x   3 mozzart  staff   96 16 май 15:18 09_test_aR
-drwxr-xr-x   5 mozzart  staff  160 19 май 13:36 13
-drwxr-xr-x   5 mozzart  staff  160 19 май 13:36 20_test_error_handling
-drwxr-xr-x   6 mozzart  staff  192 19 май 13:36 bonus_07_test_opt_A
--rw-r--r--   1 mozzart  staff  258 19 май 13:36 ft_ls_out
--rw-r--r--   1 mozzart  staff  899 20 май 19:49 ft_out
--rw-r--r--   1 mozzart  staff    0 20 май 19:50 ls_out
-drwxr-xr-x   4 mozzart  staff  128 19 май 13:36 sys_00_usr_bin
+total 0
+-rw-r--r--  1 mozzart  staff  0 23 май 19:35 a
+-rw-r--r--  1 mozzart  staff  0 23 май 19:35 b
+-rw-r--r--  1 mozzart  staff  0 23 май 19:35 c
+-rw-r--r--  1 mozzart  staff  0 23 май 19:35 d
+-rw-r--r--  1 mozzart  staff  0 23 май 19:35 e
+-rw-r--r--  1 mozzart  staff  0 23 май 19:35 f
+-rw-r--r--  1 mozzart  staff  0 23 май 19:35 g
+-rw-r--r--  1 mozzart  staff  0 23 май 19:35 h
