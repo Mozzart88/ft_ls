@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 09:58:13 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/22 06:37:42 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/24 15:19:33 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ t_datetime	*ft_localtime(t_time *t)
 	(dt)->hour = ft_strsub(ct, 11, 2);
 	(dt)->min = ft_strsub(ct, 14, 2);
 	(dt)->sec = ft_strsub(ct, 17, 2);
-	(dt)->year = ft_strsub(ct, 20, 4);
+	ct = ft_strrchr(ct, ' ') + 1;
+	(dt)->year = ft_strsub(ct, 0, (ft_strlen(ct) - 1));
 	if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
 		ft_set_loc(dt);
 	return (dt);
