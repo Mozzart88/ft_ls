@@ -1,29 +1,29 @@
-lrwxr-xr-x  1 mozzart  staff   1 23 май 19:38 clsr -> .
-lrwxr-xr-x  1 mozzart  staff  13 23 май 19:56 lnk_mouli -> ../mouli_test
+lrwxr-xr-x  1 mozzart  staff   1 24 май 09:03 clsr -> .
+lrwxr-xr-x  1 mozzart  staff  13 24 май 09:03 lnk_mouli -> ../mouli_test
 
 .:
 total 8
-drwxr-xr-x  10 mozzart  staff   320 23 май 20:35 .
-drwxr-xr-x  23 mozzart  staff   736 23 май 20:28 ..
-drwxr-xr-x   3 mozzart  staff    96 23 май 19:42 adir
-drwxr-xr-x   5 mozzart  staff   160 23 май 19:54 bdir
-lrwxr-xr-x   1 mozzart  staff     1 23 май 19:38 clsr -> .
-lrwxr-xr-x   1 mozzart  staff     6 23 май 19:45 lnk_bir -> bdir/.
-lrwxr-xr-x   1 mozzart  staff    13 23 май 19:56 lnk_mouli -> ../mouli_test
-lrwxr-xr-x   1 mozzart  staff     6 23 май 19:45 root_bir -> bdir/.
--rwxr-xr-x   1 mozzart  staff  3909 24 май 08:52 test.sh
-lrwxr-xr-x   1 mozzart  staff    37 23 май 20:26 wd_lnk -> /Users/mozzart/Documents/GitHub/ft_ls
+drwxr-xr-x  10 mozzart  staff   320 24 май 09:03 .
+drwxr-xr-x  23 mozzart  staff   736 24 май 09:03 ..
+drwxr-xr-x   3 mozzart  staff    96 24 май 09:03 adir
+drwxr-xr-x   5 mozzart  staff   160 24 май 09:03 bdir
+lrwxr-xr-x   1 mozzart  staff     1 24 май 09:03 clsr -> .
+lrwxr-xr-x   1 mozzart  staff     6 24 май 09:03 lnk_bir -> bdir/.
+lrwxr-xr-x   1 mozzart  staff    13 24 май 09:03 lnk_mouli -> ../mouli_test
+lrwxr-xr-x   1 mozzart  staff     6 24 май 09:03 root_bir -> bdir/.
+-rwxr-xr-x   1 mozzart  staff  3909 24 май 09:03 test.sh
+lrwxr-xr-x   1 mozzart  staff    37 24 май 09:03 wd_lnk -> /Users/mozzart/Documents/GitHub/ft_ls
 
 ./adir:
 total 0
-drwxr-xr-x   3 mozzart  staff   96 23 май 19:42 .
-drwxr-xr-x  10 mozzart  staff  320 23 май 20:35 ..
-lrwxr-xr-x   1 mozzart  staff    4 23 май 19:42 lnk_adir -> adir
+drwxr-xr-x   3 mozzart  staff   96 24 май 09:03 .
+drwxr-xr-x  10 mozzart  staff  320 24 май 09:03 ..
+lrwxr-xr-x   1 mozzart  staff    4 24 май 09:03 lnk_adir -> adir
 
 ./bdir:
 total 0
-drwxr-xr-x   5 mozzart  staff  160 23 май 19:54 .
-drwxr-xr-x  10 mozzart  staff  320 23 май 20:35 ..
-lrwxr-xr-x   1 mozzart  staff    6 23 май 19:43 lnk_bdir -> bdir/.
-lrwxr-xr-x   1 mozzart  staff    1 23 май 19:45 root_bir_1 -> .
-lrwxr-xr-x   1 mozzart  staff    2 23 май 19:54 root_dir_2 -> ..
+drwxr-xr-x   5 mozzart  staff  160 24 май 09:03 .
+drwxr-xr-x  10 mozzart  staff  320 24 май 09:03 ..
+lrwxr-xr-x   1 mozzart  staff    6 24 май 09:03 lnk_bdir -> bdir/.
+lrwxr-xr-x   1 mozzart  staff    1 24 май 09:03 root_bir_1 -> .
+lrwxr-xr-x   1 mozzart  staff    2 24 май 09:03 root_dir_2 -> ..

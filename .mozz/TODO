@@ -117,3 +117,4 @@ Bugs:
 	✔ Memleaks "-Rl" @started(20-05-19 18:03) @done(20-05-23 19:59) @lasted(4d1h56m1s)
 	✔ Segfault in big queries @done(20-05-23 19:59)
 	✔ ft_localtime - string/llu convertion @done(20-05-23 19:59)
+	✔ Manage spaced betwen permisions and links count @done(20-05-24 12:39)

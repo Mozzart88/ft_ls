@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:16:57 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/22 06:07:00 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/24 12:34:09 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_print_group(gid_t id, t_ull gn, uint32_t f)
 			g = ft_itoa_long_un(id);
 		else
 			g = ft_get_group_name(id);
-		ft_printf("%-*s ", gn + 1, g);
+		ft_printf("%*s", -(gn + 2), g);
 		ft_strdel(&g);
 	}
 }

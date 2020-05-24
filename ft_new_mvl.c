@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:54:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/22 03:08:30 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/24 12:26:31 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ t_maxvallen	ft_get_mvl(t_vect *v, uint32_t f)
 	{
 		r = (t_rec*)v->arr[i];
 		p = ft_is_hidden(f, r->name);
+		if (f & FT_ZP_BIT && ft_is_dir(r) && !(f & D_FLAG))
+			p = 1;
 		if (!p)
 		{
 			ft_set_cvl(&cvl, r, f & N_FLAG);

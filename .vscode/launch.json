@@ -10,10 +10,11 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-1Ra",
+				"-ld",
+				"./mydir",
 			],
 			"stopAtEntry": true,
-			"cwd": "${workspaceFolder}/.mozz/test/lnk_clsr",
+			"cwd": "${workspaceFolder}/.mozz/test/mouli_test/bonus_01_test_opt_d/04",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb",
