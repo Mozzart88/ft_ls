@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 09:58:13 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/24 16:06:07 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/24 20:47:50 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,13 @@ void		ft_print_time(t_time t)
 	time_t		tl;
 	t_datetime	*dt;
 	long long	dif_time;
-	char		*f;
 
 	tl = time(NULL);
 	dt = ft_localtime(&t);
 	dif_time = ft_difftime(&tl, &t.tv_sec);
 	if (ft_strequ(getenv("LANG"), "ru_RU.UTF-8"))
-	{
-		f = "%2s %6s %02s:%02s ";
-		if (dif_time < (31536000L / 2) && dif_time >= 0)
-			ft_printf(f, (dt)->mday, (dt)->monstr, (dt)->hour, (dt)->min);
-		else
-			ft_printf("%2s %6s ", (dt)->mday, (dt)->monstr);
-	}
+		ft_print_time_ru(dt, dif_time);
 	else
-	{
-		f = "%3s %2s %02s:%02s ";
-		if (dif_time < (31536000L / 2) && dif_time > (31536000L / 2 * -1))
-			ft_printf(f, (dt)->monstr, (dt)->mday, (dt)->hour, (dt)->min);
-		else
-			ft_printf("%3s %2s ", (dt)->monstr, (dt)->mday);
-	}
-	if (dif_time >= (31536000L / 2) || dif_time < 0)
-		ft_printf("%* s ", ft_strlen(dt->year) + 1, dt->year);
+		ft_print_time_us(dt, dif_time);
 	ft_clear_time(&dt);
 }
