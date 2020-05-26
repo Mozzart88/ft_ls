@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_plain_uotput.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:22:59 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/26 18:58:35 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/26 19:02:11 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@
 #include <libc.h>
 #include "ft_ls.h"
 
-int	ftt_putchar(int c)
+static int	ftt_putchar(int c)
 {
 	ft_putchar(c);
 	return (0);
 }
-int main(void)
+
+void ft_plain_output(void)
 {
 	char	b[1024];
 	char	*tparm_value;
@@ -36,7 +37,6 @@ int main(void)
 	int	r;
 	t_uint	margin;
 	size_t	str_max_len;
-
 
 	d = 30;
 	string = "string";
