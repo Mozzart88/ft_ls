@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/24 20:49:07 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/26 21:07:14 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <sys/xattr.h>
 # include <errno.h>
 # include <sys/acl.h>
+# include <curses.h>
+# include <term.h>
 
 /*
 ** @todo: Sort definitions
@@ -223,6 +225,7 @@ typedef struct			s_maxvallen
 	t_ull				sl;
 	t_ull				maj;
 	t_ull				min;
+	t_ull				name;
 }						t_maxvallen;
 typedef struct			s_dir
 {
@@ -298,5 +301,7 @@ t_datetime				*ft_localtime(t_time *t);
 void					ft_clear_time(t_datetime **dt);
 void					ft_print_time_ru(t_datetime *dt, long long dif_time);
 void					ft_print_time_us(t_datetime *dt, long long dif_time);
+void 					ft_plain_output(t_vect *v, t_maxvallen mvl, uint32_t f);
+void					ft_print_filename(t_rec *r, uint32_t f);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:54:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/24 12:26:31 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/26 19:18:09 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	ft_set_mvl(t_maxvallen *cvl, t_maxvallen *mvl, mode_t mode)
 		mvl->gn = cvl->gn;
 	if (cvl->un > mvl->un)
 		mvl->un = cvl->un;
+	if (cvl->name > mvl->name)
+		mvl->name = cvl->name;
 	if (ft_is_spec(mode))
 	{
 		if (cvl->maj > mvl->maj)
@@ -39,6 +41,7 @@ static void	ft_set_cvl(t_maxvallen *cvl, t_rec *r, uint32_t ugi)
 	cvl->sl = ft_count_digits(r->st->st_size);
 	cvl->maj = ft_count_digits((r->st->st_rdev >> 24) & 0377);
 	cvl->min = ft_count_digits(r->st->st_rdev & 0377);
+	cvl->name = ft_strlen(r->name);
 	if (ugi)
 	{
 		cvl->gn = ft_count_digits(r->st->st_gid);
@@ -63,6 +66,7 @@ static void	ft_reset_mvl(t_maxvallen *mvl)
 	mvl->sl = 0;
 	mvl->maj = 0;
 	mvl->min = 0;
+	mvl->name = 0;
 }
 
 t_maxvallen	ft_get_mvl(t_vect *v, uint32_t f)

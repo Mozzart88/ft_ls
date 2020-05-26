@@ -27,11 +27,15 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_ls",
 			"args": [
-				"-lt",
 			],
 			"stopAtEntry": true,
-			"cwd": "${workspaceFolder}/.mozz/test/mouli_test/08_test_opt_l/06",
-			"environment": [],
+			"cwd": "${workspaceFolder}/.mozz/termcap",
+			"environment": [
+				{
+					"name": "TERM",
+					"value": "xterm-256color"
+				}
+			],
 			"externalConsole": false,
 			"MIMode": "lldb",
 			"preLaunchTask": "${defaultBuildTask}",

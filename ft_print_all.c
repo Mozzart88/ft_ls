@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:48:46 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/22 05:39:06 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/26 21:09:21 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,18 @@ void		ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl)
 		ft_print_total_blocks(r, *f);
 	if (r->is_sorted == 0)
 		ft_sort_recs(r, *f);
-	while (i < r->len)
-	{
-		if (!(r->arr[i]) && ++i)
-			continue;
-		p = ft_is_hidden(*f, ((t_rec*)(r->arr[i]))->name);
-		if (*f & FT_ZP_BIT)
-			*f ^= FT_ZP_BIT;
-		if (p == 0)
-			ft_print_rifo((t_rec*)r->arr[i], f, mvl);
-		++i;
-	}
+	if (!(*f & LF_FLAGS) && !(*f & ONE_FLAG))
+		ft_plain_output(r, mvl, *f);
+	else
+		while (i < r->len)
+		{
+			if (!(r->arr[i]) && ++i)
+				continue;
+			p = ft_is_hidden(*f, ((t_rec*)(r->arr[i]))->name);
+			if (*f & FT_ZP_BIT)
+				*f ^= FT_ZP_BIT;
+			if (p == 0)
+				ft_print_rifo((t_rec*)r->arr[i], f, mvl);
+			++i;
+		}
 }

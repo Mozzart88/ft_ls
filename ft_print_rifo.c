@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:21:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/24 12:36:18 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/26 21:07:24 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	ft_print_stat(t_rec *r)
 	ft_printf("%-11s ", m);
 }
 
-static void	ft_print_filename(t_rec *r, uint32_t f)
+void	ft_print_filename(t_rec *r, uint32_t f)
 {
 	char lp[__DARWIN_MAXPATHLEN];
 
