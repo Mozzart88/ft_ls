@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/26 21:07:14 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/26 22:47:27 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,12 @@ typedef struct			s_dir
 	long				len;
 	t_rec				**content;
 }						t_dir;
+typedef struct			s_term_sizes
+{
+	t_uint				cc;
+	t_uint				tr;
+	t_uint				tc;
+}						t_term_sizes;
 
 t_rec					*ft_new_rec(char *name, char path[MAXNAMLEN]);
 int						ft_msort(t_vect *v, t_us asc, \
@@ -301,7 +307,7 @@ t_datetime				*ft_localtime(t_time *t);
 void					ft_clear_time(t_datetime **dt);
 void					ft_print_time_ru(t_datetime *dt, long long dif_time);
 void					ft_print_time_us(t_datetime *dt, long long dif_time);
-void 					ft_plain_output(t_vect *v, t_maxvallen mvl, uint32_t f);
+void					ft_plain_output(t_vect *v, t_maxvallen mvl, uint32_t f);
 void					ft_print_filename(t_rec *r, uint32_t f);
 
 #endif

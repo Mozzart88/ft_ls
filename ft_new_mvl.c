@@ -6,14 +6,19 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:54:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/26 19:18:09 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/26 23:02:14 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	ft_set_mvl(t_maxvallen *cvl, t_maxvallen *mvl, mode_t mode)
+static void	ft_set_mvl(t_maxvallen *cvl, t_maxvallen *mvl, mode_t mode,\
+	uint32_t f)
 {
+	if (cvl->name > mvl->name)
+		mvl->name = cvl->name;
+	if (!(f & LF_FLAGS))
+		return ;
 	if (cvl->lnk > mvl->lnk)
 		mvl->lnk = cvl->lnk;
 	if (cvl->sl > mvl->sl)
@@ -22,8 +27,6 @@ static void	ft_set_mvl(t_maxvallen *cvl, t_maxvallen *mvl, mode_t mode)
 		mvl->gn = cvl->gn;
 	if (cvl->un > mvl->un)
 		mvl->un = cvl->un;
-	if (cvl->name > mvl->name)
-		mvl->name = cvl->name;
 	if (ft_is_spec(mode))
 	{
 		if (cvl->maj > mvl->maj)
@@ -33,16 +36,18 @@ static void	ft_set_mvl(t_maxvallen *cvl, t_maxvallen *mvl, mode_t mode)
 	}
 }
 
-static void	ft_set_cvl(t_maxvallen *cvl, t_rec *r, uint32_t ugi)
+static void	ft_set_cvl(t_maxvallen *cvl, t_rec *r, uint32_t f)
 {
 	char		*names[2];
 
+	cvl->name = ft_strlen(r->name);
+	if (!(f & LF_FLAGS))
+		return ;
 	cvl->lnk = ft_count_digits(r->st->st_nlink);
 	cvl->sl = ft_count_digits(r->st->st_size);
 	cvl->maj = ft_count_digits((r->st->st_rdev >> 24) & 0377);
 	cvl->min = ft_count_digits(r->st->st_rdev & 0377);
-	cvl->name = ft_strlen(r->name);
-	if (ugi)
+	if (f & N_FLAG)
 	{
 		cvl->gn = ft_count_digits(r->st->st_gid);
 		cvl->un = ft_count_digits(r->st->st_uid);
@@ -87,8 +92,8 @@ t_maxvallen	ft_get_mvl(t_vect *v, uint32_t f)
 			p = 1;
 		if (!p)
 		{
-			ft_set_cvl(&cvl, r, f & N_FLAG);
-			ft_set_mvl(&cvl, &mvl, r->st->st_mode);
+			ft_set_cvl(&cvl, r, f);
+			ft_set_mvl(&cvl, &mvl, r->st->st_mode, f);
 		}
 		++i;
 	}
