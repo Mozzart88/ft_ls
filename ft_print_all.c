@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:48:46 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/26 21:09:21 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/26 23:21:38 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,13 @@ void		ft_print_all(t_vect *r, uint32_t *f, t_maxvallen mvl)
 	if (r->is_sorted == 0)
 		ft_sort_recs(r, *f);
 	if (!(*f & LF_FLAGS) && !(*f & ONE_FLAG))
-		ft_plain_output(r, mvl, *f);
+	{
+		if (ft_plain_output(r, mvl, *f))
+		{
+			*f |= ONE_FLAG;
+			ft_print_all(r, f, mvl);
+		}
+	}
 	else
 		while (i < r->len)
 		{

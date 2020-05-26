@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:22:59 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/26 22:45:52 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/26 23:28:16 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,36 @@ static int	ftt_putchar(int c)
 	return (0);
 }
 
-static void	ft_get_sizes(t_term_sizes *s, t_ull n, size_t l, uint32_t f)
+static int	ft_get_sizes(t_term_sizes *s, t_ull n, size_t l, uint32_t f)
 {
 	int t;
 
 	t = TABSIZE;
-	s->cc = columns;
-	s->tc = n % t ? t - n % t + n : n + t;
-	if (f & UG_FLAG)
+	if (!(s->cc = columns))
+		return (1);
+	if (!(s->tc = n % t ? t - n % t + n : n + t))
+		return (1);
+	if (f & UG_FLAG && s->tc)
 		--s->tc;
 	s->tr = (l / (s->cc / s->tc));
 	if (s->tr == 0 || l % s->tr)
 		++s->tr;
+	return (0);
 }
 
-void		ft_plain_output(t_vect *v, t_maxvallen mvl, uint32_t f)
+int		ft_plain_output(t_vect *v, t_maxvallen mvl, uint32_t f)
 {
 	char			b[1024];
 	t_uint			i;
 	t_term_sizes	sizes;
 	t_uint			coords[2];
 
-	tgetent(b, getenv("TERM"));
+	if ((tgetent(b, getenv("TERM"))) <= 0)
+		return (1);
 	tputs(tparm(save_cursor), 1, ftt_putchar);
 	putp(tparm(cursor_visible));
-	ft_get_sizes(&sizes, mvl.name, v->len, f);
+	if (ft_get_sizes(&sizes, mvl.name, v->len, f))
+		return (1);
 	i = 1;
 	coords[1] = 0;
 	coords[0] = 0;
@@ -59,4 +64,5 @@ void		ft_plain_output(t_vect *v, t_maxvallen mvl, uint32_t f)
 	while (++coords[1] <= sizes.tr)
 		tputs(tparm(cursor_down), 1, ftt_putchar);
 	tputs(tparm(column_address, 0), 1, ftt_putchar);
+	return (0);
 }

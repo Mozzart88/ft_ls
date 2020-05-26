@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/26 22:47:27 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/26 23:20:18 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,7 +307,7 @@ t_datetime				*ft_localtime(t_time *t);
 void					ft_clear_time(t_datetime **dt);
 void					ft_print_time_ru(t_datetime *dt, long long dif_time);
 void					ft_print_time_us(t_datetime *dt, long long dif_time);
-void					ft_plain_output(t_vect *v, t_maxvallen mvl, uint32_t f);
+int					ft_plain_output(t_vect *v, t_maxvallen mvl, uint32_t f);
 void					ft_print_filename(t_rec *r, uint32_t f);
 
 #endif
