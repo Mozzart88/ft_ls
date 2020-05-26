@@ -14,7 +14,8 @@
 				"-Werror",
 				"${workspaceFolder}/${relativeFile}",
 				"-o",
-				"${workspaceFolder}/a.out"
+				"-ltermcap",
+				"${workspaceFolder}/${relativeFileDirname}/a.out"
 			],
 			"options": {
 				"cwd": "/usr/bin"

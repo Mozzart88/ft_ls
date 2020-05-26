@@ -45,7 +45,7 @@ Mandatory part:
 	✔ man ls @started(20-05-13 17:46) @done(20-05-15 02:49) @lasted(1d9h3m46s)
 Bonus part:
 	✔ Manage ACL and extended attributs @started(20-05-17 18:58) @done(20-05-17 21:58) @lasted(3h1s)
-	☐ Manage column without option -l (man 4 tty)
+	☐ Manage column without option -l (man 4 tty) @started(20-05-25 16:03)
 	Manage options:
 		✔ -u @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m27s)
 		✔ -f @started(20-05-10 18:50) @done(20-05-15 02:49) @lasted(4d7h59m27s)

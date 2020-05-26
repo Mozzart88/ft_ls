@@ -1,0 +1,21 @@
+Makefile		ft_new_mvl.o		ft_sort_by_time.c
+README.md		ft_new_rec.c		ft_sort_by_time.o
+a.out.dSYM		ft_new_rec.o		ft_time.c
+author			ft_pargs.c		ft_time.o
+bubble.dSYM		ft_pargs.o		ft_time_format_print.c
+ft_destroy_rec.c	ft_print_all.c		ft_time_format_print.o
+ft_destroy_rec.o	ft_print_all.o		insert.dSYM
+ft_errors.c		ft_print_dirs.c		libft
+ft_errors.o		ft_print_dirs.o		main.c
+ft_fs_filetype.c	ft_print_files.c	main.o
+ft_fs_filetype.o	ft_print_files.o	merge.dSYM
+ft_fs_functions.c	ft_print_rifo.c		merge_sort.c
+ft_fs_functions.o	ft_print_rifo.o		merge_sort.o
+ft_gr.c			ft_pwd.c		quick.dSYM
+ft_gr.o			ft_pwd.o		select.dSYM
+ft_ls			ft_readdir.c		sort.dSYM
+ft_ls.c			ft_readdir.o		vector.c
+ft_ls.dSYM		ft_reset_rec.c		vector.o
+ft_ls.h			ft_reset_rec.o		vls.dSYM
+ft_ls.o			ft_sort.c
+ft_new_mvl.c		ft_sort.o
