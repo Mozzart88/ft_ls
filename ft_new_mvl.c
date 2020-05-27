@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 11:54:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/24 12:26:31 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/27 17:35:58 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	ft_set_cvl(t_maxvallen *cvl, t_rec *r, uint32_t ugi)
 	}
 }
 
-static void	ft_reset_mvl(t_maxvallen *mvl)
+void		ft_reset_mvl(t_maxvallen *mvl)
 {
 	mvl->gn = 0;
 	mvl->un = 0;

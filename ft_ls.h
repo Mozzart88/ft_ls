@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:32:28 by tvanessa          #+#    #+#             */
-/*   Updated: 2020/05/24 20:49:07 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/27 17:36:16 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,5 +298,6 @@ t_datetime				*ft_localtime(t_time *t);
 void					ft_clear_time(t_datetime **dt);
 void					ft_print_time_ru(t_datetime *dt, long long dif_time);
 void					ft_print_time_us(t_datetime *dt, long long dif_time);
+void					ft_reset_mvl(t_maxvallen *mvl);
 
 #endif
