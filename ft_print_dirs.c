@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 12:35:54 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/22 06:01:42 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/23 20:27:28 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			ft_print_dirs(t_vect *v, uint32_t *f)
 		{
 			if (ft == 'd')
 				ft_print_content(*f, (t_rec*)v->arr[i], v->ilen);
-			else if (ft_is_dir(r->lnk_to) && !(*f & LF_FLAGS))
+			else if (ft_is_dir(r->lnk_to) && !(*f & LF_FLAGS) && *f & FT_ZP_BIT)
 				ft_print_content(*f, (t_rec*)v->arr[i], v->ilen);
 			v->arr[i] = ft_destroy_rec((void**)&v->arr[i]);
 		}

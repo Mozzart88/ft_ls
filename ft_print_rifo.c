@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 10:21:10 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/22 01:23:20 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/24 12:36:18 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void		ft_print_rifo(t_rec *rd, uint32_t *f, t_maxvallen mvl)
 	{
 		offset = mvl.sl < mvl.maj + mvl.min ? mvl.maj + mvl.min + 3 : mvl.sl;
 		ft_print_stat(rd);
-		ft_printf("%* hu ", mvl.lnk, rd->st->st_nlink);
+		ft_printf("%*hu ", mvl.lnk, rd->st->st_nlink);
 		ft_print_owners(rd->st, mvl, *f);
 		if (ft_is_spec(rd->st->st_mode))
 		{
