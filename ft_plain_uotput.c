@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:22:59 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/27 13:13:49 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/27 13:41:33 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ft_plain_output(t_vect *v, t_maxvallen mvl, uint32_t f)
 	if ((tgetent(b, getenv("TERM"))) <= 0)
 		return (1);
 	tputs(tparm(save_cursor), 1, ftt_putchar);
-	putp(tparm(cursor_visible));
+	// putp(tparm(cursor_visible));
 	if (ft_get_sizes(&sizes, mvl.name, v->len, f))
 		return (1);
 	i = 1;
@@ -63,5 +63,6 @@ int		ft_plain_output(t_vect *v, t_maxvallen mvl, uint32_t f)
 	while (++coords[1] <= sizes.tr)
 		tputs(tparm(cursor_down), 1, ftt_putchar);
 	tputs(tparm(column_address, 0), 1, ftt_putchar);
+	// reset_shell_mode();
 	return (0);
 }
