@@ -6,7 +6,7 @@
 /*   By: mozzart <mozzart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:22:59 by mozzart           #+#    #+#             */
-/*   Updated: 2020/05/26 23:28:16 by mozzart          ###   ########.fr       */
+/*   Updated: 2020/05/27 13:13:49 by mozzart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ static int	ft_get_sizes(t_term_sizes *s, t_ull n, size_t l, uint32_t f)
 {
 	int t;
 
-	t = TABSIZE;
-	if (!(s->cc = columns))
+	if (!(s->cc = columns) || !(t = TABSIZE))
 		return (1);
 	if (!(s->tc = n % t ? t - n % t + n : n + t))
 		return (1);

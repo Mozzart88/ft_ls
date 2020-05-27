@@ -31,10 +31,10 @@
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}/.mozz/termcap",
 			"environment": [
-				{
-					"name": "TERM",
-					"value": "xterm-256color"
-				}
+				// {
+				// 	// "name": "TERM",
+				// 	// "value": "xterm-256color"
+				// }
 			],
 			"externalConsole": false,
 			"MIMode": "lldb",
