@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"*.ext": "txt",
-		"spamassassin": "txt",
-		"libft.h": "c",
-		"__config": "cpp"
-	}
-}
